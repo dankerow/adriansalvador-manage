@@ -1,0 +1,52 @@
+@import "~bootstrap/scss/forms";
+
+.form-group {
+	margin-bottom: 1.25rem;
+}
+
+.form-control {
+	box-shadow: 0 1px 1px rgba($black, .075);
+	transition: all .15s cubic-bezier(.68, -.55, .265, 1.55);
+
+	&:focus {
+		border-color: $primary;
+		box-shadow: 0 3px 9px rgba(50, 50, 50, 0), 3px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+
+	&:disabled, &[readonly] {
+		background-color: #e9ecef;
+	}
+}
+
+.form-select {
+	&:focus {
+		border-color: $primary;
+		box-shadow: inset 0 1px 2px rgba(0, 0, 0, .075), 0 0 0 0 $primary;
+	}
+
+	&[multiple], .form-select[size]:not([size='1']) {
+		padding-right: .75rem;
+	}
+}
+
+.input-group-text {
+	font-size: .875rem;
+	margin-bottom: 0;
+
+	svg {
+		width: .875rem;
+		height: .875rem;
+	}
+}
+
+.dark-mode {
+	.form-control {
+		background-color: rgb(20, 20, 20);
+		color: $white;
+	}
+
+	.form-select {
+		background-color: rgb(20, 20, 20);
+		color: $white;
+	}
+}

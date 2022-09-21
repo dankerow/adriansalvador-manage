@@ -1,0 +1,218 @@
+@import "~bootstrap/scss/tables";
+
+.table {
+	background-color: transparent;
+
+	th {
+		font-weight: 600;
+	}
+
+	td {
+		.progress {
+			height: 3px;
+			margin: 0;
+			width: 120px;
+		}
+	}
+
+	th, td {
+		border-top: 1px solid #e9ecef;
+		font-size: .8125rem;
+		padding: 1rem;
+		white-space: nowrap;
+	}
+
+	thead {
+		th {
+			border-bottom: 1px solid #e9ecef;
+			font-size: .65rem;
+			padding-top: .75rem;
+			padding-bottom: .75rem;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+		}
+	}
+
+	tbody {
+		+ tbody {
+			border-top: 2px solid #e9ecef;
+		}
+	}
+}
+
+.table-sm {
+	th, td {
+		padding: .5rem;
+	}
+}
+
+.table-bordered {
+	border: 1px solid #e9ecef;
+
+	th, td {
+		border: 1px solid #e9ecef;
+	}
+}
+
+.table-hover {
+	tbody {
+		tr {
+			&:hover {
+				background-color: #f6f9fc;
+				color: #525f7f;
+			}
+		}
+	}
+}
+
+.table-primary, .table-primary > th, .table-primary > td {
+	background-color: #d2d8f7;
+}
+
+.table-primary th, .table-primary td, .table-primary thead th, .table-primary tbody + tbody {
+	border-color: #abb6f1;
+}
+
+.table-hover .table-primary:hover {
+	background-color: #bcc5f3;
+}
+
+.table-hover .table-primary:hover > td, .table-hover .table-primary:hover > th {
+	background-color: #bcc5f3;
+}
+
+.table-secondary, .table-secondary > th, .table-secondary > td {
+	background-color: #fdfefe;
+}
+
+.table-secondary th, .table-secondary td, .table-secondary thead th, .table-secondary tbody + tbody {
+	border-color: #fbfcfd;
+}
+
+.table-hover .table-secondary:hover {
+	background-color: #ecf6f6;
+}
+
+.table-hover .table-secondary:hover > td, .table-hover .table-secondary:hover > th {
+	background-color: #ecf6f6;
+}
+
+.table-light, .table-light > th, .table-light > td {
+	background-color: #e8eaed;
+}
+
+.table-light th, .table-light td, .table-light thead th, .table-light tbody + tbody {
+	border-color: #d4d9dd;
+}
+
+.table-hover .table-light:hover {
+	background-color: #dadde2;
+}
+
+.table-hover .table-light:hover > td, .table-hover .table-light:hover > th {
+	background-color: #dadde2;
+}
+
+.table-dark, .table-dark > th, .table-dark > td {
+	background-color: #c1c2c3;
+}
+
+.table-dark th, .table-dark td, .table-dark thead th, .table-dark tbody + tbody {
+	border-color: rgb(20, 20, 20);
+}
+
+.table-dark .thead-dark th {
+	background-color: #1c345d;
+	color: #4d7bca;
+}
+
+.table-dark .thead-dark th a {
+	color: #4d7bca;
+}
+
+.table-hover .table-dark:hover {
+	background-color: #b4b5b6;
+}
+
+.table-hover .table-dark:hover > td, .table-hover .table-dark:hover > th {
+	background-color: #b4b5b6;
+}
+
+.table-white, .table-white > th, .table-white > td {
+	background-color: white;
+}
+
+.table-white th, .table-white td, .table-white thead th, .table-white tbody + tbody {
+	border-color: white;
+}
+
+.table-hover .table-white:hover {
+	background-color: #f2f2f2;
+}
+
+.table-hover .table-white:hover > td, .table-hover .table-white:hover > th {
+	background-color: #f2f2f2;
+}
+
+.table-darker, .table-darker > th, .table-darker > td {
+	background-color: #b8b8b8;
+}
+
+.table-darker th, .table-darker td, .table-darker thead th, .table-darker tbody + tbody {
+	border-color: #7a7a7a;
+}
+
+.table-hover .table-darker:hover {
+	background-color: #ababab;
+}
+
+.table-hover .table-darker:hover > td, .table-hover .table-darker:hover > th {
+	background-color: #ababab;
+}
+
+.table-active, .table-active > th, .table-active > td {
+	background-color: #f6f9fc;
+}
+
+.table-hover .table-active:hover {
+	background-color: #e3ecf6;
+}
+
+.table-hover .table-active:hover > td, .table-hover .table-active:hover > th {
+	background-color: #e3ecf6;
+}
+
+.table .thead-dark th {
+	background-color: rgb(27, 27, 27);
+	border-color: rgb(24, 24, 24);
+	color: #f8f9fe;
+}
+
+.table .thead-light th {
+	background-color: #f6f9fc;
+	border-color: #e9ecef;
+	color: #8898aa;
+}
+
+.table .thead-light th a {
+	color: #8898aa;
+}
+
+.table-dark.table-bordered {
+	border: 0;
+}
+
+.table-dark.table-hover tbody tr:hover {
+	background-color: rgba(255, 255, 255, .075);
+	color: #f8f9fe;
+}
+
+.table-hover > tbody > tr {
+	transition: all .15s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.table-hover tr {
+		transition: none;
+	}
+}

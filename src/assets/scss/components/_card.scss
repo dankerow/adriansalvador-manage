@@ -1,0 +1,40 @@
+@import "~bootstrap/scss/card";
+
+.card {
+	.table {
+		margin-bottom: 0;
+	}
+}
+
+.card-profile-stats {
+	padding: 1rem 0;
+
+	> div {
+		margin-right: 1rem;
+		padding: .875rem;
+
+		&:last-child {
+			margin-right: 0;
+		}
+
+		.heading {
+			font-size: 1.1rem;
+			font-weight: bold;
+			display: block;
+		}
+
+		.description {
+			font-size: .875rem;
+			color: #adb5bd;
+		}
+	}
+}
+
+
+.card-stats {
+	box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+
+	.card-body {
+		padding: 1rem;
+	}
+}

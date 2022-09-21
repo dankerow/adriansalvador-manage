@@ -1,0 +1,58 @@
+@import "~bootstrap/scss/containers";
+
+.main-content {
+	height: 100%;
+	overflow-x: hidden;
+	padding-bottom: 2rem;
+	position: fixed;
+	transition: padding-left .35s ease-in-out;
+	width: 100%;
+
+	&::-webkit-scrollbar {
+		width: 6px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: #abb7ff;
+	}
+
+	&::-webkit-scrollbar-button {
+		display: none;
+	}
+
+	&::-webkit-scrollbar-corner {
+		background: transparent;
+	}
+}
+
+@media (min-width: 768px) {
+	.main-content .container,
+	.main-content .container-fluid,
+	.main-content .container-md,
+	.main-content .container-sm,
+	.main-content .container-lg,
+	.main-content .container-xl {
+		padding-right: 30px;
+		padding-left: 30px;
+	}
+}
+
+.main-content .sidebar-backdrop {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 998;
+	background: #000;
+	opacity: .5;
+	display: none;
+}
+
+.dark-mode {
+	.main-content {
+		&::-webkit-scrollbar-thumb {
+			background: $dark;
+		}
+	}
+}

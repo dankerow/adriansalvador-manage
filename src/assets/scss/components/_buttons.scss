@@ -1,0 +1,46 @@
+@import "~bootstrap/scss/buttons";
+
+.btn {
+	&:hover {
+		transform: translateY(-1px);
+	}
+
+	&:focus {
+		outline: 0;
+	}
+
+	&:not(:first-child) {
+		margin-left: 8px;
+	}
+
+	svg {
+		height: 1.025rem;
+		width: 1.025rem;
+
+		&:not(:only-child) {
+			margin-right: .375rem;
+		}
+	}
+
+	.badge {
+		&:not(:first-child) {
+			margin-left: .5rem;
+		}
+
+		&:not(:last-child) {
+			margin-right: .5rem;
+		}
+	}
+}
+
+@each $color, $value in $colors {
+	.btn-#{$color} {
+		@include button-variant($value, $value);
+	}
+}
+
+@each $color, $value in $colors {
+	.btn-outline-#{$color} {
+		@include button-outline-variant($value);
+	}
+}

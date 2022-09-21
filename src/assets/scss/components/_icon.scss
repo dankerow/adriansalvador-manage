@@ -1,0 +1,106 @@
+.icon {
+	color: inherit;
+	padding: 0.6rem 0.7rem;
+	user-select: none;
+	vertical-align: middle;
+	width: max-content;
+
+	i, svg {
+		color: white;
+		font-size: 2.25rem;
+	}
+
+	svg {
+		width: 2.25rem;
+		height: 2.25rem;
+	}
+}
+
+.icon-xl {
+	i, svg {
+		font-size: 4.25rem;
+	}
+
+	svg {
+		width: 4.25rem;
+		height: 4.25rem;
+	}
+}
+
+.icon-xs {
+	i, svg {
+		font-size: .5rem;
+	}
+
+	svg {
+		width: .5rem;
+		height: .5rem;
+	}
+}
+
+.icon-lg {
+	@include icon-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-border-radius-lg);
+}
+
+.icon-sm {
+	@include icon-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-border-radius-sm);
+}
+
+.icon-shape {
+	border-radius: 0.25rem;
+	display: inline-block;
+
+	i, svg {
+		font-size: 1.25rem;
+	}
+
+	svg {
+		width: 1.25rem;
+		height: 1.25rem;
+	}
+
+	&.icon-lg {
+		i, svg {
+			font-size: 1.625rem;
+		}
+
+		svg {
+			width: 1.625rem;
+			height: 1.625rem;
+		}
+	}
+
+	&.icon-sm {
+		i, svg {
+			font-size: .875rem;
+		}
+
+		svg {
+			width: .875rem;
+			height: .875rem;
+		}
+	}
+
+	&.icon-xs {
+		i, svg {
+			font-size: .6rem;
+		}
+
+		svg {
+			width: .6rem;
+			height: .6rem;
+		}
+	}
+}
+
+@each $color, $value in $colors {
+	.icon-shape-#{$color} {
+		@include icon-shape-variant($color, $value);
+	}
+}
+
+@each $color, $value in $theme-colors {
+	.icon-shape-#{$color} {
+		@include icon-shape-variant($color, $value);
+	}
+}

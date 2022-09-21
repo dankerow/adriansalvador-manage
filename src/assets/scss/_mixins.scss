@@ -1,0 +1,99 @@
+@import "~bootstrap/scss/mixins";
+
+@mixin bg-gradient-variant($state, $color) {
+	.bg-gradient-#{$state} {
+		background: linear-gradient(87deg, $color 0, adjust-hue($color, 15deg) 100%) !important;
+	}
+}
+
+@mixin button-variant(
+	$background,
+	$border,
+	$color: color-contrast($background),
+	$hover-background: if($color == $color-contrast-light, shade-color($background, $btn-hover-bg-shade-amount), tint-color($background, $btn-hover-bg-tint-amount)),
+	$hover-border: if($color == $color-contrast-light, shade-color($border, $btn-hover-border-shade-amount), tint-color($border, $btn-hover-border-tint-amount)),
+	$hover-color: color-contrast($hover-background),
+	$active-background: if($color == $color-contrast-light, shade-color($background, $btn-active-bg-shade-amount), tint-color($background, $btn-active-bg-tint-amount)),
+	$active-border: if($color == $color-contrast-light, shade-color($border, $btn-active-border-shade-amount), tint-color($border, $btn-active-border-tint-amount)),
+	$active-color: color-contrast($active-background),
+	$disabled-background: $background,
+	$disabled-border: $border,
+	$disabled-color: color-contrast($disabled-background)
+) {
+	color: $color;
+	@include gradient-bg($background);
+	border-color: $border;
+	@include box-shadow(0 0.125rem 0 rgba(mix($color, $border, 15%), .5));
+
+	&:hover {
+		color: $hover-color;
+		@include gradient-bg($hover-background);
+		border-color: $hover-border;
+	}
+
+	.btn-check:focus + &,
+	&:focus {
+		color: $hover-color;
+		@include gradient-bg($hover-background);
+		border-color: $hover-border;
+		@if $enable-shadows {
+			@include box-shadow($btn-box-shadow, 0 0.125rem 0 rgba(mix($color, $border, 15%), .5));
+		} @else {
+			// Avoid using mixin so we can pass custom focus shadow properly
+			box-shadow: 0 0 0 $btn-focus-width rgba(mix($color, $border, 15%), .5);
+		}
+	}
+
+	.btn-check:checked + &,
+	.btn-check:active + &,
+	&:active,
+	&.active,
+	.show > &.dropdown-toggle {
+		color: $active-color;
+		background-color: $active-background;
+		// Remove CSS gradients if they're enabled
+		background-image: if($enable-gradients, none, null);
+		border-color: $active-border;
+
+		&:focus {
+			@if $enable-shadows {
+				@include box-shadow($btn-active-box-shadow, 0 0 0 $btn-focus-width rgba(mix($color, $border, 15%), .5));
+			} @else {
+				// Avoid using mixin so we can pass custom focus shadow properly
+				box-shadow: 0 0 0 $btn-focus-width rgba(mix($color, $border, 15%), .5);
+			}
+		}
+	}
+
+	&:disabled,
+	&.disabled {
+		color: $disabled-color;
+		background-color: $disabled-background;
+		// Remove CSS gradients if they're enabled
+		background-image: if($enable-gradients, none, null);
+		border-color: $disabled-border;
+	}
+}
+
+@mixin avatar-size($width, $height) {
+	width: $width;
+	height: $height;
+	font-size: calc($width - 1rem);
+}
+
+@mixin icon-shape-variant($state, $color) {
+	background: linear-gradient(87deg, $color 0, adjust-hue($color, 25deg) 100%) !important;
+	@include box-shadow(0 0.125rem 0 rgba(shade-color($color, 15%), .5));
+}
+
+@mixin icon-size($padding-y, $padding-x, $font-size, $border-radius) {
+	padding: $padding-y $padding-x;
+	@include font-size($font-size);
+	// Manually declare to provide an override to the browser default
+	@include border-radius($border-radius, 0);
+
+	svg {
+		width: $font-size;
+		height: $font-size;
+	}
+}

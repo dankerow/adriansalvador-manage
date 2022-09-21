@@ -1,0 +1,27 @@
+@import "~bootstrap/scss/alert";
+
+.alert {
+	padding: 1rem 1.5rem;
+
+	&.alert-sm {
+		font-size: smaller;
+		padding: .5rem 1rem;
+	}
+}
+
+.alert-heading {
+	color: inherit;
+}
+
+.alert-link {
+	font-weight: 600;
+}
+
+.alert-dismissible {
+	padding-right: 4.5rem;
+
+	.btn-close {
+		padding: 1rem 1.5rem;
+		color: inherit;
+	}
+}
