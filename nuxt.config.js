@@ -25,8 +25,7 @@ export default {
 		link: [
 			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
 			{ rel: 'preconnect', href: 'https://cdn.salvadoradrian.com' },
-			{ rel: 'dns-prefetch', href: 'https://cdnjs.cloudflare.com' },
-			{ rel: 'dns-prefetch', href: 'https://cdn.datatables.net' }
+			{ rel: 'dns-prefetch', href: 'https://cdnjs.cloudflare.com' }
 		],
 		script: [
 			{
