@@ -16,7 +16,7 @@ specifiers:
   eslint: ^8.28.0
   eslint-plugin-nuxt: ^4.0.0
   eslint-plugin-vue: ^9.8.0
-  node-zopfli-es: ~1.0.3
+  node-zopfli-es: ~1.0.7
   nuxt: ^2.15.8
   nuxt-purgecss: ^1.0.0
   sass: ^1.56.1
@@ -10874,7 +10874,7 @@ packages:
   /wide-align/1.1.5:
     resolution: {integrity: sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wxx53S+NgUHaP7y3MGlDmg==}
     dependencies:
-      string-width: 1.0.2
+      string-width: 4.2.3
 
   /widest-line/3.1.0:
     resolution: {integrity: sha512-NsmoXalsWVDMGupxZ5R08ka9flZjjiLvHVAWYOKtiKM8ujtZWr9cRffak+uSE48+Ob8ObalXpwyeUiyDD6QFgg==}
