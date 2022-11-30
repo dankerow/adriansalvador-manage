@@ -47,5 +47,5 @@
     "Firefox ESR",
     "not dead"
   ],
-  "packageManager": "yarn@3.2.4"
+  "packageManager": "pnpm@7.16.1"
 }
