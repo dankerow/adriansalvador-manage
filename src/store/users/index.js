@@ -2,7 +2,7 @@ export const actions = {
 	async add({ commit }, data) {
 		const user = await this.$axios.$post('api/users', data)
 
-		return album
+		return user
 	},
 
 	async update({ commit }, data) {
