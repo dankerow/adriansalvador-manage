@@ -12,7 +12,7 @@ specifiers:
   '@nuxtjs/svg': ^0.4.0
   bootstrap: 5.2.2
   cookie-universal-nuxt: ^2.2.2
-  core-js: ^3.26.1
+  core-js: ^3.28.0
   eslint: ^8.29.0
   eslint-plugin-nuxt: ^4.0.0
   eslint-plugin-vue: ^9.8.0
@@ -33,7 +33,7 @@ dependencies:
   '@nuxtjs/pwa': 3.3.5
   '@nuxtjs/svg': 0.4.0_s72bufat24j4xi363kb5czieqe
   bootstrap: 5.2.2
-  core-js: 3.26.1
+  core-js: 3.28.0
   nuxt: 2.15.8_vue@2.7.14
   vue: 2.7.14
   vue-server-renderer: 2.7.14
@@ -3959,8 +3959,8 @@ packages:
     requiresBuild: true
     dev: false
 
-  /core-js/3.26.1:
-    resolution: {integrity: sha512-21491RRQVzUn0GGM9Z1Jrpr6PNPxPi+Za8OM9q4tksTSnlbXXGKK1nXNg/QvwFYettXvSX6zWKCtHHfjN4puyA==}
+  /core-js/3.28.0:
+    resolution: {integrity: sha512-GiZn9D4Z/rSYvTeg1ljAIsEqFm0LaN9gVtwDCrKL80zHtS31p9BAjmTxVqTQDMpwlMolJZOFntUG2uwyj7DAqw==}
     requiresBuild: true
     dev: false
 
