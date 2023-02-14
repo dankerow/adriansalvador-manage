@@ -1,6 +1,6 @@
-export default ({ app }, inject) => {
+export default defineNuxtPlugin(() => {
 	class Toast {
-		constructor({ title, body, show = true }) {
+		constructor({ title, body, show = true }: { title: string, body: string, show?: boolean }) {
 			let toastElement = this._create({ title, body })
 
 			this._appendToToastContainer(toastElement)
@@ -12,7 +12,7 @@ export default ({ app }, inject) => {
 			}
 		}
 
-		_create({ title, body }) {
+		_create({ title, body }: { title: string, body: string }): HTMLElement {
 			const toastElement = document.createElement('div')
 			toastElement.setAttribute('role', 'alert')
 			toastElement.setAttribute('aria-live', 'assertive')
@@ -48,13 +48,13 @@ export default ({ app }, inject) => {
 			return toastElement
 		}
 
-		_initToast(element) {
+		_initToast(element: HTMLElement) {
 			return new bootstrap.Toast(element)
 		}
 
-		_appendToToastContainer(element) {
+		_appendToToastContainer(element: HTMLElement) {
 			const toastContainer = document.querySelector('.toast-container')
-			toastContainer.appendChild(element)
+			toastContainer?.appendChild(element)
 		}
 
 		_show(bootstrapElement) {
@@ -62,5 +62,9 @@ export default ({ app }, inject) => {
 		}
 	}
 
-	inject('Toast', Toast)
-}
+	return {
+		provide: {
+			toast: Toast
+		}
+	}
+})
