@@ -1,4 +1,4 @@
-@import "~bootstrap/scss/buttons";
+@import "bootstrap/scss/buttons";
 
 .btn {
 	&:hover {
@@ -14,8 +14,8 @@
 	}
 
 	svg {
-		height: 1.025rem;
-		width: 1.025rem;
+		height: 1.25rem;
+		width: 1.25rem;
 
 		&:not(:only-child) {
 			margin-right: .375rem;
