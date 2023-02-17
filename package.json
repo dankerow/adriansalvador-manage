@@ -22,7 +22,7 @@
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@nuxtjs/fontaine": "^0.2.4",
     "@nuxtjs/google-fonts": "3.0.0-1",
-    "@types/node": "^18.13.0",
+    "@types/node": "^18.14.0",
     "eslint": "^8.34.0",
     "eslint-plugin-nuxt": "^4.0.0",
     "nuxt": "3.2.2",
