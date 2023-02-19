@@ -1,4 +1,4 @@
-@import "~bootstrap/scss/mixins";
+@import "bootstrap/scss/mixins";
 
 @mixin bg-gradient-variant($state, $color) {
 	.bg-gradient-#{$state} {
@@ -81,19 +81,12 @@
 	font-size: calc($width - 1rem);
 }
 
+@mixin icon-size($width, $height) {
+	width: $width;
+	height: $height;
+}
+
 @mixin icon-shape-variant($state, $color) {
 	background: linear-gradient(87deg, $color 0, adjust-hue($color, 25deg) 100%) !important;
 	@include box-shadow(0 0.125rem 0 rgba(shade-color($color, 15%), .5));
-}
-
-@mixin icon-size($padding-y, $padding-x, $font-size, $border-radius) {
-	padding: $padding-y $padding-x;
-	@include font-size($font-size);
-	// Manually declare to provide an override to the browser default
-	@include border-radius($border-radius, 0);
-
-	svg {
-		width: $font-size;
-		height: $font-size;
-	}
 }
