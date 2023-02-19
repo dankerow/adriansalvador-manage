@@ -2,11 +2,11 @@ import { defineStore } from 'pinia'
 import type { Ref } from 'vue'
 
 interface User {
-	id: string
+	readonly id: string
 	username: string
 	email: string
-	createdAt: string
-	updatedAt: string
+	readonly createdAt: string
+	readonly updatedAt: string
 }
 
 interface UserState {
@@ -38,11 +38,15 @@ export const useUsersStore = defineStore('users', () => {
 		return data
 	}
 
-	const addUser = async (username: string, email: string, password: string) => {
-		const data: User = await useFaetch('/users', { method: 'post', body: { username, email, password } })
-		users.value.push(data)
+	const addUser = async ({ firstName, lastName, email }: { firstName: string, lastName: string, email: string }) => {
+		try {
+			const data: User = await useFaetch('/users', { method: 'post', body: { firstName, lastName, email } })
+			users.value.push(data)
 
-		return data
+			return { error: null }
+		} catch (e: any) {
+			return { error: e.data ? e.data.error : e }
+		}
 	}
 
 	const updateUser = async (id: string, username: string, email: string, password: string) => {
