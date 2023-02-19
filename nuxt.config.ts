@@ -1,13 +1,31 @@
+const isDevelopment = process.env.NODE_ENV === 'development'
+const isProduction = process.env.NODE_ENV === 'production'
+
 export default defineNuxtConfig({
 	rootDir: './',
 	srcDir: 'src',
 
-	debug: process.env.NODE_ENV === 'development',
+	debug: isDevelopment,
+	sourcemap: isDevelopment,
+
+	experimental: {
+		emitRouteChunkError: 'reload'
+	},
+
+	nitro: {
+		prerender: {
+			crawlLinks: true
+		}
+	},
+
+	app: {
+		keepalive: true
+	},
 
 	runtimeConfig: {
 		public: {
-			apiBaseURL: process.env.NODE_ENV === 'production' ? process.env.API_BASE_URL : process.env.API_BASE_URL_DEV,
-			cdnBaseURL: process.env.NODE_ENV === 'production' ? process.env.CDN_BASE_URL : process.env.CDN_BASE_URL_DEV
+			apiBaseURL: isProduction ? process.env.API_BASE_URL : process.env.API_BASE_URL_DEV,
+			cdnBaseURL: isProduction ? process.env.CDN_BASE_URL : process.env.CDN_BASE_URL_DEV
 		}
 	},
 
@@ -28,11 +46,12 @@ export default defineNuxtConfig({
 	modules: [
 		'@nuxt/image-edge',
 		'@nuxtjs/color-mode',
-		'@nuxtjs/fontaine',
 		'@nuxtjs/google-fonts',
 		'@pinia/nuxt',
+		'@vueuse/nuxt',
 		'nuxt-icon',
-		'nuxt-purgecss'
+		'nuxt-purgecss',
+		'nuxt-time'
 	],
 
 	colorMode: {
@@ -50,7 +69,7 @@ export default defineNuxtConfig({
 	},
 
 	image: {
-		domains: [process.env.NODE_ENV === 'production' ? process.env.CDN_BASE_URL : process.env.CDN_BASE_URL_DEV]
+		domains: [isProduction ? process.env.CDN_BASE_URL : process.env.CDN_BASE_URL_DEV]
 	},
 
 	purgecss: {
