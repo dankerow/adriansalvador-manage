@@ -1,10 +1,35 @@
+<script setup lang="ts">
+defineProps<{
+	currentPage: Number
+	pages: Number
+}>()
+
+const emit = defineEmits<{
+	(e: 'nextPage'): void
+	(e: 'changePage', value: number): void
+	(e: 'previousPage'): void
+}>()
+
+const nextPage = () => {
+	emit('nextPage')
+}
+
+const changePage = (value: number) => {
+	emit('changePage', value)
+}
+
+const previousPage = () => {
+	emit('previousPage')
+}
+</script>
+
 <template>
 	<nav aria-label="Pagination">
-		<ul v-if="currentPage === 1" class="pagination">
+		<ul v-if="currentPage === 1" class="pagination m-0">
 			<li class="page-item disabled">
 				<span class="page-link" tabindex="-1" aria-label="First" aria-disabled="true">
 					<span aria-hidden="true">
-						<AngleDoubleLeftIcon />
+						<Icon name="ic:twotone-keyboard-double-arrow-left" />
 					</span>
 					<span class="visually-hidden">First</span>
 				</span>
@@ -12,7 +37,7 @@
 			<li class="page-item disabled">
 				<span class="page-link" tabindex="-1" aria-label="Previous" aria-disabled="true">
 					<span aria-hidden="true">
-						<AngleLeftIcon />
+						<Icon name="ic:twotone-keyboard-arrow-left" />
 					</span>
 					<span class="visually-hidden">Previous</span>
 				</span>
@@ -35,7 +60,7 @@
 			<li v-if="pages > currentPage" class="page-item">
 				<span class="page-link" aria-label="Next" @click="nextPage()">
 					<span aria-hidden="true">
-						<AngleRightIcon />
+						<Icon name="ic:twotone-keyboard-arrow-right" />
 					</span>
 					<span class="visually-hidden">Next</span>
 				</span>
@@ -43,7 +68,7 @@
 			<li v-if="pages > currentPage" class="page-item">
 				<span class="page-link" aria-label="Last" @click="changePage(pages)">
 					<span aria-hidden="true">
-						<AngleDoubleRightIcon />
+						<Icon name="ic:twotone-keyboard-double-arrow-right" />
 					</span>
 					<span class="visually-hidden">Last</span>
 				</span>
@@ -51,7 +76,7 @@
 			<li v-if="pages === currentPage" class="page-item disabled">
 				<span class="page-link" tabindex="-1" aria-label="Next" aria-disabled="true">
 					<span aria-hidden="true">
-						<AngleRightIcon />
+						<Icon name="ic:twotone-keyboard-arrow-right" />
 					</span>
 					<span class="visually-hidden">Next</span>
 				</span>
@@ -59,7 +84,7 @@
 			<li v-if="pages === currentPage" class="page-item disabled">
 				<span class="page-link" tabindex="-1" aria-label="Last" aria-disabled="true">
 					<span aria-hidden="true">
-						<AngleDoubleRightIcon />
+						<Icon name="ic:twotone-keyboard-double-arrow-right" />
 					</span>
 					<span class="visually-hidden">Last</span>
 				</span>
@@ -70,7 +95,7 @@
 			<li class="page-item">
 				<span class="page-link" aria-label="First" @click="changePage(1)">
 					<span aria-hidden="true">
-						<AngleDoubleLeftIcon />
+						<Icon name="ic:twotone-keyboard-double-arrow-left" />
 					</span>
 					<span class="visually-hidden">First</span>
 				</span>
@@ -78,7 +103,7 @@
 			<li class="page-item">
 				<span class="page-link" aria-label="Previous" @click="previousPage()">
 					<span aria-hidden="true">
-						<AngleLeftIcon />
+						<Icon name="ic:twotone-keyboard-arrow-left" />
 					</span>
 					<span class="visually-hidden">Previous</span>
 				</span>
@@ -101,7 +126,7 @@
 			<li class="page-item disabled">
 				<span class="page-link" tabindex="-1" aria-label="Next" aria-disabled="true">
 					<span aria-hidden="true">
-						<AngleRightIcon />
+						<Icon name="ic:twotone-keyboard-arrow-right" />
 					</span>
 					<span class="visually-hidden">Next</span>
 				</span>
@@ -109,7 +134,7 @@
 			<li class="page-item disabled">
 				<span class="page-link" tabindex="-1" aria-label="Last" aria-disabled="true">
 					<span aria-hidden="true">
-						<AngleDoubleRightIcon />
+						<Icon name="ic:twotone-keyboard-double-arrow-right" />
 					</span>
 					<span class="visually-hidden">Last</span>
 				</span>
@@ -120,7 +145,7 @@
 			<li class="page-item">
 				<span class="page-link" aria-label="First" @click="changePage(1)">
 					<span aria-hidden="true">
-						<AngleDoubleLeftIcon />
+						<Icon name="ic:twotone-keyboard-double-arrow-left" />
 					</span>
 					<span class="visually-hidden">First</span>
 				</span>
@@ -128,7 +153,7 @@
 			<li class="page-item">
 				<span class="page-link" aria-label="Previous" @click="previousPage()">
 					<span aria-hidden="true">
-						<AngleLeftIcon />
+						<Icon name="ic:twotone-keyboard-arrow-left" />
 					</span>
 					<span class="visually-hidden">Previous</span>
 				</span>
@@ -151,7 +176,7 @@
 			<li class="page-item">
 				<div class="page-link" aria-label="Next" @click="nextPage()">
 					<span aria-hidden="true">
-						<AngleRightIcon />
+						<Icon name="ic:twotone-keyboard-arrow-right" />
 					</span>
 					<span class="visually-hidden">Next</span>
 				</div>
@@ -159,7 +184,7 @@
 			<li class="page-item">
 				<span class="page-link" aria-label="Last" @click="changePage(pages)">
 					<span aria-hidden="true">
-						<AngleDoubleRightIcon />
+						<Icon name="ic:twotone-keyboard-double-arrow-right" />
 					</span>
 					<span class="visually-hidden">Last</span>
 				</span>
@@ -167,38 +192,6 @@
 		</ul>
 	</nav>
 </template>
-
-<script>
-export default {
-	components: {
-		AngleLeftIcon: () => import('~/assets/icons/arrows/angle-left.svg?inline'),
-		AngleRightIcon: () => import('~/assets/icons/arrows/angle-right.svg?inline'),
-		AngleDoubleLeftIcon: () => import('~/assets/icons/arrows/angle-double-left.svg?inline'),
-		AngleDoubleRightIcon: () => import('~/assets/icons/arrows/angle-double-right.svg?inline')
-	},
-	props: {
-		currentPage: {
-			type: Number,
-			required: true
-		},
-		pages: {
-			type: Number,
-			required: true
-		}
-	},
-	methods: {
-		nextPage() {
-			this.$emit('next-page')
-		},
-		changePage(value) {
-			this.$emit('change-page', value)
-		},
-		previousPage() {
-			this.$emit('previous-page')
-		}
-	}
-}
-</script>
 
 <style lang="scss" scoped>
 nav {
