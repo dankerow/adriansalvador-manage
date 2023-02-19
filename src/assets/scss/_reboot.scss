@@ -1,4 +1,4 @@
-@import "~bootstrap/scss/reboot";
+@import "bootstrap/scss/reboot";
 
 html {
 	height: 100%;
@@ -25,24 +25,9 @@ body {
 }
 
 .dark-mode {
-	$link-color: #a5a5a5;
-
-	--#{$variable-prefix}border-color: rgb(20, 20, 20);
-
 	body {
-		--#{$variable-prefix}body-color: #aaaaaa;
-		--#{$variable-prefix}body-bg: #1b1b1b;
-
 		&::-webkit-scrollbar-thumb {
 			background: #121212;
-		}
-	}
-
-	a {
-		color: $link-color;
-
-		&:hover {
-			color: shift-color($link-color, $link-shade-percentage)
 		}
 	}
 }
