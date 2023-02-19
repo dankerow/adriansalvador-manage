@@ -1,7 +1,25 @@
+<script setup lang="ts">
+interface Props {
+	itemCount: number;
+	columns: object[];
+}
+
+withDefaults(defineProps<Props>(), {
+	itemCount: 0,
+	columns: () => []
+})
+
+const colorMode = useColorMode()
+</script>
+
 <template>
 	<div class="table-responsive">
-		<table id="table-loading" :class="`table table-sm table-hover ${$colorMode.value === 'dark' ? 'table-dark' : '' } align-items-center`">
-			<thead :class="$colorMode.value === 'dark' ? 'thead-dark' : 'thead-light'">
+		<table
+			id="table-loading"
+			class="table table-hover align-items-center"
+			:class="{ 'table-light': colorMode.value === 'light', 'table-dark': colorMode.value === 'dark' }"
+		>
+			<thead>
 				<tr>
 					<th v-for="column in columns" :key="column.prop" scope="col">
 						{{ column.label }}
@@ -21,18 +39,3 @@
 		</table>
 	</div>
 </template>
-
-<script>
-export default {
-	props: {
-		itemCount: {
-			type: Number,
-			default: () => 8
-		},
-		columns: {
-			type: Array,
-			default: () => []
-		}
-	}
-}
-</script>
