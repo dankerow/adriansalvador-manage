@@ -1,29 +1,59 @@
+<script setup lang="ts">
+import { useAuthStore } from '@/stores/auth'
+
+useHead({
+	title: 'Login'
+})
+
+const authStore = useAuthStore()
+const { query } = useRoute()
+
+const email = ref('')
+const password = ref('')
+
+watchEffect(async () => {
+	if (authStore.user) {
+		await navigateTo(query.redirect as string, {
+			replace: true
+		})
+	}
+})
+
+const errors = ref()
+
+const login = async () => {
+	if (errors.value) {
+		errors.value = null
+	}
+
+	const { error } = await authStore.login({ email: email.value, password: password.value })
+
+	if (error) {
+		errors.value = error
+	}
+}
+</script>
+
 <template>
-	<div>
-		<div class="header py-6 py-lg-8 pt-lg-9">
-			<div class="container">
-				<div class="header-body text-center mb-7">
-					<div class="row justify-content-center">
-						<div class="col-xl-6 col-lg-8 col-md-10 px-5">
-							<h1 class="display-1 text-uppercase fw-bold">
-								Adrian Salvador
-							</h1>
-						</div>
-					</div>
-				</div>
+	<div class="hero">
+		<div class="container-fluid g-0">
+			<div class="w-100 bg-gradient-dark py-10 py-lg-15 text-center">
+				<h1 class="display-1 text-uppercase fw-bold lh-1">
+					Adrian Salvador
+				</h1>
 			</div>
 		</div>
 
-		<div class="container mt-n8">
-			<div class="row justify-content-center">
-				<div class="col-10 col-sm-12 col-md-10 col-lg-8">
-					<div class="card text-bg-dark">
+		<div class="container-fluid">
+			<div class="row justify-content-center mt-n5">
+				<div class="col-10 col-sm-12 col-md-10 col-lg-4">
+					<div class="card text-bg-darker">
 						<div class="card-header">
-							<h3 class="mb-0">
+							<h3 class="card-title mb-0">
 								Sign In
 							</h3>
-							<p class="fs-5 mb-0">
-								Hehe
+							<p class="text-muted fs-5 mb-0">
+								Start managing your photos.
 							</p>
 						</div>
 
@@ -32,17 +62,17 @@
 								id="loginForm"
 								role="form"
 								method="post"
-								@submit.prevent="submitForm"
+								@submit.prevent="login"
 							>
 								<div class="form-group">
 									<div class="input-group">
 										<span class="input-group-text">
-											<EnvelopeIcon />
+											<Icon name="ic:twotone-alternate-email" />
 										</span>
 										<label for="email" />
 										<input
 											id="email"
-											v-model="form.email"
+											v-model="email"
 											class="form-control text-bg-dark"
 											placeholder="Email"
 											type="email"
@@ -56,12 +86,12 @@
 								<div class="form-group">
 									<div class="input-group">
 										<span class="input-group-text">
-											<LockIcon />
+											<Icon name="ic:twotone-password" />
 										</span>
 										<label for="password" />
 										<input
 											id="password"
-											v-model="form.password"
+											v-model="password"
 											class="form-control text-bg-dark"
 											type="password"
 											minlength="8"
@@ -74,13 +104,21 @@
 									</div>
 								</div>
 
+								<div v-if="errors" class="alert alert-danger">
+									{{ errors.message ? errors.message : errors }}
+								</div>
+
 								<div class="text-center">
-									<button class="btn btn-primary" type="submit">
-										<SignInAltIcon />
+									<button class="btn btn-dark" type="submit">
+										<Icon name="ic:twotone-log-in" />
 										Sign in
 									</button>
 								</div>
 							</form>
+						</div>
+
+						<div class="card-footer text-muted text-end">
+							by <span class="font-monospace bg-dark px-1 py-1 rounded-1">Folium</span>
 						</div>
 					</div>
 				</div>
@@ -89,50 +127,8 @@
 	</div>
 </template>
 
-<script>
-export default {
-	components: {
-		EnvelopeIcon: () => import('~/assets/icons/envelope.svg?inline'),
-		LockIcon: () => import('~/assets/icons/lock.svg?inline'),
-		SignInAltIcon: () => import('~/assets/icons/sign-in-alt.svg?inline')
-	},
-	layout: 'login',
-	middleware: 'auth',
-	data() {
-		return {
-			form: {
-				email: null,
-				password: null
-			}
-		}
-	},
-	head: {
-		title: 'Login'
-	},
-	methods: {
-		submitForm() {
-			try {
-				this.$store.dispatch('auth/login', { ...this.form })
-					.then(() => {
-						this.$router.push('/')
-					})
-					.catch((e) => {
-						this.$nuxt.error({
-							statusCode: 500,
-							message: e
-						})
-					})
-			} catch (e) {
-				console.log(e.message)
-			}
-		}
-	}
-}
-</script>
-
 <style lang="scss" scoped>
-.logo {
-	height: auto;
-	width: 256px;
+.hero {
+	height: 100%;
 }
 </style>
