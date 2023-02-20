@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nuxi dev",
     "build": "nuxi build",
-    "start": "nuxi preview",
+    "start": "nuxi start",
     "lint:js": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore .",
     "lint": "yarn lint:js",
     "lint:fix": "yarn lint:js --fix"
