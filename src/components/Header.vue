@@ -1,11 +1,44 @@
+<script setup lang="ts">
+import { useAuthStore } from '@/stores/auth'
+import { useSettingsStore } from '@/stores/settings'
+
+const colorMode = useColorMode()
+const authStore = useAuthStore()
+const settings = useSettingsStore()
+const { user, isLoggedIn } = useUser()
+
+const dataAction = settings.isSideBarPinned ? 'unpin' : 'pin'
+
+const toggleSidenavToggler = () => {
+	settings.toggleSideBar()
+}
+
+const logout = () => {
+	if (isLoggedIn) {
+		authStore.logout()
+	}
+
+	navigateTo('/auth/login')
+}
+</script>
+
 <template>
 	<header>
-		<nav :class="`navbar ${$colorMode.value === 'dark' ? 'navbar-dark' : '' } navbar-expand border-light`">
+		<nav
+			class="navbar navbar-expand"
+			:class="{ 'navbar-dark bg-darker border-dark': colorMode.value === 'dark', 'bg-primary border-light': colorMode.value === 'light' }"
+		>
 			<div class="container-fluid">
 				<div class="collapse navbar-collapse">
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<div class="sidenav-toggler" data-action="sidenav-pin" data-target="#sidenav-main">
+							<div
+								class="sidenav-toggler"
+								:class="{ active: settings.isSideBarPinned }"
+								:data-action="dataAction"
+								data-target="#sidenav-main"
+								@click.prevent="toggleSidenavToggler"
+							>
 								<i class="sidenav-toggler-line" />
 								<i class="sidenav-toggler-line" />
 								<i class="sidenav-toggler-line" />
@@ -30,18 +63,22 @@
 								</div>
 							</a>
 
-							<div :class="`dropdown-menu ${$colorMode.value === 'dark' ? 'dropdown-menu-dark' : '' } dropdown-menu-end`">
+							<div
+								class="dropdown-menu dropdown-menu-end"
+								:class="{ 'dropdown-menu-dark': colorMode.value === 'dark' }"
+							>
 								<div class="dropdown-header">
 									<h5 class="mb-0">
 										Welcome!
 									</h5>
 								</div>
 								<div class="dropdown-divider" />
-								<div class="dropdown-item">
+								<NuxtLink class="dropdown-item" to="/settings">
+									<Icon name="ic:twotone-settings" />
 									<span>Settings</span>
-								</div>
+								</NuxtLink>
 								<div class="dropdown-item" @click="logout">
-									<SignOutAlt />
+									<Icon name="ic:twotone-log-out" />
 									<span>Logout</span>
 								</div>
 							</div>
@@ -52,65 +89,6 @@
 		</nav>
 	</header>
 </template>
-
-<script>
-export default {
-	components: {
-		SignOutAlt: () => import('~/assets/icons/sign-out-alt.svg?inline')
-	},
-	data({ $store }) {
-		return {
-			user: $store.state.auth.user
-		}
-	},
-	created() {
-		this.$nuxt.$on('toggleSidenavToggler', () => {
-			this.toggleSidenavToggler()
-		})
-	},
-	mounted() {
-		const sidenavToggle = document.querySelector('.sidenav-toggler')
-
-		sidenavToggle.addEventListener('click', (event) => {
-			event.preventDefault()
-
-			const action = sidenavToggle.dataset.action
-
-			switch (action) {
-			case 'sidenav-pin':
-				this.$nuxt.$emit('pinSidenav')
-				break
-
-			case 'sidenav-unpin':
-				this.$nuxt.$emit('unpinSidenav')
-				break
-			}
-		})
-	},
-	methods: {
-		toggleSidenavToggler() {
-			const sidenavToggle = document.querySelector('.sidenav-toggler')
-
-			if (sidenavToggle.classList.contains('active')) {
-				sidenavToggle.classList.remove('active')
-				sidenavToggle.dataset.action = 'sidenav-pin'
-			} else {
-				sidenavToggle.classList.add('active')
-				sidenavToggle.dataset.action = 'sidenav-unpin'
-			}
-		},
-		logout() {
-			if (this.$store.state.auth.loggedIn) {
-				this.$store.dispatch('auth/logout').then(() => {
-					this.$router.push('/auth/login')
-				})
-			}
-
-			this.$router.push('/auth/login')
-		}
-	}
-}
-</script>
 
 <style lang="scss" scoped>
 header {
@@ -157,18 +135,10 @@ header {
 			transition: background-color 0.3s ease-in-out;
 
 			svg {
-				height: .95rem;
+				height: 1rem;
 				margin-right: .275rem;
-				width: .95rem;
+				width: 1rem;
 			}
-		}
-	}
-}
-
-.dark-mode {
-	header {
-		.navbar {
-			background-color: rgb(20, 20, 20);
 		}
 	}
 }
