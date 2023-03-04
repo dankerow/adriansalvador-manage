@@ -59,14 +59,26 @@ const filtersData: Ref<FilterOptions | undefined> = ref<FilterOptions | undefine
 const tableData: Ref<object[]> = ref([])
 const paginationData: Ref<PaginationOptions | undefined> = ref(props.pagination)
 
-const changePage = (event: string, value?: number) => {
-	if (event === 'next') {
+const nextPage = () => {
+	if (props.loading) return
+
+	if (currentPage.value < paginationData.value?.pages) {
 		currentPage.value += 1
-	} else if (event === 'previous') {
-		currentPage.value -= 1
-	} else {
-		currentPage.value = parseInt(value)
 	}
+}
+
+const previousPage = () => {
+	if (props.loading) return
+
+	if (currentPage.value > 1) {
+		currentPage.value -= 1
+	}
+}
+
+const changePage = (value: number) => {
+	if (props.loading) return
+
+	currentPage.value = value
 }
 
 const filterData = () => {
@@ -295,8 +307,8 @@ onMounted(() => {
 						<Pagination
 							:current-page="currentPage"
 							:pages="paginationData.pages"
-							@next-page="changePage('next')"
-							@previous-page="changePage('previous')"
+							@next-page="nextPage"
+							@previous-page="previousPage"
 							@change-page="changePage"
 						/>
 					</div>
