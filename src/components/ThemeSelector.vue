@@ -1,7 +1,9 @@
 <script setup lang="ts">
 const colorMode = useColorMode()
 const changeTheme = () => {
-	colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+	const theme = colorMode.value === 'dark' ? 'light' : 'dark'
+	document.documentElement.setAttribute('data-bs-theme', theme)
+	colorMode.preference = theme
 }
 </script>
 
