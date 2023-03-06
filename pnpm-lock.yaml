@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@nuxt/image-edge': 1.0.0-27954023.4cee565
+  '@nuxt/image-edge': 1.0.0-27968280.9739e4d
   '@nuxtjs/color-mode': ^3.2.0
   '@nuxtjs/eslint-config-typescript': ^12.0.0
   '@nuxtjs/fontaine': ^0.2.4
@@ -30,7 +30,7 @@ dependencies:
   xlsx: 0.18.5
 
 devDependencies:
-  '@nuxt/image-edge': 1.0.0-27954023.4cee565
+  '@nuxt/image-edge': 1.0.0-27968280.9739e4d
   '@nuxtjs/color-mode': 3.2.0
   '@nuxtjs/eslint-config-typescript': 12.0.0_ycpbpc6yetojsgtrx3mwntkhsu
   '@nuxtjs/fontaine': 0.2.4
@@ -912,11 +912,11 @@ packages:
     resolution: {integrity: sha512-YBI/6o2EBz02tdEJRBK8xkt3zvOFOWlLBf7WKYGBsSYSRtjjgrqPe2skp6VLLmKx5WbHHDNcW+6oACaurxGzeA==}
     dev: true
 
-  /@nuxt/image-edge/1.0.0-27954023.4cee565:
-    resolution: {integrity: sha512-HBanm2MKV1Ac1hQYJz49ajUCJRIol5clbgrYTiScWAM0UXCyk5YIHGTb4x2w3aj3BRsWZlrB0UtA1O/QmSPu8Q==}
+  /@nuxt/image-edge/1.0.0-27968280.9739e4d:
+    resolution: {integrity: sha512-fT0jxdaQi4Oh8BW6vXfTCW4ile18cZeB6t+U51U2EsxaiYKLtob4z2Z3XYJ+LGkOsFR4vooa8wnHZStHqIyTOg==}
     engines: {node: ^14.16.0 || ^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0}
     dependencies:
-      '@nuxt/kit': 3.2.2
+      '@nuxt/kit': 3.2.3
       consola: 2.15.3
       defu: 6.1.2
       h3: 1.5.0
@@ -924,7 +924,7 @@ packages:
       node-fetch-native: 1.0.2
       ohash: 1.0.0
       pathe: 1.1.0
-      ufo: 1.1.0
+      ufo: 1.1.1
     optionalDependencies:
       ipx: 1.0.0-2
     transitivePeerDependencies:
@@ -4091,7 +4091,7 @@ packages:
       destr: 1.2.2
       iron-webcrypto: 0.5.0
       radix3: 1.0.0
-      ufo: 1.1.0
+      ufo: 1.1.1
       uncrypto: 0.1.2
     dev: true
 
@@ -4325,7 +4325,7 @@ packages:
       node-fetch-native: 1.0.2
       pathe: 1.1.0
       sharp: 0.31.3
-      ufo: 1.1.0
+      ufo: 1.1.1
       xss: 1.0.14
     dev: true
     optional: true
@@ -5002,7 +5002,7 @@ packages:
       acorn: 8.8.2
       pathe: 1.1.0
       pkg-types: 1.0.2
-      ufo: 1.1.0
+      ufo: 1.1.1
     dev: true
 
   /mlly/1.1.1:
@@ -6989,10 +6989,6 @@ packages:
 
   /ufo/1.0.1:
     resolution: {integrity: sha512-boAm74ubXHY7KJQZLlXrtMz52qFvpsbOxDcZOnw/Wf+LS4Mmyu7JxmzD4tDLtUQtmZECypJ0FrCz4QIe6dvKRA==}
-    dev: true
-
-  /ufo/1.1.0:
-    resolution: {integrity: sha512-LQc2s/ZDMaCN3QLpa+uzHUOQ7SdV0qgv3VBXOolQGXTaaZpIur6PwUclF5nN2hNkiTRcUugXd1zFOW3FLJ135Q==}
     dev: true
 
   /ufo/1.1.1:
