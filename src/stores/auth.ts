@@ -2,11 +2,13 @@ import { defineStore } from 'pinia'
 import type { Ref } from 'vue'
 
 interface User {
-	id: string
-	username: string
+	readonly id: string
+	firstName: string
+	lastName: string
 	email: string
-	createdAt: string
-	updatedAt: string
+	role: string
+	readonly createdAt: string
+	readonly updatedAt: string
 }
 
 export interface AuthState {
@@ -28,8 +30,9 @@ export const useAuthStore = defineStore('auth', () => {
 			if (!data && !isLoggedIn) return logout()
 
 			user.value = data
+			return { error: null }
 		} catch (e: any) {
-			return { error: e.data.error ? e.data.error : e }
+			return { error: e.data ? e.data.error : e }
 		}
 	}
 
@@ -42,8 +45,10 @@ export const useAuthStore = defineStore('auth', () => {
 
 			const tokenCookie = useCookie('token')
 			tokenCookie.value = data.token
+
+			return { error: null }
 		} catch (e: any) {
-			return { error: e.data.error ? e.data.error : e }
+			return { error: e.data ? e.data.error : e }
 		}
 	}
 
@@ -53,6 +58,17 @@ export const useAuthStore = defineStore('auth', () => {
 
 		const tokenCookie = useCookie('token')
 		tokenCookie.value = null
+	}
+
+	const updateUser = async (newUser: User) => {
+		try {
+			const data: User = await useFaetch('/@me', { method: 'put', body: newUser })
+			user.value = data
+
+			return { data, error: null }
+		} catch (e: any) {
+			return { error: e.data ? e.data.error : e }
+		}
 	}
 
 	const updateToken = (newToken: string) => {
@@ -66,6 +82,7 @@ export const useAuthStore = defineStore('auth', () => {
 		verify,
 		login,
 		logout,
-		updateToken
+		updateToken,
+		updateUser
 	}
 })
