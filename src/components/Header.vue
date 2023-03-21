@@ -5,7 +5,6 @@ import { useSettingsStore } from '@/stores/settings'
 const colorMode = useColorMode()
 const authStore = useAuthStore()
 const settings = useSettingsStore()
-const { user, isLoggedIn } = useUser()
 
 const dataAction = settings.isSideBarPinned ? 'unpin' : 'pin'
 
@@ -14,11 +13,11 @@ const toggleSidenavToggler = () => {
 }
 
 const logout = () => {
-	if (isLoggedIn) {
+	if (authStore.isLoggedIn) {
 		authStore.logout()
 	}
 
-	navigateTo('/auth/login')
+	return navigateTo('/auth/login')
 }
 </script>
 
@@ -58,7 +57,7 @@ const logout = () => {
 							>
 								<div class="avatar bg-white text-primary rounded shadow-sm">
 									<span class="avatar-text">
-										{{ user.firstName[0] + user.lastName[0] }}
+										{{ authStore.user.firstName[0] + authStore.user.lastName[0] }}
 									</span>
 								</div>
 							</a>
