@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useSettingsStore } from '@/stores/settings'
+import { useAuthStore } from '@/stores/auth'
 
 const route = useRoute()
 const colorMode = useColorMode()
+const authStore = useAuthStore()
 const settings = useSettingsStore()
-const { user } = useUser()
 
 const navigation = ref({
 	categories: [
@@ -118,10 +119,6 @@ onMounted(() => {
 		})
 	}
 })
-
-onUnmounted(() => {
-	window.removeEventListener('resize', () => {})
-})
 </script>
 
 <template>
@@ -141,15 +138,15 @@ onUnmounted(() => {
 			class="sidenav-item d-flex flex-nowrap border-bottom py-4 mb-3"
 			:class="{ 'bg-dark': colorMode.value === 'dark', 'bg-light': colorMode.value === 'light' }"
 		>
-			<div class="icon-badge icon-shape icon-shape-darker icon-lg me-3">
+			<div class="icon icon-shape icon-shape-darker icon-lg me-3">
 				<Icon name="ic:twotone-account-box" />
 			</div>
 			<div>
 				<span style="display: block;white-space: nowrap;text-overflow: ellipsis;">
-					{{ user.firstName }} <strong> {{ user.lastName }}</strong>
+					{{ authStore.user.firstName }} <strong> {{ authStore.user.lastName }}</strong>
 				</span>
 				<span class="rounded text-bg-primary px-1 d-inline-block text-nowrap" style="white-space: nowrap;text-overflow: ellipsis;font-size: 12px">
-					<template v-if="user.role === 'admin'">
+					<template v-if="authStore.user.role === 'admin'">
 						Administrator
 					</template>
 					<template v-else>
