@@ -3,42 +3,45 @@ import { writeFile, utils } from 'xlsx'
 import type { Ref } from 'vue'
 
 interface PaginationOptions {
-	enabled?: boolean;
-	lengthMenu?: number[];
-	prop?: string;
-	count?: number;
-	pages?: number;
+	enabled?: boolean
+	lengthMenu?: number[]
+	prop?: string
+	count?: number
+	pages?: number
 }
 
 interface FilterOptions {
-	search?: string,
-	limit?: number,
+	search?: string
+	limit?: number
 	sort?: {
-		by?: string,
+		by?: string
 		order?: string
 	}
 }
 
 interface Props {
-	title?: string;
-	columns: object[];
-	stickyHeader?: boolean;
-	height?: string;
-	loading?: boolean;
-	data: object[];
-	pagination?: PaginationOptions;
-	filters?: FilterOptions;
+	title?: string
+	columns: object[]
+	stickyHeader?: boolean
+	height?: string
+	loading?: boolean
+	data: object[]
+	pagination?: PaginationOptions
+	filters?: FilterOptions
 	download?: {
-		excel?: boolean;
-		csv?: boolean;
-		pdf?: boolean;
+		excel?: boolean
+		csv?: boolean
+		pdf?: boolean
 	}
 }
 
 const props = withDefaults(defineProps<Props>(), {
+	data: () => [],
+	title: '',
+	stickyHeader: false,
+	loading: false,
 	height: '700px',
 	pagination: () => ({
-		enabled: true,
 		lengthMenu: [25, 50, 75, 100],
 		count: 0,
 		pages: 1,
@@ -52,12 +55,24 @@ const props = withDefaults(defineProps<Props>(), {
 	})
 })
 
+const emit = defineEmits<{
+	(e: 'loadData', filterData: object): void
+}>()
+
 const colorMode = useColorMode()
 
 const currentPage: Ref<number> = ref(1)
 const filtersData: Ref<FilterOptions | undefined> = ref<FilterOptions | undefined>(props.filters)
 const tableData: Ref<object[]> = ref([])
 const paginationData: Ref<PaginationOptions | undefined> = ref(props.pagination)
+
+paginationData.value.enabled = true
+
+const fireDataLoad = () => {
+	emit('loadData', { page: currentPage.value, ...filtersData.value })
+
+	filterData()
+}
 
 const nextPage = () => {
 	if (props.loading) return
@@ -82,9 +97,9 @@ const changePage = (value: number) => {
 }
 
 const filterData = () => {
-	const data = props.data
+	const data = props.data || []
 
-	if (filtersData.value?.search) {
+	if (tableData.value && filtersData.value?.search) {
 		const search = filtersData.value.search.toLowerCase()
 
 		tableData.value = data.filter((item: any) => {
@@ -96,7 +111,7 @@ const filterData = () => {
 		tableData.value = data
 	}
 
-	if (filtersData.value?.sort) {
+	if (tableData.value.length && filtersData.value?.sort) {
 		const { by, order } = filtersData.value.sort
 
 		tableData.value = tableData.value.sort((a: any, b: any) => {
@@ -108,16 +123,11 @@ const filterData = () => {
 		})
 	}
 
-	if (filtersData.value?.limit) {
+	if (tableData.value.length && (tableData.value.length <= filtersData.value?.limit)) {
 		const start = (currentPage.value - 1) * filtersData.value.limit
 		const end = start + filtersData.value.limit
 
 		tableData.value = tableData.value.slice(start, end)
-	}
-
-	if (paginationData.value?.enabled) {
-		paginationData.value.count = data.length
-		paginationData.value.pages = Math.ceil(data.length / filtersData.value.limit)
 	}
 }
 
@@ -132,10 +142,25 @@ const downloadExcel = () => {
 	writeFile(workbook, 'table.xlsx')
 }
 
-watchEffect(() => {
-	if (props.data) {
-		filterData()
-	}
+watch(() => props.data, () => {
+	filterData()
+}, {
+	deep: true,
+	immediate: true
+})
+
+watch(currentPage, () => {
+	fireDataLoad()
+}, {
+	deep: true,
+	immediate: true
+})
+
+watch(() => ({ ...filtersData.value }), () => {
+	fireDataLoad()
+}, {
+	deep: true,
+	immediate: true
 })
 
 onMounted(() => {
@@ -294,11 +319,11 @@ onMounted(() => {
 			</div>
 		</div>
 
-		<div class="card-footer">
+		<div v-if="paginationData.enabled" class="card-footer">
 			<div class="row row-cols-2">
 				<div class="col-sm-12 col-md-6">
 					<div class="table-caption">
-						Showing {{ tableData.length || 0 }} of {{ paginationData.count || 0 }} entr{{ (paginationData.count || 0) > 1 ? 'ies' : 'y' }}
+						Showing {{ tableData.length }} of {{ paginationData.count }} entr{{ paginationData.count > 1 ? 'ies' : 'y' }}
 					</div>
 				</div>
 
