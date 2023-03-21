@@ -65,6 +65,13 @@ export default defineNuxtConfig({
 		domains: [isProduction ? process.env.CDN_BASE_URL : process.env.CDN_BASE_URL_DEV]
 	},
 
+	pinia: {
+		autoImports: [
+			'defineStore',
+			'acceptHMRUpdate'
+		]
+	},
+
 	purgecss: {
 		variables: true
 	}

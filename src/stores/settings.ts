@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { Ref } from 'vue'
 
 export const useSettingsStore = defineStore('settings', () => {
@@ -24,3 +24,7 @@ export const useSettingsStore = defineStore('settings', () => {
 		updateSideBar
 	}
 })
+
+if (import.meta.hot) {
+	import.meta.hot.accept(acceptHMRUpdate(useSettingsStore, import.meta.hot))
+}

@@ -1,4 +1,3 @@
-import { defineStore, acceptHMRUpdate } from 'pinia'
 import type { Ref } from 'vue'
 
 export interface AlbumFile {

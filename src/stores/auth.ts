@@ -1,4 +1,3 @@
-import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { Ref } from 'vue'
 
 interface User {
