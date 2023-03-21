@@ -8,18 +8,10 @@ export default defineNuxtConfig({
 	debug: isDevelopment,
 	sourcemap: isDevelopment,
 
-	experimental: {
-		emitRouteChunkError: 'reload'
-	},
-
 	nitro: {
 		prerender: {
 			crawlLinks: true
 		}
-	},
-
-	app: {
-		keepalive: true
 	},
 
 	runtimeConfig: {
@@ -44,6 +36,7 @@ export default defineNuxtConfig({
 	},
 
 	modules: [
+		'@nuxt/devtools',
 		'@nuxt/image-edge',
 		'@nuxtjs/color-mode',
 		'@nuxtjs/google-fonts',
