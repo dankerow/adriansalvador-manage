@@ -1,6 +1,9 @@
 export default defineNuxtPlugin(() => {
 	class Toast {
+		private readonly createdAt: Date
 		constructor({ title, body, show = true }: { title: string, body: string, show?: boolean }) {
+			this.createdAt = new Date()
+
 			let toastElement = this._create({ title, body })
 
 			this._appendToToastContainer(toastElement)
@@ -29,6 +32,7 @@ export default defineNuxtPlugin(() => {
 			toastHeaderElement.appendChild(toastTitleElement)
 
 			const toastTimeElement = document.createElement('small')
+			// TODO: Add time ago with useTimeAgo from vueuse/core
 			toastTimeElement.appendChild(document.createTextNode('11 mins ago'))
 			toastHeaderElement.appendChild(toastTimeElement)
 
