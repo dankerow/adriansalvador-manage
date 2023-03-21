@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { Ref } from 'vue'
 
 interface User {
@@ -11,14 +11,9 @@ interface User {
 	readonly updatedAt: string
 }
 
-export interface AuthState {
-	user: User|null
-	token: string|null
-}
-
 export const useAuthStore = defineStore('auth', () => {
-	const user: Ref<AuthState['user']> = ref(null)
-	const token: Ref<AuthState['token']> = ref(null)
+	const user: Ref<User|null> = ref(null)
+	const token: Ref<string|null> = ref(null)
 
 	const isLoggedIn = computed(() => {
 		return !!user.value
@@ -26,7 +21,7 @@ export const useAuthStore = defineStore('auth', () => {
 
 	const verify = async () => {
 		try {
-			const data: AuthState['user'] = await useFaetch('/authentication/verify')
+			const data: User = await useFaetch('/authentication/verify')
 			if (!data && !isLoggedIn) return logout()
 
 			user.value = data
@@ -38,12 +33,12 @@ export const useAuthStore = defineStore('auth', () => {
 
 	const login = async ({ email, password }: { email: string, password: string }) => {
 		try {
-			const data: AuthState = await useFaetch('/authentication/login', { method: 'post', body: { email, password } })
+			const data: { user: User, token: string } = await useFaetch('/authentication/login', { method: 'post', body: { email, password } })
 
 			token.value = data.token
 			user.value = data.user
 
-			const tokenCookie = useCookie('token')
+			const tokenCookie = useCookie<string>('token')
 			tokenCookie.value = data.token
 
 			return { error: null }
@@ -56,7 +51,7 @@ export const useAuthStore = defineStore('auth', () => {
 		user.value = null
 		token.value = null
 
-		const tokenCookie = useCookie('token')
+		const tokenCookie = useCookie<string>('token')
 		tokenCookie.value = null
 	}
 
@@ -86,3 +81,7 @@ export const useAuthStore = defineStore('auth', () => {
 		updateUser
 	}
 })
+
+if (import.meta.hot) {
+	import.meta.hot.accept(acceptHMRUpdate(useAuthStore, import.meta.hot))
+}
