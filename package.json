@@ -42,5 +42,5 @@
     "Firefox ESR",
     "not dead"
   ],
-  "packageManager": "pnpm@7.29.1"
+  "packageManager": "pnpm@7.30.0"
 }
