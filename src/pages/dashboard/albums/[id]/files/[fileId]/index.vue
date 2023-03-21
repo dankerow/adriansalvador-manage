@@ -8,7 +8,7 @@ const albumsStore = useAlbumsStore()
 const { data: file, error } = await albumsStore.getFile(route.params.fileId)
 
 if (error) {
-	return navigateTo('/albums')
+	await navigateTo('/albums')
 }
 
 const deleteFile = async () => {
