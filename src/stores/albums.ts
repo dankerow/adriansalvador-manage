@@ -25,22 +25,16 @@ export interface Album {
 	images: AlbumFile[]
 }
 
-interface AlbumState {
-	albums: (Album)[]
-	count: number
-	pages: number
-}
-
 export const useAlbumsStore = defineStore('albums', () => {
-	const	albums: Ref<AlbumState['albums']> = ref([])
-	const count: Ref<AlbumState['count']> = ref(0)
-	const pages: Ref<AlbumState['pages']> = ref(0)
+	const	albums: Ref<Album[]> = ref([])
+	const count: Ref<number> = ref(0)
+	const pages: Ref<number> = ref(0)
 	const	loading: Ref<boolean> = ref(false)
 
 	const	getAlbums = async (options?: { limit: number, page: number, setData: boolean }) => {
 		try {
 			loading.value = true
-			const { data: albumsD, count: countD, pages: pagesD } : { data: AlbumState['albums'], count: AlbumState['count'], pages: AlbumState['pages'] } = await useFaetch('/albums', { params: { limit: options?.limit, page: options?.page } })
+			const { data: albumsD, count: countD, pages: pagesD } : { data: Album[], count: number, pages: number } = await useFaetch('/albums', { params: { limit: options?.limit, page: options?.page } })
 
 			if (options?.setData) {
 				albums.value = albumsD
