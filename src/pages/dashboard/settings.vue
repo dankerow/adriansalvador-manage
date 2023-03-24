@@ -2,6 +2,7 @@
 import { useAuthStore } from '@/stores/auth'
 
 const colorMode = useColorMode()
+const router = useRouter()
 const authStore = useAuthStore()
 
 const user = authStore.user
@@ -57,7 +58,7 @@ const submitForm = async (event: Event) => {
 
 										<button class="btn btn-sm btn-success text-bg-success" type="submit">
 											<Icon name="ph:floppy-disk-duotone" />
-											Add
+											Save
 										</button>
 									</div>
 								</div>
