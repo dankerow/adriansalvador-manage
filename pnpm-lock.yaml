@@ -11,7 +11,7 @@ specifiers:
   '@types/node': ^18.15.6
   '@vueuse/core': ^9.13.0
   '@vueuse/nuxt': ^9.13.0
-  bootstrap: 5.3.0-alpha1
+  bootstrap: 5.3.0-alpha2
   eslint: ^8.36.0
   eslint-plugin-nuxt: ^4.0.0
   nuxt: 3.3.1
@@ -26,7 +26,7 @@ specifiers:
 
 dependencies:
   '@pinia/nuxt': 0.4.7_typescript@4.9.5
-  bootstrap: 5.3.0-alpha1
+  bootstrap: 5.3.0-alpha2
   nuxt-security: 0.13.0
   xlsx: 0.18.5
 
@@ -2421,8 +2421,8 @@ packages:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
     dev: true
 
-  /bootstrap/5.3.0-alpha1:
-    resolution: {integrity: sha512-ABZpKK4ObS3kKlIqH+ZVDqoy5t/bhFG0oHTAzByUdon7YIom0lpCeTqRniDzJmbtcWkNe800VVPBiJgxSYTYew==}
+  /bootstrap/5.3.0-alpha2:
+    resolution: {integrity: sha512-r1ayh5d56rhwrezVjhM8bt8tiUcdQ8J9JeCwCTAeKSpOrCWH5V5S6XiJ26DqbX7o5QSH5HIKm7W88CKxVjhCVQ==}
     peerDependencies:
       '@popperjs/core': ^2.11.6
     dev: false
