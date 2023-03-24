@@ -174,7 +174,7 @@ onMounted(() => {
 		:class="{ 'bg-darker': colorMode.value === 'dark' }"
 	>
 		<div v-if="title" class="card-header">
-			<h3 class="text-uppercase fw-bold mb-0">
+			<h3 class="text-capitalize fw-bolder mb-0">
 				{{ title }}
 			</h3>
 		</div>
@@ -257,7 +257,7 @@ onMounted(() => {
 				<thead :class="{ 'position-sticky top-0 z-3': stickyHeader }">
 					<tr>
 						<th v-for="column in columns" :key="column.prop" scope="col">
-							<span class="text-bg-darker text-uppercase font-monospace px-2 py-1 rounded-1">
+							<span class="text-bg-darker text-uppercase font-monospace px-2 py-1 rounded-1 text-nowrap">
 								{{ column.label }}
 							</span>
 							<span v-if="column.sortable">
@@ -270,7 +270,7 @@ onMounted(() => {
 
 				<tbody>
 					<tr v-for="item in tableData" :key="item.id">
-						<td v-for="column in columns" :key="`${item.id}-${column.prop}`">
+						<td v-for="column in columns" :key="`${item.id}-${column.prop}`" class="text-nowrap">
 							<template v-if="column.cellOptions?.link && item.url">
 								<NuxtLink :to="item.url">
 									<nuxt-img
