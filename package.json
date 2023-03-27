@@ -18,7 +18,7 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^0.2.5",
+    "@nuxt/devtools": "^0.3.1",
     "@nuxt/image-edge": "1.0.0-27991759.1a5eea1",
     "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
