@@ -7,9 +7,6 @@ dependencies:
   bootstrap:
     specifier: 5.3.0-alpha2
     version: 5.3.0-alpha2(@popperjs/core@2.11.7)
-  nuxt-security:
-    specifier: ^0.13.0
-    version: 0.13.0
   xlsx:
     specifier: ^0.18.5
     version: 0.18.5
@@ -57,6 +54,9 @@ devDependencies:
   nuxt-purgecss:
     specifier: ^2.0.0
     version: 2.0.0(postcss@8.4.21)
+  nuxt-security:
+    specifier: ^0.13.0
+    version: 0.13.0
   nuxt-time:
     specifier: ^0.0.3
     version: 0.0.3
@@ -1079,6 +1079,7 @@ packages:
     transitivePeerDependencies:
       - rollup
       - supports-color
+    dev: true
 
   /@nuxt/kit@3.3.1:
     resolution: {integrity: sha512-zb7/2FUIB1g7nl6K6qozUzfG5uu4yrs9TQjZvpASnPBZ/x1EuJX5k3AA71hMMIVBEX9Adxvh9AuhDEHE5W26Zg==}
@@ -1132,6 +1133,7 @@ packages:
     transitivePeerDependencies:
       - rollup
       - supports-color
+    dev: true
 
   /@nuxt/schema@3.0.0:
     resolution: {integrity: sha512-5fwsidhs5NjFzR8sIzHMXO0WFGkI3tCH3ViANn2W4N5qCwoYZ0n1sZBkQ9Esn1VoEed6RsIlTpWrPZPVtqNkGQ==}
@@ -1216,6 +1218,7 @@ packages:
     transitivePeerDependencies:
       - rollup
       - supports-color
+    dev: true
 
   /@nuxt/schema@3.3.1:
     resolution: {integrity: sha512-E8HWzU43rXzqwDTmWduTLHY4xIwRSAUt1LbpuE9IjZ4uJZq5Mbaj4nfhANNsTQGw2c+O+rL81yzAP3i61LEJDw==}
@@ -1259,6 +1262,7 @@ packages:
     transitivePeerDependencies:
       - rollup
       - supports-color
+    dev: true
 
   /@nuxt/telemetry@2.1.10:
     resolution: {integrity: sha512-FOsfC0i6Ix66M/ZlWV/095JIdfnRR9CRbFvBSpojt2CpbwU1pGMbRiicwYg2f1Wf27LXQRNpNn1OczruBfEWag==}
@@ -2392,7 +2396,7 @@ packages:
     engines: {node: '>= 0.8'}
     dependencies:
       safe-buffer: 5.1.2
-    dev: false
+    dev: true
 
   /binary-extensions@2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
@@ -2846,6 +2850,7 @@ packages:
 
   /commander@2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
+    dev: true
 
   /commander@7.2.0:
     resolution: {integrity: sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==}
@@ -2974,6 +2979,7 @@ packages:
 
   /cssfilter@0.0.10:
     resolution: {integrity: sha512-FAaLDaplstoRsDR8XGYH51znUN0UY7nMc6Z9/fvE8EXGwvJE9hu7W2vHwx1+bd6gCYnln9nLbzxFTrcO9YQDZw==}
+    dev: true
 
   /cssnano-preset-default@5.2.14(postcss@8.4.21):
     resolution: {integrity: sha512-t0SFesj/ZV2OTylqQVOrFgEh5uanxbO6ZAdeCrNsUQ6fVuXwYTxJPNAGvGTxHbD68ldIJNec7PyYZDBrfDQ+6A==}
@@ -5035,7 +5041,7 @@ packages:
 
   /just-performance@4.3.0:
     resolution: {integrity: sha512-L7RjvtJsL0QO8xFs5wEoDDzzJwoiowRw6Rn/GnvldlchS2JQr9wFYPiwZcDfrbbujEKqKN0tvENdbjXdYhDp5Q==}
-    dev: false
+    dev: true
 
   /klona@2.0.6:
     resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
@@ -5084,7 +5090,7 @@ packages:
     resolution: {integrity: sha512-361TYz6iay6n+9KvUUImqdLuFigK+K79qrUtBsXhJTLdH4rIt/r1y8r1iozwh8KbZNpujbFTSh74mJ7bwbAMOw==}
     dependencies:
       just-performance: 4.3.0
-    dev: false
+    dev: true
 
   /lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
@@ -5245,6 +5251,7 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.14
+    dev: true
 
   /make-dir@3.1.0:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}
@@ -5308,7 +5315,7 @@ packages:
 
   /memory-cache@0.2.0:
     resolution: {integrity: sha512-OcjA+jzjOYzKmKS6IQVALHLVz+rNTMPoJvCztFaZxwG14wtAW7VRZjwTQu06vKCYOxh4jVnik7ya0SXTB0W+xA==}
-    dev: false
+    dev: true
 
   /memory-fs@0.5.0:
     resolution: {integrity: sha512-jA0rdU5KoQMC0e6ppoNRtpp6vjFq6+NY7r8hywnC7V+1Xj/MtHwGIbB1QaK/dunyjWteJzmkpd7ooeWg10T7GA==}
@@ -5942,7 +5949,7 @@ packages:
     transitivePeerDependencies:
       - rollup
       - supports-color
-    dev: false
+    dev: true
 
   /nuxt-icon@0.3.3(vue@3.2.47):
     resolution: {integrity: sha512-KdhJAigBGTP8/YIFZ3orwetk40AgLq6VQ5HRYuDLmv5hiDptor9Ro+WIdZggHw7nciRxZvDdQkEwi9B5G/jrkQ==}
@@ -5984,7 +5991,7 @@ packages:
     transitivePeerDependencies:
       - rollup
       - supports-color
-    dev: false
+    dev: true
 
   /nuxt-time@0.0.3:
     resolution: {integrity: sha512-EX2wfNeIGwnLHkZh7J0XGo80pMazF+VQDNlOkyhQU0djZU1S5NxiQWnXfN0LTjQwjNFw4zniE++v1+XmCrkyJw==}
@@ -7986,6 +7993,7 @@ packages:
       unplugin: 1.3.1
     transitivePeerDependencies:
       - rollup
+    dev: true
 
   /unique-filename@2.0.1:
     resolution: {integrity: sha512-ODWHtkkdx3IAR+veKxFV+VBkUMcN+FaqzUUd7IZzt+0zhDZFPFxhlqwPF3YQvMHx1TD0tdgYl+kuPnJ8E6ql7A==}
@@ -8588,6 +8596,7 @@ packages:
     dependencies:
       commander: 2.20.3
       cssfilter: 0.0.10
+    dev: true
 
   /xxhashjs@0.2.2:
     resolution: {integrity: sha512-AkTuIuVTET12tpsVIQo+ZU6f/qDmKuRUcjaqR+OIvm+aCBsZ95i7UVY5WJ9TMsSaZ0DA2WxoZ4acu0sPH+OKAw==}
