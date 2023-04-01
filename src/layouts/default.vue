@@ -18,7 +18,7 @@ useHead({
 	],
 	script: [
 		{
-			src: 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0-alpha1/js/bootstrap.bundle.min.js',
+			src: 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0-alpha2/js/bootstrap.bundle.min.js',
 			type: 'text/javascript',
 			defer: true
 		}
