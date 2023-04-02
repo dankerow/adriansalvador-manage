@@ -28,7 +28,7 @@
     "@vueuse/nuxt": "^9.13.0",
     "eslint": "^8.37.0",
     "eslint-plugin-nuxt": "^4.0.0",
-    "nuxt": "3.3.2",
+    "nuxt": "3.3.3",
     "nuxt-icon": "^0.3.3",
     "nuxt-purgecss": "^2.0.0",
     "nuxt-security": "^0.13.0",
