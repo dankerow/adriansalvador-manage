@@ -7,9 +7,8 @@
     "build": "nuxt build",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint:js": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore .",
-    "lint": "yarn lint:js",
-    "lint:fix": "yarn lint:js --fix"
+    "lint": "eslint .",
+    "lint:fix": "pnpm lint --fix"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.7",
@@ -18,16 +17,15 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "^0.3.1",
+    "@nuxt/eslint-config": "^0.1.1",
     "@nuxt/image-edge": "1.0.0-28004510.a0dc8e8",
     "@nuxtjs/color-mode": "^3.2.0",
-    "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@nuxtjs/fontaine": "^0.2.4",
     "@nuxtjs/google-fonts": "3.0.0",
     "@types/node": "^18.15.11",
     "@vueuse/core": "^9.13.0",
     "@vueuse/nuxt": "^9.13.0",
     "eslint": "^8.37.0",
-    "eslint-plugin-nuxt": "^4.0.0",
     "nuxt": "3.3.3",
     "nuxt-icon": "^0.3.3",
     "nuxt-purgecss": "^2.0.0",
