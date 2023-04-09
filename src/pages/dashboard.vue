@@ -4,28 +4,28 @@ import { useSettingsStore } from '@/stores/settings'
 const settings = useSettingsStore()
 
 onMounted(() => {
-	const backdrop = document.querySelector('#sidebar-backdrop')
+  const backdrop = document.querySelector('#sidebar-backdrop') as HTMLElement
 
-	backdrop?.addEventListener('click', () => {
-		settings.toggleSideBar()
-	})
+  backdrop.addEventListener('click', () => {
+    settings.toggleSideBar()
+  })
 })
 </script>
 
 <template>
-	<div class="d-flex flex-row align-items-stretch">
-		<SideBar />
+  <div class="d-flex flex-row align-items-stretch">
+    <SideBar />
 
-		<div class="main-content" role="main">
-			<div id="sidebar-backdrop" class="sidebar-backdrop" />
+    <div class="main-content" role="main">
+      <div id="sidebar-backdrop" class="sidebar-backdrop" />
 
-			<Header />
+      <Header />
 
-			<NuxtPage />
-		</div>
+      <NuxtPage />
+    </div>
 
-		<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 99;" />
-	</div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 99;" />
+  </div>
 </template>
 
 <style lang="scss" scoped>
