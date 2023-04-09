@@ -1,16 +1,16 @@
 <script setup lang="ts">
 const colorMode = useColorMode()
 const changeTheme = () => {
-	const theme = colorMode.value === 'dark' ? 'light' : 'dark'
-	document.documentElement.setAttribute('data-bs-theme', theme)
-	colorMode.preference = theme
+  const theme = colorMode.value === 'dark' ? 'light' : 'dark'
+  document.documentElement.setAttribute('data-bs-theme', theme)
+  colorMode.preference = theme
 }
 </script>
 
 <template>
-	<div class="color-mode" @click="changeTheme">
-		<Icon :name="`ic:twotone-${colorMode.value === 'dark' ? 'brightness-7' : 'brightness-3'}`" />
-	</div>
+  <div class="color-mode" @click="changeTheme">
+    <Icon :name="`ic:twotone-${colorMode.value === 'dark' ? 'brightness-7' : 'brightness-3'}`" />
+  </div>
 </template>
 
 <style lang="scss" scoped>
