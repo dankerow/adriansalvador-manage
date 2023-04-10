@@ -1,30 +1,30 @@
 import { useAuthStore } from '@/stores/auth'
 
 export default defineNuxtPlugin((nuxtApp) => {
-	const authStore = useAuthStore(nuxtApp.$pinia)
+  const authStore = useAuthStore(nuxtApp.$pinia)
 
-	const visibilityHandler = async () => {
-		if (authStore.isLoggedIn && document.visibilityState === 'visible') {
-			try {
-				await authStore.verify()
-			} catch (error) {
-				authStore.logout()
+  const visibilityHandler = async () => {
+    if (authStore.isLoggedIn && document.visibilityState === 'visible') {
+      const { error } = await authStore.verify()
 
-				nuxtApp.router.push('/auth/login')
-			}
-		}
-	}
+      if (error) {
+        authStore.logout()
 
-	nuxtApp.hook('app:mounted', () => {
-		document.addEventListener('visibilitychange', visibilityHandler, false)
-	})
+        return navigateTo('/auth/login')
+      }
+    }
+  }
 
-	const _unmount = nuxtApp.vueApp.unmount
-	nuxtApp.vueApp.unmount = async function() {
-		document.removeEventListener('visibilitychange', visibilityHandler, false)
+  nuxtApp.hook('app:mounted', () => {
+    document.addEventListener('visibilitychange', visibilityHandler, false)
+  })
 
-		await authStore.logout()
+  const _unmount = nuxtApp.vueApp.unmount
+  nuxtApp.vueApp.unmount = async function() {
+    document.removeEventListener('visibilitychange', visibilityHandler, false)
 
-		_unmount()
-	}
+    await authStore.logout()
+
+    _unmount()
+  }
 })
