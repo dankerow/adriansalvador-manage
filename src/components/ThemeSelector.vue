@@ -8,9 +8,11 @@ const changeTheme = () => {
 </script>
 
 <template>
-  <div class="color-mode" @click="changeTheme">
-    <Icon :name="`ic:twotone-${colorMode.value === 'dark' ? 'brightness-7' : 'brightness-3'}`" />
-  </div>
+  <ColorScheme tag="div">
+    <div class="color-mode" @click="changeTheme">
+      <Icon :name="`ic:twotone-${colorMode.value === 'dark' ? 'brightness-7' : 'brightness-3'}`" />
+    </div>
+  </ColorScheme>
 </template>
 
 <style lang="scss" scoped>

@@ -23,69 +23,71 @@ const logout = () => {
 
 <template>
   <header>
-    <nav
-      class="navbar navbar-expand"
-      :class="{ 'navbar-dark bg-darker border-dark': colorMode.value === 'dark', 'bg-primary border-light': colorMode.value === 'light' }"
-    >
-      <div class="container-fluid">
-        <div class="collapse navbar-collapse">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <div
-                class="sidenav-toggler"
-                :class="{ active: settings.isSideBarPinned }"
-                :data-action="dataAction"
-                data-target="#sidenav-main"
-                @click.prevent="toggleSidenavToggler"
-              >
-                <i class="sidenav-toggler-line" />
-                <i class="sidenav-toggler-line" />
-                <i class="sidenav-toggler-line" />
-              </div>
-            </li>
-          </ul>
+    <ColorScheme tag="nav">
+      <nav
+        class="navbar navbar-expand"
+        :class="{ 'bg-darker border-dark': colorMode.value === 'dark', 'bg-primary border-light': colorMode.value === 'light' }"
+      >
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <div
+                  class="sidenav-toggler"
+                  :class="{ active: settings.isSideBarPinned }"
+                  :data-action="dataAction"
+                  data-target="#sidenav-main"
+                  @click.prevent="toggleSidenavToggler"
+                >
+                  <i class="sidenav-toggler-line" />
+                  <i class="sidenav-toggler-line" />
+                  <i class="sidenav-toggler-line" />
+                </div>
+              </li>
+            </ul>
 
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item ms-auto dropdown">
-              <a
-                class="nav-link ps-0"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <div class="avatar bg-white text-primary rounded shadow-sm">
-                  <span class="avatar-text">
-                    {{ authStore.user.firstName[0] + authStore.user.lastName[0] }}
-                  </span>
-                </div>
-              </a>
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item ms-auto dropdown">
+                <a
+                  class="nav-link ps-0"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <div class="avatar bg-white text-primary rounded shadow-sm">
+                    <span class="avatar-text">
+                      {{ authStore.user.firstName[0] + authStore.user.lastName[0] }}
+                    </span>
+                  </div>
+                </a>
 
-              <div
-                class="dropdown-menu dropdown-menu-end"
-                :class="{ 'dropdown-menu-dark': colorMode.value === 'dark' }"
-              >
-                <div class="dropdown-header">
-                  <h5 class="mb-0">
-                    Welcome!
-                  </h5>
+                <div
+                  class="dropdown-menu dropdown-menu-end"
+                  :class="{ 'dropdown-menu-dark': colorMode.value === 'dark' }"
+                >
+                  <div class="dropdown-header">
+                    <h5 class="mb-0">
+                      Welcome!
+                    </h5>
+                  </div>
+                  <div class="dropdown-divider" />
+                  <NuxtLink class="dropdown-item" to="/settings">
+                    <Icon name="ic:twotone-settings" />
+                    <span>Settings</span>
+                  </NuxtLink>
+                  <div class="dropdown-item" @click="logout">
+                    <Icon name="ic:twotone-log-out" />
+                    <span>Logout</span>
+                  </div>
                 </div>
-                <div class="dropdown-divider" />
-                <NuxtLink class="dropdown-item" to="/settings">
-                  <Icon name="ic:twotone-settings" />
-                  <span>Settings</span>
-                </NuxtLink>
-                <div class="dropdown-item" @click="logout">
-                  <Icon name="ic:twotone-log-out" />
-                  <span>Logout</span>
-                </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </ColorScheme>
   </header>
 </template>
 
