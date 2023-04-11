@@ -1,7 +1,7 @@
-import type { FetchOptions } from 'ofetch'
 import { useAuthStore } from '@/stores/auth'
+import { NitroFetchOptions } from 'nitropack'
 
-export default <T>(url: string, options: FetchOptions = {}): Promise<T> => {
+export default <T>(url: string, options: NitroFetchOptions<Request> = {}): Promise<T> => {
   const authStore = useAuthStore()
   const config = useRuntimeConfig()
 
