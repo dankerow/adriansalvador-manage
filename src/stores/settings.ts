@@ -1,26 +1,26 @@
 import type { Ref } from 'vue'
 
 export const useSettingsStore = defineStore('settings', () => {
-  const	sideBar: Ref<boolean> = ref(false)
+  const	sidebar: Ref<boolean> = ref(false)
 
-  const isSideBarPinned = computed(() => sideBar.value)
+  const isSidebarPinned = computed(() => sidebar.value)
 
-  const	toggleSideBar = () => {
-    sideBar.value = !sideBar.value
+  const	toggleSidebar = () => {
+    sidebar.value = !sidebar.value
 
     const sidebarCookie = useCookie('sidebar')
-    sidebarCookie.value = String(sideBar.value)
+    sidebarCookie.value = String(sidebar.value)
   }
 
-  const updateSideBar = (newSideBar: boolean) => {
-    sideBar.value = newSideBar
+  const updateSidebar = (newSidebar: boolean) => {
+    sidebar.value = newSidebar
   }
 
   return {
-    sideBar,
-    isSideBarPinned,
-    toggleSideBar,
-    updateSideBar
+    sidebar,
+    isSidebarPinned,
+    toggleSidebar,
+    updateSidebar
   }
 })
 
