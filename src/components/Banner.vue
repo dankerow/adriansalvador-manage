@@ -28,38 +28,34 @@ const route = useRoute()
 </script>
 
 <template>
-  <ColorScheme tag="div">
-    <div
-      class="banner pt-4 pb-6"
-      :class="{ 'bg-dark': colorMode.value === 'dark', 'bg-primary': colorMode.value === 'light' }"
-    >
+  <div>
+    <nav aria-label="breadcrumb" data-aos="fade-down">
+      <ol class="breadcrumb bg-darker bg-opacity-75 mb-0 px-3 py-2">
+        <li class="breadcrumb-item">
+          <NuxtLink class="link-body-emphasis" to="/">
+            <Icon :name="icon" />
+            <span class="visually-hidden">Home</span>
+          </NuxtLink>
+        </li>
+
+        <template v-for="link in links" :key="link.name">
+          <li v-if="link.path && link.path !== route.path" class="breadcrumb-item">
+            <NuxtLink class="link-body-emphasis fw-semibold text-decoration-none" :to="link.path">
+              {{ link.name }}
+            </NuxtLink>
+          </li>
+
+          <li v-else class="breadcrumb-item active" aria-current="page">
+            {{ link.name }}
+          </li>
+        </template>
+      </ol>
+    </nav>
+
+    <div class="banner pt-4 pb-6">
       <div class="container-fluid">
         <div class="row align-items-center">
-          <div class="col-12 col-md-6 col-lg-4">
-            <nav aria-label="breadcrumb" data-aos="fade-down">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <NuxtLink class="link-body-emphasis" to="/">
-                    <Icon :name="icon" />
-                    <span class="visually-hidden">Home</span>
-                  </NuxtLink>
-                </li>
-                <template v-for="link in links" :key="link.name">
-                  <li v-if="link.path && link.path !== route.path" class="breadcrumb-item">
-                    <NuxtLink class="link-body-emphasis fw-semibold text-decoration-none" :to="link.path">
-                      {{ link.name }}
-                    </NuxtLink>
-                  </li>
-
-                  <li v-else class="breadcrumb-item active" aria-current="page">
-                    {{ link.name }}
-                  </li>
-                </template>
-              </ol>
-            </nav>
-          </div>
-
-          <div v-if="buttons?.length" class="col-12 col-md-6 col-lg-8 text-end">
+          <div v-if="buttons?.length" class="col-12 col-md-6 col-lg-12 text-end">
             <template v-for="button in buttons">
               <slot
                 v-if="slots[`button-${button.name.replace(/ /g, '-')}`]"
@@ -108,10 +104,26 @@ const route = useRoute()
           </div>
         </div>
 
-        <div v-if="slots.body" :class="body?.class ?? 'row mt-4'">
+        <div v-if="slots.body" :class="body?.class ?? 'row mt-2'">
           <slot name="body" />
         </div>
       </div>
     </div>
-  </ColorScheme>
+  </div>
 </template>
+
+<style lang="scss" scoped>
+.banner {
+  --bs-bg-opacity: 1;
+
+  background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity));
+}
+
+.dark-mode {
+  .banner {
+    --bs-bg-opacity: 1;
+
+    background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity));
+  }
+}
+</style>
