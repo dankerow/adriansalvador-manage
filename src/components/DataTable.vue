@@ -257,184 +257,179 @@ defineExpose({
 </script>
 
 <template>
-  <ColorScheme tag="div">
-    <div
-      class="card"
-      :class="{ 'bg-darker': colorMode.value === 'dark' }"
-    >
-      <div v-if="title" class="card-header">
-        <h3 class="text-capitalize fw-bolder mb-0">
-          {{ title }}
-        </h3>
-      </div>
+  <div class="card">
+    <div v-if="title" class="card-header">
+      <h3 class="text-capitalize fw-bolder mb-0">
+        {{ title }}
+      </h3>
+    </div>
 
-      <div class="card-header">
-        <div class="row row-cols-3">
-          <div class="col-sm-12 col-md-6 col-lg-auto">
-            <div class="table-entries-length">
-              <label>
-                Showing
+    <div class="card-header">
+      <div class="row row-cols-3">
+        <div class="col-sm-12 col-md-6 col-lg-auto">
+          <div class="table-entries-length">
+            <label>
+              Showing
 
-                <select v-model="filters.limit" class="form-select form-select-sm" aria-label="Length Menu">
-                  <option :value="25">
-                    25
-                  </option>
-                  <option :value="50">
-                    50
-                  </option>
-                  <option :value="75">
-                    75
-                  </option>
-                  <option :value="100">
-                    100
-                  </option>
-                </select>
+              <select v-model="filters.limit" class="form-select form-select-sm" aria-label="Length Menu">
+                <option :value="25">
+                  25
+                </option>
+                <option :value="50">
+                  50
+                </option>
+                <option :value="75">
+                  75
+                </option>
+                <option :value="100">
+                  100
+                </option>
+              </select>
 
-                entries
-              </label>
-            </div>
-          </div>
-
-          <div class="col-sm-12 col-md-6 col-lg">
-            <div class="table-filter">
-              <label>
-                Search:
-                <input
-                  id="table-search"
-                  v-model="filters.search"
-                  type="text"
-                  class="form-control form-control-sm"
-                  placeholder="Enter something"
-                >
-              </label>
-            </div>
-          </div>
-
-          <div v-if="download && (download.excel || download.csv || download.pdf)" class="col-sm-12 col-md-6 col-lg-auto">
-            <div class="table-download">
-              <div class="btn-group">
-                <button
-                  class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Download
-                </button>
-                <ul class="dropdown-menu dropdown-menu-dark">
-                  <li>
-                    <span
-                      v-if="download?.excel"
-                      class="dropdown-item"
-                      type="button"
-                      @click="downloadExcel"
-                    >
-                      Excel
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </div>
+              entries
+            </label>
           </div>
         </div>
-      </div>
 
-      <DataTableLoading v-if="loading" :item-count="filters.limit" :columns="columns" />
+        <div class="col-sm-12 col-md-6 col-lg">
+          <div class="table-filter">
+            <label>
+              Search:
+              <input
+                id="table-search"
+                v-model="filters.search"
+                type="text"
+                class="form-control form-control-sm"
+                placeholder="Enter something"
+              >
+            </label>
+          </div>
+        </div>
 
-      <div v-else class="table-responsive" :style="{ height: stickyHeader && height }">
-        <table
-          v-if="tableData.length"
-          :id="`table-${title}`"
-          class="table table-bordered table-hover align-middle"
-        >
-          <thead :class="{ 'position-sticky top-0 z-3': stickyHeader, 'table-light': colorMode.value === 'light', 'table-dark': colorMode.value === 'dark' }">
-            <tr>
-              <th v-if="selection && multipleSelection" scope="col" :style="{ width: '1%', minWidth: '38px' }">
-                <input
-                  id="checkDefault" class="form-check-input" type="checkbox" value="" :checked="isAllSelected"
-                  aria-label="Check Default"
-                  @click="selectAll"
-                >
-              </th>
-              <th v-for="column in columns" :key="column.prop" scope="col" :style="{ width: getColumnWidth(column) }">
-                <span class="text-uppercase font-monospace text-nowrap">
-                  {{ column.label }}
-                </span>
-                <span v-if="column.sortable && filters.sort?.order">
-                  <Icon
-                    v-if="filters.sort.order === 'asc'" name="ph:sort-ascending-duotone" size="1.5em"
-                    @click="sort(column)"
-                  />
-                  <Icon
-                    v-if="filters.sort.order === 'desc'" name="ph:sort-descending-duotone" size="1.5em"
-                    @click="sort(column)"
-                  />
-                </span>
-              </th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr v-for="item in tableData" :key="item.id">
-              <td v-if="selection">
-                <div class="mx-auto">
-                  <input
-                    :id="`${item.id}-check`" class="form-check-input" type="checkbox" value="" :checked="isRowSelected(item)"
-                    aria-label="Check Default"
-                    @click="selectRow(item)"
+        <div v-if="download && (download.excel || download.csv || download.pdf)" class="col-sm-12 col-md-6 col-lg-auto">
+          <div class="table-download">
+            <div class="btn-group">
+              <button
+                class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Download
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li>
+                  <span
+                    v-if="download?.excel"
+                    class="dropdown-item"
+                    type="button"
+                    @click="downloadExcel"
                   >
-                </div>
-              </td>
-              <td v-for="column in columns" :key="`${item.id}-${column.prop}`" class="text-nowrap">
-                <slot
-                  v-if="slots[`item-${column.label.replace(/ /g, '-')}`]"
-                  :name="`item-${column.label.replace(/ /g, '-')}`"
-                  v-bind="{ column, item }"
-                />
-                <slot
-                  v-else-if="slots[`item-${column.label.replace(/ /g, '-').toLowerCase()}`]"
-                  :name="`item-${column.label.replace(/ /g, '-').toLowerCase()}`"
-                  v-bind="{ column, item }"
-                />
-                <slot
-                  v-else-if="slots.item"
-                  name="item"
-                  v-bind="{ column, item }"
-                />
-
-                <span v-else>
-                  {{ item[column.prop] }}
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div v-else class="alert alert-primary mx-2 mt-3" role="alert">
-          <strong>No data to display.</strong>
-        </div>
-      </div>
-
-      <div v-if="show.pagination" class="card-footer">
-        <div class="row row-cols-2 align-items-center">
-          <div class="col-sm-12 col-md-6">
-            <div class="table-caption">
-              Showing {{ tableData.length }} of {{ pagination.count }} entr{{ pagination.count > 1 ? 'ies' : 'y' }}
-            </div>
-          </div>
-
-          <div class="col-sm-12 col-md-6">
-            <div class="table-paginate">
-              <Pagination
-                :current-page="currentPage"
-                :pages="pagination.pages"
-                @next-page="nextPage"
-                @previous-page="previousPage"
-                @change-page="changePage"
-              />
+                    Excel
+                  </span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </ColorScheme>
+
+    <DataTableLoading v-if="loading" :item-count="filters.limit" :columns="columns" />
+
+    <div v-else class="table-responsive" :style="{ height: stickyHeader && height }">
+      <table
+        v-if="tableData.length"
+        :id="`table-${title}`"
+        class="table table-bordered table-hover align-middle"
+      >
+        <thead :class="{ 'position-sticky top-0 z-3': stickyHeader, 'table-light': colorMode.value === 'light', 'table-dark': colorMode.value === 'dark' }">
+          <tr>
+            <th v-if="selection && multipleSelection" scope="col" :style="{ width: '1%', minWidth: '38px' }">
+              <input
+                id="checkDefault" class="form-check-input" type="checkbox" value="" :checked="isAllSelected"
+                aria-label="Check Default"
+                @click="selectAll"
+              >
+            </th>
+            <th v-for="column in columns" :key="column.prop" scope="col" :style="{ width: getColumnWidth(column) }">
+              <span class="text-nowrap text-capitalize">
+                {{ column.label }}
+              </span>
+              <span v-if="column.sortable && filters.sort?.order">
+                <Icon
+                  v-if="filters.sort.order === 'asc'" name="ph:sort-ascending-duotone" size="1.5em"
+                  @click="sort(column)"
+                />
+                <Icon
+                  v-if="filters.sort.order === 'desc'" name="ph:sort-descending-duotone" size="1.5em"
+                  @click="sort(column)"
+                />
+              </span>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr v-for="item in tableData" :key="item.id">
+            <td v-if="selection">
+              <div class="mx-auto">
+                <input
+                  :id="`${item.id}-check`" class="form-check-input" type="checkbox" value="" :checked="isRowSelected(item)"
+                  aria-label="Check Default"
+                  @click="selectRow(item)"
+                >
+              </div>
+            </td>
+            <td v-for="column in columns" :key="`${item.id}-${column.prop}`" class="text-nowrap">
+              <slot
+                v-if="slots[`item-${column.label.replace(/ /g, '-')}`]"
+                :name="`item-${column.label.replace(/ /g, '-')}`"
+                v-bind="{ column, item }"
+              />
+              <slot
+                v-else-if="slots[`item-${column.label.replace(/ /g, '-').toLowerCase()}`]"
+                :name="`item-${column.label.replace(/ /g, '-').toLowerCase()}`"
+                v-bind="{ column, item }"
+              />
+              <slot
+                v-else-if="slots.item"
+                name="item"
+                v-bind="{ column, item }"
+              />
+
+              <span v-else>
+                {{ item[column.prop] }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div v-else class="alert alert-primary mx-2 mt-3" role="alert">
+        <strong>No data to display.</strong>
+      </div>
+    </div>
+
+    <div v-if="show.pagination" class="card-footer">
+      <div class="row row-cols-2 align-items-center">
+        <div class="col-sm-12 col-md-6">
+          <div class="table-caption">
+            Showing {{ tableData.length }} of {{ pagination.count }} entr{{ pagination.count > 1 ? 'ies' : 'y' }}
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6">
+          <div class="table-paginate">
+            <Pagination
+              :current-page="currentPage"
+              :pages="pagination.pages"
+              @next-page="nextPage"
+              @previous-page="previousPage"
+              @change-page="changePage"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
