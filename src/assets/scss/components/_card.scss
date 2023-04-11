@@ -9,3 +9,11 @@
 .card-footer {
 	font-size: 0.855rem;
 }
+
+.dark-mode {
+	.card {
+		--bs-bg-opacity: 1;
+
+		background-color: rgba(var(--bs-darker-rgb), var(--bs-bg-opacity));
+	}
+}
