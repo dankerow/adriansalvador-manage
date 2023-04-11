@@ -77,8 +77,7 @@ export default defineNuxtConfig({
       'dark-mode',
       'svg',
       /^btn-/,
-      /^dropdown/,
-      'sidenav'
+      /^dropdown/
     ]
   },
 
