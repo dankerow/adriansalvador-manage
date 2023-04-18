@@ -54,7 +54,7 @@ const logout = () => {
               >
                 <div class="avatar bg-white text-primary rounded shadow-sm">
                   <span class="avatar-text">
-                    {{ authStore.user?.firstName[0] + authStore.user?.lastName[0] }}
+                    {{ authStore.user?.firstName[0] + (authStore.user?.lastName[0] || '') }}
                   </span>
                 </div>
               </a>
@@ -116,7 +116,7 @@ const logout = () => {
 	}
 
 	.sidebar-toggler-line {
-		transition: all .15s ease;
+		transition: all .3s ease-in-out;
 		width: 24px;
 		position: relative;
 		display: block;
