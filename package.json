@@ -30,7 +30,7 @@
     "@nuxtjs/google-fonts": "3.0.0",
     "@types/node": "^18.15.13",
     "@vueuse/core": "^10.0.2",
-    "@vueuse/nuxt": "^9.13.0",
+    "@vueuse/nuxt": "^10.0.2",
     "eslint": "^8.39.0",
     "nuxt": "3.4.2",
     "nuxt-icon": "^0.3.3",
