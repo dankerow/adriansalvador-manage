@@ -23,16 +23,6 @@ export default defineNuxtConfig({
     '@/assets/scss/bedrock.scss'
   ],
 
-  hooks: {
-    'pages:extend': (pages) => {
-      pages.forEach((page) => {
-        if (page.path === '/dashboard') {
-          Object.assign(page, { name: 'dashboard', path: '/' })
-        }
-      })
-    }
-  },
-
   modules: [
     '@nuxt/devtools',
     '@nuxt/image-edge',
