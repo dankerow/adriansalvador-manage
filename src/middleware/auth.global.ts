@@ -11,6 +11,10 @@ export default defineNuxtRouteMiddleware((to) => {
   const isLoggedIn = store.isLoggedIn
 
   if (!isLoggedIn && to.path !== loginRoutePath) {
-    return navigateTo(`${loginRoutePath}?redirect=${to.path}`)
+    return navigateTo(`${loginRoutePath}?redirect=${to.path !== '/' ? to.path : '/dashboard'}`)
+  }
+
+  if (to.path === '/') {
+    return navigateTo('/dashboard')
   }
 })
