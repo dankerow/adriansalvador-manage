@@ -40,7 +40,8 @@ export const useAlbumsStore = defineStore('albums', () => {
 
   const addAlbum = async (form: { name: string, nsfw: boolean, hidden: boolean, favorite: boolean, featured: boolean }) => {
     try {
-      const data: Album = await useFaetch('/albums', { method: 'post', body: form })
+      const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
+      const data: Album = await useFaetch('/albums', { baseURL: cdnBaseURL, method: 'post', body: form })
       albums.value.push(data)
 
       return { data, error: null }
@@ -51,7 +52,8 @@ export const useAlbumsStore = defineStore('albums', () => {
 
   const updateAlbum = async (id: string, form: { name: string, nsfw: boolean, hidden: boolean, favorite: boolean, featured: boolean }) => {
     try {
-      const data: Album = await useFaetch(`/albums/${id}`, { method: 'put', body: form })
+      const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
+      const data: Album = await useFaetch(`/albums/${id}`, { baseURL: cdnBaseURL, method: 'put', body: form })
       const index = albums.value.findIndex((album: any) => album.id === id)
       albums.value[index] = data
 
@@ -63,7 +65,8 @@ export const useAlbumsStore = defineStore('albums', () => {
 
   const deleteAlbum = async (id: string) => {
     try {
-      await useFaetch(`/albums/${id}`, { method: 'delete' })
+      const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
+      await useFaetch(`/albums/${id}`, { baseURL: cdnBaseURL, method: 'delete' })
       const index = albums.value.findIndex((album: any) => album.id === id)
       albums.value.splice(index, 1)
 
@@ -75,7 +78,8 @@ export const useAlbumsStore = defineStore('albums', () => {
 
   const deleteAlbums = async (ids: string[]) => {
     try {
-      await useFaetch('/albums', { method: 'delete', body: { ids } })
+      const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
+      await useFaetch('/albums', { baseURL: cdnBaseURL, method: 'delete', body: { ids } })
       albums.value = albums.value.filter((album: any) => !ids.includes(album.id))
 
       return { error: null }
@@ -99,7 +103,6 @@ export const useAlbumsStore = defineStore('albums', () => {
     try {
       const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
       const data: Album['images'] = await useFaetch(`/albums/${id}/images/save`, { baseURL: cdnBaseURL, headers: {
-        accept: 'application/vnd.adriansalvador.json',
         'Content-Type': 'application/json'
       }, method: 'post', body: files })
 
@@ -111,7 +114,8 @@ export const useAlbumsStore = defineStore('albums', () => {
 
   const deleteFile = async (id: string) => {
     try {
-      await useFaetch(`/images/${id}`, { method: 'delete' })
+      const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
+      await useFaetch(`/images/${id}`, { baseURL: cdnBaseURL, method: 'delete' })
 
       return { error: null }
     } catch (e: any) {
@@ -121,7 +125,8 @@ export const useAlbumsStore = defineStore('albums', () => {
 
   const deleteFiles = async (ids: string[]) => {
     try {
-      await useFaetch('/images', { method: 'delete', body: { ids } })
+      const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
+      await useFaetch('/images', { baseURL: cdnBaseURL, method: 'delete', body: { ids } })
 
       return { error: null }
     } catch (e: any) {
