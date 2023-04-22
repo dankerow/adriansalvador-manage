@@ -16,7 +16,7 @@ const deleteAlbum = async () => {
   }
 }
 
-const isRootPath = computedEager(() => route.name?.startsWith('dashboard-albums-id') && !route.name?.includes('files'))
+const isRootPath = computedEager(() => route.name?.startsWith('albums-id') && !route.name?.includes('files'))
 </script>
 
 <template>
