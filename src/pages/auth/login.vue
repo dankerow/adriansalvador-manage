@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth'
 
+definePageMeta({
+  layout: 'none'
+})
+
 useHead({
   title: 'Login'
 })
