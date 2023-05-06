@@ -1,17 +1,18 @@
-import { useAuthStore } from '@/stores/auth'
 import { NitroFetchOptions } from 'nitropack'
+import defu from 'defu'
 
 export default <T>(url: string, options: NitroFetchOptions<Request> = {}): Promise<T> => {
-  const authStore = useAuthStore()
+  const userAuth = useCookie('token')
   const config = useRuntimeConfig()
 
-  const fetchOptions = options
-  fetchOptions.headers = fetchOptions.headers || {}
-
-  if (authStore.token) fetchOptions.headers.authorization = `Bearer ${authStore.token}`
-
-  return $fetch(url, {
+  const defaults: NitroFetchOptions<Request> = {
     baseURL: config.public.apiBaseURL,
-    ...fetchOptions
-  })
+    headers: userAuth.value
+      ? { Authorization: `Bearer ${userAuth.value}` }
+      : {}
+  }
+
+  const params = defu(defaults, options)
+
+  return $fetch(url, params)
 }
