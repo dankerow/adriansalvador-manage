@@ -28,6 +28,14 @@ interface Props {
   data: object[]
   pagination?: PaginationOptions
   filters?: FilterOptions
+  buttons?: {
+    name: string
+    text: string
+    icon?: string
+    url?: string
+    disabled?: boolean
+    callback?:() => void
+  }[],
   download?: {
     excel?: boolean
     csv?: boolean
@@ -80,7 +88,9 @@ const {
   data,
   pagination,
   filters,
-  download
+  buttons,
+  download,
+  show
 } = toRefs(props)
 
 const fireDataLoad = () => {
@@ -90,7 +100,7 @@ const fireDataLoad = () => {
 }
 
 const nextPage = () => {
-  if (loading) {
+  if (loading.value) {
     return
   }
 
@@ -100,7 +110,7 @@ const nextPage = () => {
 }
 
 const previousPage = () => {
-  if (loading) {
+  if (loading.value) {
     return
   }
 
@@ -110,7 +120,7 @@ const previousPage = () => {
 }
 
 const changePage = (value: number) => {
-  if (loading) {
+  if (loading.value) {
     return
   }
 
@@ -145,7 +155,7 @@ const filterData = () => {
     })
   }
 
-  if (tableData.value.length && (tableData.value.length <= filters.value.limit)) {
+  if (show.pagination && tableData.value.length && (tableData.value.length <= filters.value.limit)) {
     const start = (currentPage.value - 1) * filters.value.limit
     const end = start + filters.value.limit
 
@@ -259,9 +269,59 @@ defineExpose({
 <template>
   <div class="card">
     <div v-if="title" class="card-header">
-      <h3 class="text-capitalize fw-bolder mb-0">
-        {{ title }}
-      </h3>
+      <div class="row row-cols-2">
+        <div class="col-sm-12 col-md-6 col-lg-auto">
+          <h3 class="text-capitalize fw-bolder mb-0">
+            {{ title }}
+          </h3>
+        </div>
+        <div v-if="buttons?.length" class="col-sm-12 col-md-6 col-lg text-end">
+          <template v-for="button in buttons" :key="button.name">
+            <slot
+              v-if="slots[`button-${button.name.replace(/ /g, '-')}`]"
+              :name="`button-${button.name.replace(/ /g, '-')}`"
+              v-bind="{ button }"
+            />
+            <slot
+              v-else-if="slots[`button-${button.name.replace(/ /g, '-').toLowerCase()}`]"
+              :name="`button-${button.name.replace(/ /g, '-').toLowerCase()}`"
+              v-bind="{ button }"
+            />
+            <slot
+              v-else-if="slots.button"
+              name="button"
+            />
+            <template v-else>
+              <NuxtLink
+                v-if="button.url"
+                :key="button.name"
+                :to="button.url"
+                class="btn btn-sm btn-primary"
+                :class="{ disabled: button.disabled }"
+                :disabled="button.disabled"
+              >
+                <Icon v-if="button.icon" :name="button.icon" />
+                <span>
+                  {{ button.text }}
+                </span>
+              </NuxtLink>
+              <button
+                v-else
+                :key="button.name"
+                class="btn btn-sm btn-primary"
+                :class="{ disabled: button.disabled }"
+                :disabled="button.disabled"
+                @click="button.callback"
+              >
+                <Icon v-if="button.icon" :name="button.icon" />
+                <span>
+                  {{ button.text }}
+                </span>
+              </button>
+            </template>
+          </template>
+        </div>
+      </div>
     </div>
 
     <div class="card-header">
