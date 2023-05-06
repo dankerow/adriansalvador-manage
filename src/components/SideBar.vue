@@ -1,233 +1,198 @@
 <script setup lang="ts">
 import { useSettingsStore } from '@/stores/settings'
-import { useAuthStore } from '@/stores/auth'
 
 const route = useRoute()
-const colorMode = useColorMode()
-const authStore = useAuthStore()
 const settings = useSettingsStore()
 
 const navigation = ref({
-	categories: [
-		{
-			name: 'general',
-			nav: [
-				{
-					name: 'dashboard',
-					path: '/',
-					icon: 'ic:twotone-space-dashboard'
-				},
-				{
-					name: 'albums',
-					path: '/albums',
-					icon: 'ic:twotone-folder-copy',
-					dropdown: [
-						{
-							name: 'overview',
-							path: '/albums'
-						}
-					]
-				}
-			]
-		},
-		{
-			name: 'Analytics',
-			nav: [
-				{
-					name: 'overview',
-					path: '/analytics',
-					icon: 'ic:twotone-pie-chart'
-				}
-			]
-		},
-		{
-			name: 'administration',
-			adminOnly: true,
-			nav: [
-				{
-					name: 'Settings',
-					path: '/admin/settings',
-					icon: 'ic:twotone-settings',
-					dropdown: [
-						{
-							name: 'Overview',
-							disabled: true,
-							path: '/admin/settings'
-						}
-					]
-				},
-				{
-					name: 'Users',
-					path: '/admin/users',
-					icon: 'ic:outline-supervisor-account',
-					dropdown: [
-						{
-							name: 'Overview',
-							path: '/admin/users'
-						}
-					]
-				}
-			]
-		}
-	]
+  categories: [
+    {
+      name: 'general',
+      nav: [
+        {
+          name: 'dashboard',
+          path: '/dashboard',
+          icon: 'ic:twotone-space-dashboard'
+        },
+        {
+          name: 'albums',
+          path: '/albums',
+          icon: 'ic:twotone-folder-copy'
+        }
+      ]
+    },
+    {
+      name: 'Analytics',
+      nav: [
+        {
+          name: 'overview',
+          path: '/analytics',
+          icon: 'ic:twotone-pie-chart'
+        }
+      ]
+    },
+    {
+      name: 'administration',
+      adminOnly: true,
+      nav: [
+        {
+          name: 'Settings',
+          path: '/admin/settings',
+          icon: 'ic:twotone-settings',
+          dropdown: [
+            {
+              name: 'Overview',
+              disabled: true,
+              path: '/admin/settings'
+            }
+          ]
+        },
+        {
+          name: 'Users',
+          path: '/admin/users',
+          icon: 'ic:outline-supervisor-account'
+        }
+      ]
+    }
+  ]
 })
 
-const pinSidenav = () => {
-	const body = document.querySelector('body')
-	settings.updateSideBar(true)
-	body?.classList.add('g-sidenav-show')
+const pinSidebar = () => {
+  const body = document.querySelector('body')
+  settings.updateSidebar(true)
+  body?.classList.add('g-sidebar-show')
 }
 
-const unpinSidenav = () => {
-	const body = document.querySelector('body')
-	settings.updateSideBar(false)
-	body?.classList.remove('g-sidenav-show')
+const unpinSidebar = () => {
+  const body = document.querySelector('body')
+  settings.updateSidebar(false)
+  body?.classList.remove('g-sidebar-show')
 }
 
 const isNavItemActive = (path: string) => {
-	return route.path === path ? true : path !== '/' && route.path.startsWith(path)
+  return route.path === path ? true : path !== '/' && route.path.startsWith(path)
 }
 
 if (process.client) {
-	watchEffect(() => {
-		if (settings.sideBar) {
-			pinSidenav()
-		} else {
-			unpinSidenav()
-		}
-	})
+  watchEffect(() => {
+    if (settings.sidebar) {
+      pinSidebar()
+    } else {
+      unpinSidebar()
+    }
+  })
 }
 
 onMounted(() => {
-	const body = document.querySelector('body')
+  const body = document.querySelector('body')
 
-	const sidenavState = settings.isSideBarPinned
+  const sidebarState = settings.isSidebarPinned
 
-	if (window.innerWidth > 1200) {
-		if (sidenavState) pinSidenav()
-		else unpinSidenav()
-	}
+  if (window.innerWidth > 1200) {
+    if (sidebarState) pinSidebar()
+    else unpinSidebar()
+  }
 
-	if (window.innerWidth < 1200) {
-		body?.classList.remove('g-sidenav-show')
-		unpinSidenav()
+  if (window.innerWidth < 1200) {
+    body?.classList.remove('g-sidebar-show')
+    unpinSidebar()
 
-		window.addEventListener('resize', () => {
-			if (body?.classList.contains('g-sidenav-show')) {
-				unpinSidenav()
-			}
-		})
-	}
+    window.addEventListener('resize', () => {
+      if (body?.classList.contains('g-sidebar-show')) {
+        unpinSidebar()
+      }
+    })
+  }
 })
 </script>
 
 <template>
-	<aside
-		class="sidenav shadow"
-		:class="{ 'bg-darker': colorMode.value === 'dark' }"
-	>
-		<div class="sidenav-header border-bottom">
-			<div class="navbar-brand">
-				<h2 class="navbar-brand-text">
-					Adrian Salvador
-				</h2>
-			</div>
-		</div>
+  <div class="sidebar shadow-sm">
+    <div class="sidebar-brand">
+      <div class="navbar-brand">
+        <h2 class="navbar-brand-text">
+          Adrian Salvador
+        </h2>
+      </div>
 
-		<div
-			class="sidenav-item d-flex flex-nowrap border-bottom py-4 mb-3"
-			:class="{ 'bg-dark': colorMode.value === 'dark', 'bg-light': colorMode.value === 'light' }"
-		>
-			<div class="icon icon-shape icon-shape-darker icon-lg me-3">
-				<Icon name="ic:twotone-account-box" />
-			</div>
-			<div>
-				<span style="display: block;white-space: nowrap;text-overflow: ellipsis;">
-					{{ authStore.user.firstName }} <strong> {{ authStore.user.lastName }}</strong>
-				</span>
-				<span class="rounded text-bg-primary px-1 d-inline-block text-nowrap" style="white-space: nowrap;text-overflow: ellipsis;font-size: 12px">
-					<template v-if="authStore.user.role === 'admin'">
-						Administrator
-					</template>
-					<template v-else>
-						User
-					</template>
-				</span>
-			</div>
-		</div>
+      <hr>
+    </div>
 
-		<div class="sidemenu mb-auto">
-			<template v-for="(category, index) in navigation.categories" :key="`${category.name}-${index}`">
-				<div class="sidenav-item">
-					<span class="navbar-heading">
-						{{ category.name }}
-					</span>
+    <div class="sidebar-nav mb-auto">
+      <template v-for="(category, index) in navigation.categories" :key="`${category.name}-${index}`">
+        <div class="sidebar-item">
+          <span class="navbar-heading">
+            {{ category.name }}
+          </span>
 
-					<ul class="navbar-nav nav list-unstyled ps-0">
-						<li v-for="(navItem, indexNav) in category.nav" :key="`${navItem.name}-${indexNav}`" class="nav-item">
-							<template v-if="navItem.dropdown">
-								<a
-									:class="`nav-link align-items-center ${isNavItemActive(navItem.path) ? 'collapsed' : ''}`"
-									type="button"
-									data-bs-toggle="collapse"
-									:data-bs-target="`#${navItem.name.replace(' ', '-')}-collapse`"
-									:aria-expanded="isNavItemActive(navItem.path)"
-									aria-dropdown="true"
-								>
-									<Icon class="nav-link-icon" :name="navItem.icon" />
-									<span>
-										{{ navItem.name }}
-									</span>
-								</a>
+          <ul class="navbar-nav nav list-unstyled ps-0">
+            <li v-for="(navItem, indexNav) in category.nav" :key="`${navItem.name}-${indexNav}`" class="nav-item">
+              <template v-if="navItem.dropdown">
+                <a
+                  :class="`nav-link align-items-center ${isNavItemActive(navItem.path) ? 'collapsed' : ''}`"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  :data-bs-target="`#${navItem.name.replace(' ', '-')}-collapse`"
+                  :aria-expanded="isNavItemActive(navItem.path)"
+                  aria-dropdown="true"
+                >
+                  <Icon class="nav-link-icon" :name="navItem.icon" />
+                  <span>
+                    {{ navItem.name }}
+                  </span>
+                </a>
 
-								<div :id="`${navItem.name.replace(' ', '-')}-collapse`" :class="`collapse ${isNavItemActive(navItem.path) ? 'show' : ''}`">
-									<ul class="nav-link-nav list-unstyled fw-normal pb-1 small">
-										<li v-for="(navDropdownItem, indexDropdown) in navItem.dropdown" :key="`${navItem.name}-${navDropdownItem.name}-${indexDropdown}`">
-											<a v-if="navDropdownItem.disabled" href="#" class="nav-link disabled">
-												{{ navDropdownItem.name }}
-											</a>
-											<NuxtLink v-else :to="navDropdownItem.path" class="nav-link">
-												{{ navDropdownItem.name }}
-											</NuxtLink>
-										</li>
-									</ul>
-								</div>
-							</template>
+                <div :id="`${navItem.name.replace(' ', '-')}-collapse`" :class="`collapse ${isNavItemActive(navItem.path) ? 'show' : ''}`">
+                  <ul class="nav-link-nav list-unstyled fw-normal pb-1 small">
+                    <li v-for="(navDropdownItem, indexDropdown) in navItem.dropdown" :key="`${navItem.name}-${navDropdownItem.name}-${indexDropdown}`">
+                      <a v-if="navDropdownItem.disabled" href="#" class="nav-link disabled">
+                        {{ navDropdownItem.name }}
+                      </a>
+                      <NuxtLink v-else :to="navDropdownItem.path" class="nav-link">
+                        {{ navDropdownItem.name }}
+                      </NuxtLink>
+                    </li>
+                  </ul>
+                </div>
+              </template>
 
-							<template v-else>
-								<a v-if="navItem.disabled" href="#" class="nav-link disabled align-items-center">
-									<Icon class="nav-link-icon" :name="navItem.icon" />
-									<span>
-										{{ navItem.name }}
-									</span>
-								</a>
-								<NuxtLink
-									v-else
-									:class="`nav-link align-items-center ${isNavItemActive(navItem.path) ? 'active' : ''}`"
-									:to="navItem.path"
-								>
-									<Icon class="nav-link-icon" :name="navItem.icon" />
-									<span>
-										{{ navItem.name }}
-									</span>
-								</NuxtLink>
-							</template>
-						</li>
-					</ul>
-				</div>
-			</template>
-		</div>
+              <template v-else>
+                <a v-if="navItem.disabled" href="#" class="nav-link disabled align-items-center">
+                  <Icon class="nav-link-icon" :name="navItem.icon" />
+                  <span>
+                    {{ navItem.name }}
+                  </span>
+                </a>
+                <NuxtLink
+                  v-else
+                  :class="`nav-link align-items-center ${isNavItemActive(navItem.path) ? 'active' : ''}`"
+                  :to="navItem.path"
+                >
+                  <Icon class="nav-link-icon" :name="navItem.icon" />
+                  <span>
+                    {{ navItem.name }}
+                  </span>
+                </NuxtLink>
+              </template>
+            </li>
+          </ul>
+        </div>
+      </template>
+    </div>
 
-		<hr>
+    <hr>
 
-		<div class="sidebottom d-flex w-100 flex-nowrap px-3 py-1">
-			<ThemeSelector />
-		</div>
-	</aside>
+    <div class="sidebar-footer d-flex w-100 flex-nowrap px-3 py-1">
+      <ThemeSelector />
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-.sidenav {
+.sidebar {
+  --bs-bg-opacity: 1;
+
+  background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity));
 	display: flex;
 	flex-direction: column;
 	height: 100%;
@@ -235,7 +200,7 @@ onMounted(() => {
 	overflow-x: auto;
 	position: fixed;
 	top: 0;
-	transition: left .35s ease-in-out, width .35s ease-in-out;
+	transition: left .3s ease-in-out, width .3s ease-in-out;
 	width: 250px;
 	z-index: 999;
 
@@ -256,20 +221,22 @@ onMounted(() => {
 		background: transparent;
 	}
 
-	.sidenav-header {
-		height: 68px;
-		padding: 1.5rem 0;
+	.sidebar-brand {
+		padding: 1rem 0.75rem;
 		text-align: center;
 		width: 100%;
 	}
 
-	.sidenav-item {
-		padding: 1rem 1rem 0;
+	.sidebar-item {
+		padding: 0 1rem 0 1rem;
+
+    &:not(:first-child) {
+      padding-top: 1rem;
+    }
 	}
 
 	.navbar-brand {
 		.navbar-brand-text {
-			color: #fff;
 			display: inline-block;
 			font-weight: bold;
 			margin-bottom: 0;
@@ -288,12 +255,12 @@ onMounted(() => {
 }
 
 @media (min-width: 1200px) {
-	.sidenav {
+	.sidebar {
 		&:hover {
 			max-width: 280px;
 		}
 
-		.sidenav-toggler {
+		.sidebar-toggler {
 			padding: 1.5rem;
 		}
 	}
@@ -339,7 +306,7 @@ onMounted(() => {
 		position: absolute;
 		right: 8px;
 		transform-origin: .5em 50%;
-		transition: transform .35s ease-in-out;
+		transition: transform .3s ease-in-out;
 		width: 1.5em;
 	}
 
@@ -355,9 +322,12 @@ onMounted(() => {
 	}
 
 	.nav-link-icon {
+    --bs-text-opacity: 1;
+
+    color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity));
 		flex-shrink: 0;
-		margin-right: .5rem;
 		height: 1.25rem;
+    margin-right: .5rem;
 		transition: color .3s ease-in-out;
 		vertical-align: middle;
 		width: 1.25rem;
@@ -375,8 +345,13 @@ onMounted(() => {
 	}
 }
 
+
 .dark-mode {
-	.sidenav {
+	.sidebar {
+    --bs-bg-opacity: 1;
+
+    background-color: rgba(var(--bs-darker-rgb), var(--bs-bg-opacity));
+
 		&::-webkit-scrollbar-thumb {
 			background-color: rgb(37, 37, 37);
 		}
