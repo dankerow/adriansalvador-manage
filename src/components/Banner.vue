@@ -22,7 +22,6 @@ withDefaults(defineProps<{
   body: () => ({})
 })
 
-const colorMode = useColorMode()
 const slots = useSlots()
 const route = useRoute()
 </script>
@@ -33,8 +32,8 @@ const route = useRoute()
       <ol class="breadcrumb bg-darker bg-opacity-75 mb-0 px-3 py-2">
         <li class="breadcrumb-item">
           <NuxtLink class="link-body-emphasis" to="/">
-            <Icon :name="icon" />
-            <span class="visually-hidden">Home</span>
+            <Icon v-if="icon" :name="icon" />
+            <span :class="{ 'visually-hidden': icon } ">Home</span>
           </NuxtLink>
         </li>
 
@@ -77,8 +76,8 @@ const route = useRoute()
                   v-if="button.url"
                   :key="button.name"
                   :to="button.url"
-                  class="btn btn-sm"
-                  :class="{ 'btn-primary': colorMode.value === 'dark', 'btn-white': colorMode.value === 'light', 'disabled': button.disabled }"
+                  class="btn btn-sm btn-primary"
+                  :class="{ disabled: button.disabled }"
                   :disabled="button.disabled"
                 >
                   <Icon v-if="button.icon" :name="button.icon" />
@@ -89,8 +88,8 @@ const route = useRoute()
                 <button
                   v-else
                   :key="button.name"
-                  class="btn btn-sm"
-                  :class="{ 'btn-primary': colorMode.value === 'dark', 'btn-white': colorMode.value === 'light', 'disabled': button.disabled }"
+                  class="btn btn-sm btn-primary"
+                  :class="{ disabled: button.disabled }"
                   :disabled="button.disabled"
                   @click="button.callback"
                 >
