@@ -2,7 +2,6 @@
 import vueFilePond from 'vue-filepond'
 import 'filepond/dist/filepond.min.css'
 
-const colorMode = useColorMode()
 const router = useRouter()
 const route = useRoute()
 
@@ -24,17 +23,7 @@ const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
 onMounted(() => {
   pond.value._pond.setOptions({
     server: {
-      url: `${cdnBaseURL}/albums/${route.params.id}/images/upload`,
-      process: {
-        headers: {
-          Accept: 'application/vnd.adriansalvador.json',
-        }
-      },
-      revert: {
-        headers: {
-          Accept: 'application/vnd.adriansalvador.json',
-        }
-      }
+      url: `${cdnBaseURL}/albums/${route.params.id}/images/upload`
     }
   })
 })
@@ -45,10 +34,7 @@ onMounted(() => {
     <div class="container-fluid mt-n4">
       <div class="row justify-content-center">
         <div class="col-12">
-          <div
-            class="card"
-            :class="{ 'bg-darker': colorMode.value === 'dark' }"
-          >
+          <div class="card">
             <form id="addAlbumForm" method="post" role="form">
               <div class="card-header">
                 <div class="row align-items-center">
@@ -72,6 +58,7 @@ onMounted(() => {
                   ref="pond"
                   :name="route.params.id"
                   :allow-multiple="true"
+                  :check-validity="true"
                   accepted-file-types="image/jpeg, image/png"
                 />
               </div>
