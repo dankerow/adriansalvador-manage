@@ -12,6 +12,10 @@ export default defineNuxtConfig({
     strict: true
   },
 
+  experimental: {
+    watcher: 'parcel'
+  },
+
   runtimeConfig: {
     public: {
       apiBaseURL: isProduction ? process.env.API_BASE_URL : process.env.API_BASE_URL_DEV,
