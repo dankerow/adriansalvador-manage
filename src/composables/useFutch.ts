@@ -1,17 +1,18 @@
 import { UseFetchOptions } from '#app'
-import { useAuthStore } from '@/stores/auth'
+import defu from 'defu'
 
-export default (url: string, options: UseFetchOptions<object> = {}) => {
-  const authStore = useAuthStore()
+export default <T>(url: string, options: UseFetchOptions<T> = {}) => {
+  const userAuth = useCookie('token')
   const config = useRuntimeConfig()
 
-  const fetchOptions = options
-  fetchOptions.headers = fetchOptions.headers || {}
-
-  if (authStore.token) fetchOptions.headers.authorization = `Bearer ${authStore.token}`
-
-  return useFetch(url, {
+  const defaults: UseFetchOptions<T> = {
     baseURL: config.public.apiBaseURL,
-    ...fetchOptions
-  })
+    headers: userAuth.value
+      ? { Authorization: `Bearer ${userAuth.value}` }
+      : {}
+  }
+
+  const params = defu(options, defaults)
+
+  return useFetch(url, params)
 }
