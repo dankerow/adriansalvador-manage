@@ -3,15 +3,25 @@ import type { Album } from '@/types/Album'
 
 import { useAlbumsStore } from '@/stores/albums'
 
+const { addToast } = useToast()
 const route = useRoute()
 const albumsStore = useAlbumsStore()
 
-const album: Album = albumsStore.albums.find(album => album.id === route.params.id) || (await albumsStore.getAlbum(route.params.id)).data
+const album: Album = albumsStore.albums.find(album => album.id === route.params.id) || await albumsStore.getAlbum(route.params.id)
+
+if (!album) {
+  throw createError({ statusCode: 404, message: 'The album you are looking for couldn\'t be found.' })
+}
 
 const deleteAlbum = async () => {
   const { error } = await albumsStore.deleteAlbum(album.id)
 
   if (!error) {
+    addToast({
+      title: 'Notification',
+      body: `The album (${album.name}) was successfully deleted.`
+    })
+
     return navigateTo('/albums')
   }
 }
