@@ -16,9 +16,21 @@ dependencies:
   filepond-plugin-file-validate-type:
     specifier: ^1.2.8
     version: 1.2.8(filepond@4.30.4)
+  filepond-plugin-image-crop:
+    specifier: ^2.0.6
+    version: 2.0.6(filepond@4.30.4)
+  filepond-plugin-image-exif-orientation:
+    specifier: ^1.0.11
+    version: 1.0.11(filepond@4.30.4)
   filepond-plugin-image-preview:
     specifier: ^4.6.11
     version: 4.6.11(filepond@4.30.4)
+  filepond-plugin-image-resize:
+    specifier: ^2.0.10
+    version: 2.0.10(filepond@4.30.4)
+  filepond-plugin-image-transform:
+    specifier: ^3.8.7
+    version: 3.8.7(filepond@4.30.4)
   vue-filepond:
     specifier: ^7.0.3
     version: 7.0.3(filepond@4.30.4)(vue@3.2.47)
@@ -48,6 +60,9 @@ devDependencies:
   '@nuxtjs/google-fonts':
     specifier: 3.0.0
     version: 3.0.0
+  '@parcel/watcher':
+    specifier: ^2.1.0
+    version: 2.1.0
   '@types/node':
     specifier: ^18.16.0
     version: 18.16.0
@@ -62,7 +77,7 @@ devDependencies:
     version: 8.39.0
   nuxt:
     specifier: 3.4.2
-    version: 3.4.2(@types/node@18.16.0)(eslint@8.39.0)(sass@1.62.0)(typescript@5.0.4)
+    version: 3.4.2(@parcel/watcher@2.1.0)(@types/node@18.16.0)(eslint@8.39.0)(sass@1.62.0)(typescript@5.0.4)
   nuxt-icon:
     specifier: ^0.3.3
     version: 0.3.3(vue@3.2.47)
@@ -885,7 +900,7 @@ packages:
       '@nuxt/kit': 3.4.2
       '@nuxt/schema': 3.4.2
       execa: 7.1.1
-      nuxt: 3.4.2(@types/node@18.16.0)(eslint@8.39.0)(sass@1.62.0)(typescript@5.0.4)
+      nuxt: 3.4.2(@parcel/watcher@2.1.0)(@types/node@18.16.0)(eslint@8.39.0)(sass@1.62.0)(typescript@5.0.4)
       vite: 4.3.1(@types/node@18.16.0)(sass@1.62.0)
     transitivePeerDependencies:
       - rollup
@@ -931,7 +946,7 @@ packages:
       is-installed-globally: 0.4.0
       launch-editor: 2.6.0
       local-pkg: 0.4.3
-      nuxt: 3.4.2(@types/node@18.16.0)(eslint@8.39.0)(sass@1.62.0)(typescript@5.0.4)
+      nuxt: 3.4.2(@parcel/watcher@2.1.0)(@types/node@18.16.0)(eslint@8.39.0)(sass@1.62.0)(typescript@5.0.4)
       nypm: 0.2.0
       pacote: 15.1.2
       pathe: 1.1.0
@@ -1270,6 +1285,17 @@ packages:
     transitivePeerDependencies:
       - rollup
       - supports-color
+    dev: true
+
+  /@parcel/watcher@2.1.0:
+    resolution: {integrity: sha512-8s8yYjd19pDSsBpbkOHnT6Z2+UJSuLQx61pCFM0s5wSRvKCEMDjd/cHY3/GI1szHIWbpXpsJdg3V6ISGGx9xDw==}
+    engines: {node: '>= 10.0.0'}
+    requiresBuild: true
+    dependencies:
+      is-glob: 4.0.3
+      micromatch: 4.0.5
+      node-addon-api: 3.2.1
+      node-gyp-build: 4.6.0
     dev: true
 
   /@pinia/nuxt@0.4.9(typescript@5.0.4)(vue@3.2.47):
@@ -1868,7 +1894,7 @@ packages:
       '@vueuse/core': 10.1.0(vue@3.2.47)
       '@vueuse/metadata': 10.1.0
       local-pkg: 0.4.3
-      nuxt: 3.4.2(@types/node@18.16.0)(eslint@8.39.0)(sass@1.62.0)(typescript@5.0.4)
+      nuxt: 3.4.2(@parcel/watcher@2.1.0)(@types/node@18.16.0)(eslint@8.39.0)(sass@1.62.0)(typescript@5.0.4)
       vue-demi: 0.14.0(vue@3.2.47)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -3417,10 +3443,42 @@ packages:
       filepond: 4.30.4
     dev: false
 
+  /filepond-plugin-image-crop@2.0.6(filepond@4.30.4):
+    resolution: {integrity: sha512-bSy/KND4EP/QtW8MxIj23qgSEPUVRrT8XdktJ+OU9y8xRjFjTG+qcuw1LsycARQYRtzi8cZrD3P4POOITfkywQ==}
+    peerDependencies:
+      filepond: '>=3.x <5.x'
+    dependencies:
+      filepond: 4.30.4
+    dev: false
+
+  /filepond-plugin-image-exif-orientation@1.0.11(filepond@4.30.4):
+    resolution: {integrity: sha512-hLBc12Fk6Zkj3L8mSAn+elugHOqT5rLUbgVXQQIQjMe0FsGjtpoxqeVR6jt4IWHGat2L9sFAgU2TGmd1mqosCg==}
+    peerDependencies:
+      filepond: '>=3.x <5.x'
+    dependencies:
+      filepond: 4.30.4
+    dev: false
+
   /filepond-plugin-image-preview@4.6.11(filepond@4.30.4):
     resolution: {integrity: sha512-0EmQ9HnOb/X0xc5rLcNRhhmdUbp7oiicRwQrcr90ZfVmPJOOZoX3ZGUEsEPj7luMI55huguhcVozdESxtqnuRw==}
     peerDependencies:
       filepond: '>=4.x <5.x'
+    dependencies:
+      filepond: 4.30.4
+    dev: false
+
+  /filepond-plugin-image-resize@2.0.10(filepond@4.30.4):
+    resolution: {integrity: sha512-irX+J275u8Ph1KcciCeSQmxeFjbu0+co5XVCkiwdSNnz6KiqrCKN7RXTvEbdgSdDzyi5omr2oP1rKWps5L1RsQ==}
+    peerDependencies:
+      filepond: '>=3.x <5.x'
+    dependencies:
+      filepond: 4.30.4
+    dev: false
+
+  /filepond-plugin-image-transform@3.8.7(filepond@4.30.4):
+    resolution: {integrity: sha512-vgKwyIDG2y5twanf7YpqZvxkaLudTjwd9vRcoq5sQDB8egUlX5/NA0bQ0823pocrm0fjbFeetICu44mkqeDkIA==}
+    peerDependencies:
+      filepond: '>=3.6.0 <5.x'
     dependencies:
       filepond: 4.30.4
     dev: false
@@ -5063,6 +5121,10 @@ packages:
     dev: true
     optional: true
 
+  /node-addon-api@3.2.1:
+    resolution: {integrity: sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==}
+    dev: true
+
   /node-addon-api@6.1.0:
     resolution: {integrity: sha512-+eawOlIgy680F0kBzPUNFhMZGtJ1YmqM6l4+Crf4IkImjYrO/mqPwRMh352g23uIaQKFItcQ64I7KMaJxHgAVA==}
     dev: true
@@ -5362,7 +5424,7 @@ packages:
       - supports-color
     dev: true
 
-  /nuxt@3.4.2(@types/node@18.16.0)(eslint@8.39.0)(sass@1.62.0)(typescript@5.0.4):
+  /nuxt@3.4.2(@parcel/watcher@2.1.0)(@types/node@18.16.0)(eslint@8.39.0)(sass@1.62.0)(typescript@5.0.4):
     resolution: {integrity: sha512-4v+oeBL4ZI8nHzF0Dm1p5kF9VCNlzrpvOt7wu3BnmzlueXsu4A/LfmFvpfZLxws+r5U74eM5Ut/LMD8B8LrZIw==}
     engines: {node: ^14.18.0 || ^16.10.0 || ^17.0.0 || ^18.0.0 || ^19.0.0}
     hasBin: true
@@ -5379,6 +5441,7 @@ packages:
       '@nuxt/telemetry': 2.2.0
       '@nuxt/ui-templates': 1.1.1
       '@nuxt/vite-builder': 3.4.2(@types/node@18.16.0)(eslint@8.39.0)(sass@1.62.0)(typescript@5.0.4)(vue@3.2.47)
+      '@parcel/watcher': 2.1.0
       '@types/node': 18.16.0
       '@unhead/ssr': 1.1.26
       '@unhead/vue': 1.1.26(vue@3.2.47)
