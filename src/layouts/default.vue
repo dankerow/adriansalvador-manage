@@ -32,6 +32,9 @@ useHead({
   ]
 })
 
+const toasts = useToasts()
+const { removeToast } = useToast()
+
 onMounted(() => {
   const setTheme = function(theme: string) {
     document.documentElement.setAttribute('data-bs-theme', theme)
@@ -58,7 +61,9 @@ onMounted(() => {
       <slot />
     </div>
 
-    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 99;" />
+    <ToastContainer placement="bottom-end" visible>
+      <Toast v-for="(toast, index) in toasts" :key="index" :title="toast.title" :body="toast.body" :color="toast?.color" visible @close="removeToast(toast)" />
+    </ToastContainer>
   </div>
 </template>
 
