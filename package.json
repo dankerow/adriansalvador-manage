@@ -25,24 +25,24 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^0.4.1",
+    "@nuxt/devtools": "^0.4.5",
     "@nuxt/eslint-config": "^0.1.1",
-    "@nuxt/image-edge": "1.0.0-28020728.5df24eb",
+    "@nuxt/image-edge": "1.0.0-28050764.aaee7ac",
     "@nuxtjs/color-mode": "^3.2.0",
-    "@nuxtjs/critters": "^0.4.0",
+    "@nuxtjs/critters": "^0.4.1",
     "@nuxtjs/fontaine": "^0.2.5",
     "@nuxtjs/google-fonts": "3.0.0",
     "@parcel/watcher": "^2.1.0",
-    "@types/node": "^18.16.0",
-    "@vueuse/core": "^10.1.0",
-    "@vueuse/nuxt": "^10.1.0",
-    "eslint": "^8.39.0",
-    "nuxt": "3.4.2",
-    "nuxt-icon": "^0.3.3",
+    "@types/node": "^18.16.5",
+    "@vueuse/core": "^10.1.2",
+    "@vueuse/nuxt": "^10.1.2",
+    "eslint": "^8.40.0",
+    "nuxt": "3.4.3",
+    "nuxt-icon": "^0.4.0",
     "nuxt-purgecss": "^2.0.0",
     "nuxt-security": "^0.13.0",
     "nuxt-time": "^0.1.0",
-    "sass": "^1.62.0",
+    "sass": "^1.62.1",
     "typescript": "^5.0.4"
   },
   "browserslist": [
@@ -51,5 +51,5 @@
     "Firefox ESR",
     "not dead"
   ],
-  "packageManager": "pnpm@8.3.1"
+  "packageManager": "pnpm@8.4.0"
 }
