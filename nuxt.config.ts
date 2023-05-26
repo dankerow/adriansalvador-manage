@@ -1,12 +1,6 @@
-const isDevelopment = process.env.NODE_ENV === 'development'
-const isProduction = process.env.NODE_ENV === 'production'
-
 export default defineNuxtConfig({
   rootDir: './',
   srcDir: 'src',
-
-  debug: isDevelopment,
-  sourcemap: isDevelopment,
 
   typescript: {
     strict: true
@@ -16,19 +10,11 @@ export default defineNuxtConfig({
     watcher: 'parcel'
   },
 
-  runtimeConfig: {
-    public: {
-      apiBaseURL: isProduction ? process.env.API_BASE_URL : process.env.API_BASE_URL_DEV,
-      cdnBaseURL: isProduction ? process.env.CDN_BASE_URL : process.env.CDN_BASE_URL_DEV
-    }
-  },
-
   css: [
     '@/assets/scss/bedrock.scss'
   ],
 
   modules: [
-    '@nuxt/devtools',
     '@nuxt/image-edge',
     '@nuxtjs/color-mode',
     '@nuxtjs/critters',
@@ -36,9 +22,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vueuse/nuxt',
     'nuxt-icon',
-    'nuxt-purgecss',
-    'nuxt-time',
-    'nuxt-security'
+    'nuxt-time'
   ],
 
   colorMode: {
@@ -55,10 +39,6 @@ export default defineNuxtConfig({
     display: 'swap'
   },
 
-  image: {
-    domains: [isProduction ? process.env.CDN_BASE_URL as string : process.env.CDN_BASE_URL_DEV as string]
-  },
-
   pinia: {
     autoImports: [
       'defineStore',
@@ -66,16 +46,48 @@ export default defineNuxtConfig({
     ]
   },
 
-  purgecss: {
-    safelist: [
-      'dark-mode',
-      'svg',
-      /^btn-/,
-      /^dropdown/
-    ]
+  $development: {
+    debug: true,
+    sourcemap: true,
+
+    runtimeConfig: {
+      public: {
+        apiBaseURL: process.env.API_BASE_URL_DEV,
+        cdnBaseURL: process.env.CDN_BASE_URL_DEV
+      }
+    },
+    modules: [
+      '@nuxt/devtools'
+    ],
+    image: {
+      domains: [process.env.CDN_BASE_URL_DEV as string]
+    }
   },
 
-  security: {
-    enabled: isProduction
+  $production: {
+    runtimeConfig: {
+      public: {
+        apiBaseURL: process.env.API_BASE_URL,
+        cdnBaseURL: process.env.CDN_BASE_URL
+      }
+    },
+
+    modules: [
+      'nuxt-purgecss',
+      'nuxt-security'
+    ],
+
+    image: {
+      domains: [process.env.CDN_BASE_URL as string]
+    },
+
+    purgecss: {
+      safelist: [
+        'dark-mode',
+        'svg',
+        /^btn-/,
+        /^dropdown/
+      ]
+    }
   }
 })
