@@ -15,7 +15,7 @@ export default defineNuxtConfig({
   ],
 
   modules: [
-    '@nuxt/image-edge',
+    '@nuxt/image',
     '@nuxtjs/color-mode',
     '@nuxtjs/critters',
     '@nuxtjs/google-fonts',
