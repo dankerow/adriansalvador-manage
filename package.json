@@ -33,7 +33,7 @@
     "@nuxtjs/fontaine": "^0.4.0",
     "@nuxtjs/google-fonts": "3.0.1",
     "@parcel/watcher": "^2.1.0",
-    "@types/node": "^18.16.16",
+    "@types/node": "^18.16.17",
     "@vueuse/core": "^10.1.2",
     "@vueuse/nuxt": "^10.1.2",
     "eslint": "^8.42.0",
