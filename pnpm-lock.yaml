@@ -89,8 +89,8 @@ devDependencies:
     specifier: ^2.0.0
     version: 2.0.0(postcss@8.4.24)
   nuxt-security:
-    specifier: ^0.13.0
-    version: 0.13.0
+    specifier: ^0.13.1
+    version: 0.13.1
   nuxt-time:
     specifier: ^0.1.0
     version: 0.1.0
@@ -5444,8 +5444,8 @@ packages:
       - supports-color
     dev: true
 
-  /nuxt-security@0.13.0:
-    resolution: {integrity: sha512-D2u6ggMA2PVRQIVT/y8jXJ0D+7pxi0f627DlzVTFb6MOhZdazQYZGE54zI2g8fAvZciLHqZ8r+bbt3QlRLzIVg==}
+  /nuxt-security@0.13.1:
+    resolution: {integrity: sha512-ZqO9Eu2LmB43U/NK+kAQtTcEO+7swu6WhgZBjvHwSCvg5cDvruhfEjLOffF4nuhvyVpKnt5HRfeRao8ABIe3ug==}
     dependencies:
       '@nuxt/kit': 3.5.3
       basic-auth: 2.0.1
