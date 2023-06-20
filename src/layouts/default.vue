@@ -51,7 +51,7 @@ onMounted(() => {
 
 <template>
   <div class="d-flex flex-row align-items-stretch">
-    <SideBar />
+    <Sidebar />
 
     <div class="main-content" role="main">
       <div id="sidebar-backdrop" class="sidebar-backdrop" />
