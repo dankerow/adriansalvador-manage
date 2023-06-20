@@ -76,7 +76,7 @@ const login = async () => {
                     <label for="email" />
                     <input
                       id="email"
-                      v-model="email"
+                      v-model.lazy="email"
                       class="form-control text-bg-dark"
                       placeholder="Email"
                       type="email"
@@ -95,7 +95,7 @@ const login = async () => {
                     <label for="password" />
                     <input
                       id="password"
-                      v-model="password"
+                      v-model.lazy="password"
                       class="form-control text-bg-dark"
                       type="password"
                       minlength="8"
