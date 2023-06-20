@@ -108,7 +108,7 @@ onMounted(() => {
 
 <template>
   <div class="sidebar shadow-sm">
-    <div class="sidebar-brand">
+    <div class="sidebar-header">
       <div class="navbar-brand">
         <h2 class="navbar-brand-text">
           Adrian Salvador
@@ -136,7 +136,7 @@ onMounted(() => {
                   :aria-expanded="isNavItemActive(navItem.path)"
                   aria-dropdown="true"
                 >
-                  <Icon class="nav-link-icon" :name="navItem.icon" />
+                  <Icon v-if="navItem.icon" class="nav-link-icon" :name="navItem.icon" />
                   <span>
                     {{ navItem.name }}
                   </span>
@@ -148,6 +148,7 @@ onMounted(() => {
                       <a v-if="navDropdownItem.disabled" href="#" class="nav-link disabled">
                         {{ navDropdownItem.name }}
                       </a>
+
                       <NuxtLink v-else :to="navDropdownItem.path" class="nav-link">
                         {{ navDropdownItem.name }}
                       </NuxtLink>
@@ -158,7 +159,7 @@ onMounted(() => {
 
               <template v-else>
                 <a v-if="navItem.disabled" href="#" class="nav-link disabled align-items-center">
-                  <Icon class="nav-link-icon" :name="navItem.icon" />
+                  <Icon v-if="navItem.icon" class="nav-link-icon" :name="navItem.icon" />
                   <span>
                     {{ navItem.name }}
                   </span>
@@ -221,7 +222,7 @@ onMounted(() => {
 		background: transparent;
 	}
 
-	.sidebar-brand {
+	.sidebar-header {
 		padding: 1rem 0.75rem;
 		text-align: center;
 		width: 100%;
