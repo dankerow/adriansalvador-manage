@@ -28,7 +28,7 @@ const route = useRoute()
 
 <template>
   <div>
-    <nav aria-label="breadcrumb" data-aos="fade-down">
+    <nav aria-label="breadcrumb">
       <ol class="breadcrumb bg-darker bg-opacity-75 mb-0 px-3 py-2">
         <li class="breadcrumb-item">
           <NuxtLink class="link-body-emphasis" to="/">
