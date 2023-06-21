@@ -239,7 +239,7 @@ const sort = (column: Column) => {
 }
 
 const downloadExcel = () => {
-  const worksheet = utils.json_to_sheet(data, { header: columns.value.map((column) => column.prop) })
+  const worksheet = utils.json_to_sheet(data.value, { header: columns.value.map((column) => column.prop) })
   const workbook = utils.book_new()
   utils.book_append_sheet(workbook, worksheet, 'Images')
 
