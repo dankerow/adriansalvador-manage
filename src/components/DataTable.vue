@@ -9,6 +9,10 @@ interface Column {
   width: number
 }
 
+interface Row {
+  [key: string]: any
+}
+
 interface PaginationOptions {
   lengthMenu?: number[]
   count?: number
@@ -32,7 +36,7 @@ interface Props {
   stickyHeader?: boolean
   height?: string
   loading?: boolean
-  data: object[]
+  data: Row[]
   pagination?: PaginationOptions
   filters?: FilterOptions
   buttons?: {
@@ -82,7 +86,7 @@ const colorMode = useColorMode()
 const slots = useSlots()
 
 const currentPage: Ref<number> = ref(1)
-const tableData: Ref<object[]> = ref([])
+const tableData: Ref<Row[]> = ref([])
 const selectedRows: Ref<object[]> = ref([])
 
 const {
@@ -177,7 +181,7 @@ const getColumnWidth = (column: Column) => {
 
   if (column.prop) {
     // compute the column's width percentage based on the longest string in the column
-    const longest = tableData.value.reduce((acc: any, item: any) => {
+    const longest = tableData.value.reduce((acc, item) => {
       if (item[column.prop]?.toString().length > acc.toString().length) {
         return item[column.prop]
       }
