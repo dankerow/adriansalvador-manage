@@ -2,6 +2,13 @@
 import type { Ref } from 'vue'
 import { writeFile, utils } from 'xlsx'
 
+interface Column {
+  prop: string
+  label: string
+  sortable: true
+  width: number
+}
+
 interface PaginationOptions {
   lengthMenu?: number[]
   count?: number
@@ -19,7 +26,7 @@ interface FilterOptions {
 
 interface Props {
   title?: string
-  columns: object[]
+  columns: Column[]
   selection?: boolean
   multipleSelection?: boolean
   stickyHeader?: boolean
@@ -163,7 +170,7 @@ const filterData = () => {
   }
 }
 
-const getColumnWidth = (column: any) => {
+const getColumnWidth = (column: Column) => {
   if (column.width) {
     return column.width
   }
@@ -220,7 +227,7 @@ const deselectAllRows = () => {
   selectedRows.value = []
 }
 
-const sort = (column: any) => {
+const sort = (column: Column) => {
   if (column.sortable) {
     filters.value.sort.by = column.prop
     filters.value.sort.order = filters.value.sort.order === 'asc' ? 'desc' : 'asc'
@@ -228,7 +235,7 @@ const sort = (column: any) => {
 }
 
 const downloadExcel = () => {
-  const worksheet = utils.json_to_sheet(data, { header: columns.map((column: any) => column.prop) })
+  const worksheet = utils.json_to_sheet(data, { header: columns.value.map((column) => column.prop) })
   const workbook = utils.book_new()
   utils.book_append_sheet(workbook, worksheet, 'Images')
 
