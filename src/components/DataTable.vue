@@ -171,7 +171,7 @@ const getColumnWidth = (column: any) => {
   if (column.prop) {
     // compute the column's width percentage based on the longest string in the column
     const longest = tableData.value.reduce((acc: any, item: any) => {
-      if (item[column.prop].toString().length > acc.toString().length) {
+      if (item[column.prop]?.toString().length > acc.toString().length) {
         return item[column.prop]
       }
 
