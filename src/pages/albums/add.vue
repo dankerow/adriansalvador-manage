@@ -29,7 +29,11 @@ const submitForm = async (event) => {
 
 <template>
   <div>
-    <Banner :links="[{ name: 'Albums', path: '/albums' }, { name: 'Add' }]" icon="ic:twotone-folder" />
+    <Banner
+      title="Albums"
+      icon="ic:twotone-folder"
+      :links="[{ name: 'Albums', path: '/albums' }, { name: 'Add' }]"
+    />
 
     <div class="container-fluid mt-n4">
       <div class="row justify-content-center">
