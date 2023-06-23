@@ -87,7 +87,7 @@ const slots = useSlots()
 
 const currentPage: Ref<number> = ref(1)
 const tableData: Ref<Row[]> = ref([])
-const selectedRows: Ref<object[]> = ref([])
+const selectedRows: Ref<Row[]> = ref([])
 
 const {
   title,
@@ -203,7 +203,7 @@ const getColumnWidth = (column: Column) => {
   return 60
 }
 
-const isRowSelected = (row: object) => {
+const isRowSelected = (row: Row) => {
   return selectedRows.value.includes(row)
 }
 
@@ -215,10 +215,10 @@ const selectAll = () => {
   selectedRows.value = isAllSelected.value ? [] : tableData.value
 }
 
-const selectRow = (row: object) => {
+const selectRow = (row: Row) => {
   if (multipleSelection.value) {
     if (selectedRows.value.includes(row)) {
-      selectedRows.value = selectedRows.value.filter((item: any) => item !== row)
+      selectedRows.value = selectedRows.value.filter((item) => item !== row)
     } else {
       selectedRows.value.push(row)
     }
