@@ -61,6 +61,7 @@ const props = withDefaults(defineProps<Props>(), {
   data: () => [],
   title: '',
   selection: false,
+  multipleSelection: false,
   stickyHeader: false,
   loading: false,
   height: '700px',
