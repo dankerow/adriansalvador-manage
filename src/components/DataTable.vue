@@ -173,7 +173,7 @@ const filterData = () => {
     })
   }
 
-  if (show.pagination && tableData.value.length && (tableData.value.length <= filters.value.limit)) {
+  if (show.value.pagination && tableData.value.length && (tableData.value.length <= filters.value.limit)) {
     const start = (currentPage.value - 1) * filters.value.limit
     const end = start + filters.value.limit
 
