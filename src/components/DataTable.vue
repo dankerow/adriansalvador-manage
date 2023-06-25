@@ -74,6 +74,11 @@ const props = withDefaults(defineProps<Props>(), {
     limit: 25
   }),
   buttons: () => [],
+  download: () => ({
+    excel: false,
+    csv: false,
+    pdf: false
+  }),
   show: () => ({
     pagination: true
   })
