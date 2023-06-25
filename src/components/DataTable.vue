@@ -73,6 +73,7 @@ const props = withDefaults(defineProps<Props>(), {
     search: '',
     limit: 25
   }),
+  buttons: () => [],
   show: () => ({
     pagination: true
   })
