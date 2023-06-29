@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { User } from '@/types/User'
+import type { User } from '~/types/user'
 
 export const useUsersStore = defineStore('users', () => {
   const users: Ref<User[]> = ref([])
