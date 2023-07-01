@@ -1,6 +1,7 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
   icon?: string
+  title?: string
   links: {
     name: string
     path?: string
@@ -28,12 +29,12 @@ const route = useRoute()
 
 <template>
   <div>
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb bg-darker bg-opacity-75 mb-0 px-3 py-2">
+    <nav class="bg-primary bg-opacity-25 border-primary-subtle border-opacity-10 border-bottom" aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0 px-3 py-2">
         <li class="breadcrumb-item">
           <NuxtLink class="link-body-emphasis" to="/">
-            <Icon v-if="icon" :name="icon" />
-            <span :class="{ 'visually-hidden': icon } ">Home</span>
+            <Icon name="ph:house-simple-duotone" size="1.15em" :class="{ 'me-2': links?.length < 1 }" />
+            <span :class="{ 'visually-hidden': links?.length > 0 }">Home</span>
           </NuxtLink>
         </li>
 
@@ -54,6 +55,16 @@ const route = useRoute()
     <div class="banner pt-4 pb-6">
       <div class="container-fluid">
         <div class="row align-items-center">
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="icon icon-shape icon-shape-white me-2 shadow-sm">
+              <Icon v-if="icon" :name="icon" class="text-primary" />
+            </div>
+
+            <h3 class="fw-bolder text-white d-inline-block mb-0">
+              {{ title }}
+            </h3>
+          </div>
+
           <div v-if="buttons?.length" class="col-12 col-md-6 col-lg-12 text-end">
             <template v-for="button in buttons">
               <slot
@@ -76,7 +87,7 @@ const route = useRoute()
                   v-if="button.url"
                   :key="button.name"
                   :to="button.url"
-                  class="btn btn-sm btn-primary"
+                  class="btn btn-sm btn-white"
                   :class="{ disabled: button.disabled }"
                   :disabled="button.disabled"
                 >
@@ -88,7 +99,7 @@ const route = useRoute()
                 <button
                   v-else
                   :key="button.name"
-                  class="btn btn-sm btn-primary"
+                  class="btn btn-sm btn-white"
                   :class="{ disabled: button.disabled }"
                   :disabled="button.disabled"
                   @click="button.callback"
@@ -113,9 +124,9 @@ const route = useRoute()
 
 <style lang="scss" scoped>
 .banner {
-  --bs-bg-opacity: 1;
+  --bs-bg-opacity: 0.85;
 
-  background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity));
+  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity));
 }
 
 .dark-mode {
