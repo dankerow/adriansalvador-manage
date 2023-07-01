@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
-import { UseFetchOptions } from '#app'
-import { NitroFetchOptions } from 'nitropack'
+import type { UseFetchOptions } from '#app'
+import type { NitroFetchOptions } from 'nitropack'
 import defu from 'defu'
 
 export const withLoadingState = async (loading: Ref<boolean>, fetchFn: () => Promise<any>) => {
