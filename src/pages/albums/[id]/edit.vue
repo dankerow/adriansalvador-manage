@@ -1,14 +1,38 @@
 <script setup lang="ts">
-import type { Album } from '@/types/Album'
-import { useAlbumsStore } from '@/stores/albums'
-const { $toast } = useNuxtApp()
+import type { ComputedRef } from 'vue'
+import type { Album } from '~/types/album'
 
-const colorMode = useColorMode()
+import { useAuthStore } from '@/stores/auth'
+import { useAlbumsStore } from '@/stores/albums'
+
+import { storeToRefs } from 'pinia'
+import vueFilePond from 'vue-filepond'
+
+import 'filepond/dist/filepond.min.css'
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
+
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
+import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size'
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
+import FilePondPluginImageTransform from 'filepond-plugin-image-transform'
+import FilePondPluginImageResize from 'filepond-plugin-image-resize'
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
+import FilePondPluginImageCrop from 'filepond-plugin-image-crop'
+
+const { addToast } = useToast()
 const router = useRouter()
 const route = useRoute()
+const authStore = useAuthStore()
 const albumsStore = useAlbumsStore()
+const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
 
-const album: Album = albumsStore.albums.find(album => album.id === route.params.id) || (await albumsStore.getAlbum(route.params.id)).data
+const { token } = storeToRefs(authStore)
+
+const album: Album | undefined = albumsStore.albums.find(album => album.id === route.params.id) || await albumsStore.getAlbum(route.params.id)
+
+if (!album) {
+  throw createError({ statusCode: 404, message: 'The album you are looking for couldn\'t be found.' })
+}
 
 const form = reactive({
   name: album.name,
@@ -18,45 +42,89 @@ const form = reactive({
   featured: album.featured
 })
 
-const errors = ref()
+const FilePond = vueFilePond(
+  FilePondPluginImagePreview,
+  FilePondPluginFileValidateSize,
+  FilePondPluginFileValidateType,
+  FilePondPluginImageTransform,
+  FilePondPluginImageResize,
+  FilePondPluginImageExifOrientation,
+  FilePondPluginImageCrop
+)
+const pond = ref()
 
 const submitForm = async () => {
-  if (errors.value) {
-    errors.value = null
-  }
+  try {
+    await albumsStore.updateAlbum(route.params.id, form)
 
-  const { error } = await albumsStore.updateAlbum(route.params.id, form)
-
-  if (error) {
-    errors.value = error
-  } else {
-    const toast = new $toast({
+    addToast({
       title: 'Notification',
-      body: `The album (${album.name} was successfully updated.`
+      body: `The album (${album.name}) was successfully updated.`
+    })
+  } catch (error) {
+    addToast({
+      title: 'Error',
+      body: `The album (${album.name}) could not be updated.`
     })
   }
 }
+
+const getCoverView: ComputedRef<string> = computed(() => {
+  return album.cover ? `${cdnBaseURL}/covers/${encodeURIComponent(album.cover.name)}` : album.coverFallback ? `${cdnBaseURL}/gallery/${encodeURIComponent(album.name)}/${encodeURIComponent(album.coverFallback.name)}` : ''
+})
+
+onMounted(() => {
+  pond.value._pond.setOptions({
+    server: {
+      url: `${cdnBaseURL}/albums/${route.params.id}/cover/upload`,
+      headers: {
+        'Authorization': `Bearer ${token.value}`
+      }
+    }
+  })
+})
 </script>
 
 <template>
   <div>
     <div class="container-fluid mt-n4">
       <div class="row justify-content-center">
-        <div class="col-12">
-          <div
-            class="card"
-            :class="{ 'bg-darker': colorMode.value === 'dark' }"
-          >
+        <div class="col-3">
+          <div class="card mb-5">
+            <div class="card-header">
+              <h2 class="h4 mb-0">
+                Cover
+              </h2>
+            </div>
+
+            <FilePond
+              ref="pond"
+              :name="`${route.params.id}-cover`"
+              :check-validity="true"
+              accepted-file-types="image/jpeg, image/png"
+              :files="[{
+                source: getCoverView
+              }]"
+              max-file-size="6MB"
+              image-resize-target-width="1000"
+              style-panel-layout="compact"
+              style-load-indicator-position="center bottom"
+              style-button-uemove-item-position="center bottom"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
             <form id="addAlbumForm" method="post" role="form" @submit.prevent="submitForm">
               <div class="card-header">
                 <div class="row align-items-center">
-                  <div class="col-lg-8">
+                  <div class="col-auto">
                     <h3 class="mb-0">
                       Editing album
                     </h3>
                   </div>
 
-                  <div class="col-lg-4 text-end">
+                  <div class="col text-end">
                     <button class="btn btn-sm btn-danger text-bg-danger" type="button" @click.prevent="router.back()">
                       <Icon name="ph:x-square-duotone" />
                       Cancel
@@ -77,7 +145,7 @@ const submitForm = async () => {
 
                 <div class="pl-lg-4">
                   <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-auto">
                       <div class="form-group">
                         <label class="form-label" for="name">
                           Name <span style="color: red;">*</span>
@@ -105,7 +173,7 @@ const submitForm = async () => {
 
                 <div class="pl-lg-4">
                   <div class="row">
-                    <div class="col-lg-1">
+                    <div class="col">
                       <div class="form-group">
                         <div class="form-check">
                           <input id="nsfw" v-model="form.nsfw" class="form-check-input" type="checkbox">
@@ -115,7 +183,7 @@ const submitForm = async () => {
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-1">
+                    <div class="col">
                       <div class="form-group">
                         <div class="form-check">
                           <input id="hidden" v-model="form.hidden" class="form-check-input" type="checkbox">
@@ -125,7 +193,7 @@ const submitForm = async () => {
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-1">
+                    <div class="col">
                       <div class="form-group">
                         <div class="form-check">
                           <input id="favorite" v-model="form.favorite" class="form-check-input" type="checkbox">
@@ -135,7 +203,7 @@ const submitForm = async () => {
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-1">
+                    <div class="col">
                       <div class="form-group">
                         <div class="form-check">
                           <input id="featured" v-model="form.featured" class="form-check-input" type="checkbox">
