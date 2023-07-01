@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { Album, AlbumFile } from '@/types/Album'
+import type { Album, AlbumFile } from '@/types/album'
 
 export const useAlbumsStore = defineStore('albums', () => {
   const albums: Ref<Album[]> = ref([])
@@ -8,8 +8,7 @@ export const useAlbumsStore = defineStore('albums', () => {
   const loading: Ref<boolean> = ref(false)
 
   const getAlbums = async (options?: { limit?: number, page?: number, setData?: boolean }) => {
-    try {
-      loading.value = true
+    return await withLoadingState(loading, async () => {
       const { data: albumsD, count: countD, pages: pagesD } : { data: Album[], count: number, pages: number } = await useFaetch('/albums', { params: { limit: options?.limit, page: options?.page } })
 
       if (options?.setData) {
@@ -18,140 +17,130 @@ export const useAlbumsStore = defineStore('albums', () => {
         pages.value = pagesD
       }
 
-      loading.value = false
-
-      return { data: { albums: albumsD, count: countD, pages: pagesD }, error: null }
-    } catch (e: any) {
-      return { error: e.data ? e.data.error : e }
-    }
+      return { albums: albumsD, count: countD, pages: pagesD }
+    })
   }
 
   const getAlbum = async (id: string) => {
-    try {
-      loading.value = true
+    return await withLoadingState(loading, async () => {
       const data: Album = await useFaetch(`/albums/${id}`)
-      loading.value = false
 
-      return { data, error: null }
-    } catch (e: any) {
-      return { error: e.data ? e.data.error : e }
-    }
+      return data
+    })
   }
 
   const addAlbum = async (form: { name: string, nsfw: boolean, hidden: boolean, favorite: boolean, featured: boolean }) => {
-    try {
+    return await withLoadingState(loading, async () => {
       const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
       const data: Album = await useFaetch('/albums', { baseURL: cdnBaseURL, method: 'post', body: form })
       albums.value.push(data)
 
-      return { data, error: null }
-    } catch (e: any) {
-      return { error: e.data ? e.data.error : e }
-    }
+      return albums
+    })
   }
 
   const updateAlbum = async (id: string, form: { name: string, nsfw: boolean, hidden: boolean, favorite: boolean, featured: boolean }) => {
-    try {
+    return await withLoadingState(loading, async () => {
       const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
       const data: Album = await useFaetch(`/albums/${id}`, { baseURL: cdnBaseURL, method: 'put', body: form })
       const index = albums.value.findIndex((album: any) => album.id === id)
       albums.value[index] = data
 
-      return { data, error: null }
-    } catch (e: any) {
-      return { error: e.data ? e.data.error : e }
-    }
+      return albums
+    })
+  }
+
+  const publishAlbum = async (id: string) => {
+    return await withLoadingState(loading, async () => {
+      const data: Album = await useFaetch(`/albums/${id}/publish`, { method: 'post' })
+      const index = albums.value.findIndex((album: any) => album.id === id)
+      albums.value[index] = data
+
+      return albums
+    })
+  }
+
+  const unpublishAlbum = async (id: string) => {
+    return await withLoadingState(loading, async () => {
+      const data: Album = await useFaetch(`/albums/${id}/unpublish`, { method: 'post' })
+      const index = albums.value.findIndex((album: any) => album.id === id)
+      albums.value[index] = data
+
+      return albums
+    })
   }
 
   const deleteAlbum = async (id: string) => {
-    try {
+    return await withLoadingState(loading, async () => {
       const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
       await useFaetch(`/albums/${id}`, { baseURL: cdnBaseURL, method: 'delete' })
       const index = albums.value.findIndex((album: any) => album.id === id)
       albums.value.splice(index, 1)
 
-      return { error: null }
-    } catch (e: any) {
-      return { error: e.data ? e.data.error : e }
-    }
+      return albums
+    })
   }
 
   const deleteAlbums = async (ids: string[]) => {
-    try {
+    return await withLoadingState(loading, async () => {
       const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
       await useFaetch('/albums', { baseURL: cdnBaseURL, method: 'delete', body: { ids } })
       albums.value = albums.value.filter((album: any) => !ids.includes(album.id))
 
-      return { error: null }
-    } catch (e: any) {
-      return { error: e.data ? e.data.error : e }
-    }
+      return albums
+    })
   }
 
   const getAlbumFiles = async (id: string, limit = 25) => {
-    try {
-      loading.value = true
+    return await withLoadingState(loading, async () => {
       const { data: images, count, pages }: { data: AlbumFile[], count: number, pages: number } = await useFaetch(`/albums/${id}/images`, { params: { limit } })
 
-      return { data: { images, count, pages }, error: null }
-    } catch (e: any) {
-      return { error: e.data ? e.data.error : e }
-    }
+      return { images, count, pages }
+    })
   }
 
   const addFiles = async (id: string, files: FormData) => {
-    try {
+    return await withLoadingState(loading, async () => {
       const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
-      const data: Album['images'] = await useFaetch(`/albums/${id}/images/save`, { baseURL: cdnBaseURL, headers: {
-        'Content-Type': 'application/json'
-      }, method: 'post', body: files })
+      const data: Album['images'] = await useFaetch(`/albums/${id}/images`, { baseURL: cdnBaseURL, method: 'post', body: files })
 
-      return { data, error: null }
-    } catch (e: any) {
-      return { error: e.data ? e.data.error : e }
-    }
+      return data
+    })
   }
 
   const deleteFile = async (id: string) => {
-    try {
+    return await withLoadingState(loading, async () => {
       const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
       await useFaetch(`/images/${id}`, { baseURL: cdnBaseURL, method: 'delete' })
 
-      return { error: null }
-    } catch (e: any) {
-      return { error: e.data ? e.data.error : e }
-    }
+      return albums
+    })
   }
 
   const deleteFiles = async (ids: string[]) => {
-    try {
+    return await withLoadingState(loading, async () => {
       const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
       await useFaetch('/images', { baseURL: cdnBaseURL, method: 'delete', body: { ids } })
 
-      return { error: null }
-    } catch (e: any) {
-      return { error: e.data ? e.data.error : e }
-    }
+      return albums
+    })
   }
 
   const updateFile = async (id: string, form: AlbumFile) => {
-    try {
-      const data: AlbumFile = await useFaetch(`/images/${id}`, { method: 'put', body: form })
+    return await withLoadingState(loading, async () => {
+      const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
+      const data: AlbumFile = await useFaetch(`/images/${id}`, { baseURL: cdnBaseURL, method: 'put', body: form })
 
-      return { data, error: null }
-    } catch (e: any) {
-      return { error: e.data ? e.data.error : e }
-    }
+      return data
+    })
   }
 
   const getFile = async (id: string, options: { includeAlbum: boolean } = { includeAlbum: false }) => {
-    try {
+    return await withLoadingState(loading, async () => {
       const data: AlbumFile = await useFaetch(`/images/${id}`, { params: { includeAlbum: options.includeAlbum } })
 
-      return { data, error: null }
-    } catch (e: any) {
-      return { error: e.data ? e.data.error : e }
-    }
+      return data
+    })
   }
 
   return {
@@ -163,6 +152,8 @@ export const useAlbumsStore = defineStore('albums', () => {
     getAlbum,
     addAlbum,
     updateAlbum,
+    publishAlbum,
+    unpublishAlbum,
     deleteAlbum,
     deleteAlbums,
     getAlbumFiles,
