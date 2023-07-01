@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps<{
-  currentPage: Number
-  pages: Number
+  currentPage: number
+  pages: number
 }>()
 
 const emit = defineEmits<{
