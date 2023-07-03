@@ -6,10 +6,6 @@ export default defineNuxtConfig({
     strict: true
   },
 
-  experimental: {
-    watcher: 'parcel'
-  },
-
   css: [
     '@/assets/scss/bedrock.scss'
   ],
