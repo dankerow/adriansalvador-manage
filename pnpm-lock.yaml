@@ -86,8 +86,8 @@ devDependencies:
     specifier: ^2.0.0
     version: 2.0.0(postcss@8.4.27)
   nuxt-security:
-    specifier: ^0.14.2
-    version: 0.14.2
+    specifier: ^0.14.3
+    version: 0.14.3
   nuxt-time:
     specifier: ^0.1.1
     version: 0.1.1
@@ -2757,6 +2757,7 @@ packages:
 
   /color-name@1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
+    requiresBuild: true
     dev: true
 
   /color-string@1.9.1:
@@ -4338,6 +4339,7 @@ packages:
   /human-signals@2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
+    requiresBuild: true
     dev: true
 
   /human-signals@4.3.1:
@@ -4362,6 +4364,7 @@ packages:
 
   /ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
+    requiresBuild: true
     dev: true
 
   /ignore-walk@6.0.3:
@@ -4612,6 +4615,7 @@ packages:
   /is-stream@2.0.1:
     resolution: {integrity: sha512-hFoiJiTl63nn+kstHGBtewWSKnQLpyb155KHheA1l39uvtO9nWIop1p3udqPcUd/xbF1VLMO4n7OI6p7RbngDg==}
     engines: {node: '>=8'}
+    requiresBuild: true
     dev: true
 
   /is-stream@3.0.0:
@@ -5030,6 +5034,7 @@ packages:
   /mimic-fn@2.1.0:
     resolution: {integrity: sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==}
     engines: {node: '>=6'}
+    requiresBuild: true
     dev: true
 
   /mimic-fn@4.0.0:
@@ -5546,8 +5551,8 @@ packages:
       - supports-color
     dev: true
 
-  /nuxt-security@0.14.2:
-    resolution: {integrity: sha512-2AmOxwmJOgOBYnYxy8QapIJx98DnLq6EAAvH24l6jMx7wSPJEtT/bb6i3VGy7EticHZkfJFM7H3eD2LxgxJ16Q==}
+  /nuxt-security@0.14.3:
+    resolution: {integrity: sha512-Vc0+wZI2p26fcQNU8I538nP4GnbahPCFbP9EywWinhvZk/Pm6zs4qmuo/YZMYjFXge00GTuv8HcayEwFLtsCiA==}
     dependencies:
       '@nuxt/kit': 3.6.5
       basic-auth: 2.0.1
@@ -5718,6 +5723,7 @@ packages:
   /onetime@5.1.2:
     resolution: {integrity: sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==}
     engines: {node: '>=6'}
+    requiresBuild: true
     dependencies:
       mimic-fn: 2.1.0
     dev: true
@@ -6989,6 +6995,7 @@ packages:
   /strip-final-newline@2.0.0:
     resolution: {integrity: sha512-BrpvfNAE3dcvq7ll3xVumzjKjZQ5tI1sEUIKr3Uoks0XUl45St3FlatVqef9prk4jRDzhW6WZg+3bk93y6pLjA==}
     engines: {node: '>=6'}
+    requiresBuild: true
     dev: true
 
   /strip-final-newline@3.0.0:
