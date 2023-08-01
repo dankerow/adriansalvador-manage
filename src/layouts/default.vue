@@ -31,7 +31,7 @@ useHead({
     }
   ]
 })
-
+ 
 const toasts = useToasts()
 const { removeToast } = useToast()
 
