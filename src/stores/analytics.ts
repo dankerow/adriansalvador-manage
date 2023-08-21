@@ -19,8 +19,7 @@ export const useAnalyticsStore = defineStore('analytics', () => {
       pageViews.value = data.basic.pageViews
       totalVisitors.value = data.basic.totalVisitors
       newVisitors.value = data.basic.newVisitors
-      engagementRate.value = data.basic.engagementRate
-      imageCount.value = data.imageCount
+      engagementRate.value = data.fileimageCount
       popularPages.value = data.popular
       trendingPages.value = data.trending
 
