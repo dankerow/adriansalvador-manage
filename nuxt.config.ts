@@ -52,8 +52,8 @@ export default defineNuxtConfig({
 
     runtimeConfig: {
       public: {
-        apiBaseURL: process.env.API_BASE_URL_DEV,
-        cdnBaseURL: process.env.CDN_BASE_URL_DEV
+        apiBaseUrl: process.env.API_BASE_URL_DEV,
+        cdnBaseUrl: process.env.CDN_BASE_URL_DEV
       }
     },
     modules: [
@@ -67,8 +67,8 @@ export default defineNuxtConfig({
   $production: {
     runtimeConfig: {
       public: {
-        apiBaseURL: process.env.API_BASE_URL,
-        cdnBaseURL: process.env.CDN_BASE_URL
+        apiBaseUrl: process.env.API_BASE_URL,
+        cdnBaseUrl: process.env.CDN_BASE_URL
       }
     },
 
