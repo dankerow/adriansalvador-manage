@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { User } from '@/types/User'
+import type { User } from '@/types/user'
 
 export const useAuthStore = defineStore('auth', () => {
   const user: Ref<User|null> = ref(null)
