@@ -24,7 +24,7 @@ const router = useRouter()
 const route = useRoute()
 const authStore = useAuthStore()
 const albumsStore = useAlbumsStore()
-const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
+const cdnBaseUrl = useRuntimeConfig().public.cdnBaseUrl
 
 const { token } = storeToRefs(authStore)
 
@@ -70,13 +70,13 @@ const submitForm = async () => {
 }
 
 const getCoverView: ComputedRef<string> = computed(() => {
-  return album.cover ? `${cdnBaseURL}/covers/${encodeURIComponent(album.cover.name)}` : album.coverFallback ? `${cdnBaseURL}/gallery/${encodeURIComponent(album.name)}/${encodeURIComponent(album.coverFallback.name)}` : ''
+  return album.cover ? `${cdnBaseUrl}/covers/${encodeURIComponent(album.cover.name)}` : album.coverFallback ? `${cdnBaseUrl}/gallery/${encodeURIComponent(album.name)}/${encodeURIComponent(album.coverFallback.name)}` : ''
 })
 
 onMounted(() => {
   pond.value._pond.setOptions({
     server: {
-      url: `${cdnBaseURL}/albums/${route.params.id}/cover/upload`,
+      url: `${cdnBaseUrl}/albums/${route.params.id}/cover/upload`,
       headers: {
         'Authorization': `Bearer ${token.value}`
       }
