@@ -15,9 +15,14 @@ const navigation = ref({
           icon: 'ic:twotone-space-dashboard'
         },
         {
+          name: 'files',
+          path: '/files',
+          icon: 'ph:images-duotone'
+        },
+        {
           name: 'albums',
           path: '/albums',
-          icon: 'ic:twotone-folder-copy'
+          icon: 'ph:folders-duotone'
         }
       ]
     },
@@ -27,7 +32,7 @@ const navigation = ref({
         {
           name: 'overview',
           path: '/analytics',
-          icon: 'ic:twotone-pie-chart'
+          icon: 'ph:chart-line-up-duotone'
         }
       ]
     },
@@ -38,7 +43,7 @@ const navigation = ref({
         {
           name: 'Settings',
           path: '/admin/settings',
-          icon: 'ic:twotone-settings',
+          icon: 'ph:gear-fine-duotone',
           dropdown: [
             {
               name: 'Overview',
@@ -50,7 +55,7 @@ const navigation = ref({
         {
           name: 'Users',
           path: '/admin/users',
-          icon: 'ic:outline-supervisor-account'
+          icon: 'ph:users-three-duotone'
         }
       ]
     }
@@ -70,7 +75,7 @@ const unpinSidebar = () => {
 }
 
 const isNavItemActive = (path: string) => {
-  return route.path === path ? true : path !== '/' && route.path.startsWith(path)
+  return route.path.startsWith(path) && path !== '/'
 }
 
 if (process.client) {
@@ -241,7 +246,6 @@ onMounted(() => {
 			display: inline-block;
 			font-weight: bold;
 			margin-bottom: 0;
-			text-shadow: 0 2px rgba(10, 10, 10, 0.55);
 			text-transform: uppercase;
 		}
 	}
@@ -286,16 +290,22 @@ onMounted(() => {
 	width: 100%;
 
 	&:hover {
-		background: rgba(94, 114, 228, 0.1);
+   background: rgba(94, 114, 228, 0.1);
+
+   .nav-link-icon {
+     --bs-text-opacity: 1;
+
+     color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity));
+   }
 	}
 
 	&.active, &[aria-expanded="true"] {
-		background-color: #5e72e4;
-		color: white;
+   background-color: rgba(var(--bs-primary-rgb));
+   color: white;
 
-		.nav-link-icon {
-			color: white;
-		}
+   .nav-link-icon {
+     color: white;
+   }
 	}
 
 	&[aria-dropdown="true"]:after {
@@ -323,9 +333,6 @@ onMounted(() => {
 	}
 
 	.nav-link-icon {
-    --bs-text-opacity: 1;
-
-    color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity));
 		flex-shrink: 0;
 		height: 1.25rem;
     margin-right: .5rem;
