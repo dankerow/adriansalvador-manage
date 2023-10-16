@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@pinia/nuxt':
-    specifier: ^0.5.0
-    version: 0.5.0(typescript@5.2.2)(vue@3.3.4)
+    specifier: ^0.5.1
+    version: 0.5.1(typescript@5.2.2)(vue@3.3.4)
   bootstrap:
     specifier: 5.3.2
     version: 5.3.2(@popperjs/core@2.11.8)
@@ -1645,8 +1645,8 @@ packages:
       '@parcel/watcher-win32-x64': 2.3.0
     dev: true
 
-  /@pinia/nuxt@0.5.0(typescript@5.2.2)(vue@3.3.4):
-    resolution: {integrity: sha512-p9Ojw+H2dp5l6A1TFLwl03kQZuuO7cjEtppnwjEjkQA6y8SitpiarmogouFTks1hOSXPjMfXPDTW0vRV+wSxVg==}
+  /@pinia/nuxt@0.5.1(typescript@5.2.2)(vue@3.3.4):
+    resolution: {integrity: sha512-6wT6TqY81n+7/x3Yhf0yfaJVKkZU42AGqOR0T3+UvChcaOJhSma7OWPN64v+ptYlznat+fS1VTwNAcbi2lzHnw==}
     dependencies:
       '@nuxt/kit': 3.7.4
       pinia: 2.1.7(typescript@5.2.2)(vue@3.3.4)
