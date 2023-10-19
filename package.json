@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^0.2.0",
-    "@nuxt/image": "rc",
+    "@nuxt/image": "^1.0.0",
     "@nuxtjs/color-mode": "^3.3.0",
     "@nuxtjs/critters": "^0.5.1",
     "@nuxtjs/fontaine": "^0.4.1",
