@@ -56,9 +56,7 @@ export default defineNuxtConfig({
         cdnBaseUrl: process.env.CDN_BASE_URL_DEV
       }
     },
-    modules: [
-      '@nuxt/devtools'
-    ],
+
     image: {
       domains: [process.env.CDN_BASE_URL_DEV as string]
     }
