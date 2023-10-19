@@ -89,6 +89,17 @@ export default defineNuxtConfig({
         /^dropdown/,
         /^filepond/
       ]
+    },
+
+    security: {
+      headers: {
+        crossOriginEmbedderPolicy: false,
+        contentSecurityPolicy: {
+          'img-src': ['\'self\'', 'https:', 'http:', 'data:', 'blob:'],
+          'upgrade-insecure-requests': true
+        },
+      },
+      rateLimiter: false
     }
   }
 })
