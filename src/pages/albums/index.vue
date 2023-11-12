@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
 import { useAlbumsStore } from '@/stores/albums'
 
-const albumsStore = useAlbumsStore()
+const { albums, loading, count, pages, getAlbums, deleteAlbums } = useAlbumsStore()
 
-const { albums, loading, count, pages } = storeToRefs(albumsStore)
-
+const dataTable = ref()
 const table = ref({
+  rows: albums,
   columns: [
     {
       label: 'Name',
@@ -41,25 +40,25 @@ const table = ref({
       label: 'Modified On',
       prop: 'modifiedAt'
     }
-  ]
+  ],
+  pagination: {
+    count,
+    pages
+  }
 })
 
-if (albumsStore.albums.length === 0) {
-  await albumsStore.getAlbums()
+const loadAlbums = async (options?: { page: number, search?: string, limit?: number, sort?: { by?: string, order?: string } }) => {
+  const data = await getAlbums(options)
+
+  table.value.rows = data.albums
+  table.value.pagination = {
+    count: data.count,
+    pages: data.pages
+  }
 }
 
-const dataTable = ref()
-
-const loadAlbums = async (options?: { page: number, search?: string, limit?: number, sort?: { by?: string, order?: string } }) => {
-  loading.value = true
-
-  const data = await albumsStore.getAlbums(options)
-
-  albums.value = data.albums
-  count.value = data.count
-  pages.value = data.pages
-
-  loading.value = false
+if (albums.length === 0) {
+  await loadAlbums()
 }
 
 const getSelectedRows = computed(() => {
@@ -75,7 +74,7 @@ const deleteSelectedAlbums = async () => {
 
   const ids = selectedRows.map((row: any) => row.id)
 
-  await albumsStore.deleteAlbums(ids)
+  await deleteAlbums(ids)
 
   dataTable.value?.deselectAllRows()
 
@@ -103,9 +102,9 @@ const deleteSelectedAlbums = async () => {
             selection
             multiple-selection
             :loading="loading"
-            :data="albums"
+            :data="table.rows"
             :columns="table.columns"
-            :pagination="{ count, pages }"
+            :pagination="table.pagination"
             @load-data="loadAlbums"
           >
             <template #item-name="{ item, column }">
