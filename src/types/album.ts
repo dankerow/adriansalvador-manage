@@ -4,8 +4,8 @@ export interface AlbumFile {
   url?: string
   readonly type: string
   readonly size: number
-  albumId: string | null
-  album?: Album
+  albumId: string
+  album: Album
   readonly createdAt: number
   readonly modifiedAt: number
 }
