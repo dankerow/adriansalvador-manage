@@ -1,61 +1,7 @@
 <script setup async lang="ts">
 import type { Ref } from 'vue'
+import type { Column, Row, Props } from '@/types'
 import { writeFile, utils } from 'xlsx'
-
-interface Column {
-  prop: string
-  label: string
-  sortable: true
-  width: number
-}
-
-interface Row {
-  [key: string]: any
-}
-
-interface PaginationOptions {
-  lengthMenu?: number[]
-  count?: number
-  pages?: number
-}
-
-interface FilterOptions {
-  search?: string
-  limit?: number
-  sort?: {
-    by?: string
-    order?: string
-  }
-}
-
-interface Props {
-  title?: string
-  columns: Column[]
-  selection?: boolean
-  multipleSelection?: boolean
-  stickyHeader?: boolean
-  height?: string
-  loading?: boolean
-  data: Row[]
-  pagination?: PaginationOptions
-  filters?: FilterOptions
-  buttons?: {
-    name: string
-    text: string
-    icon?: string
-    url?: string
-    disabled?: boolean
-    callback?:() => void
-  }[],
-  download?: {
-    excel?: boolean
-    csv?: boolean
-    pdf?: boolean
-  }
-  show?: {
-    pagination?: boolean
-  }
-}
 
 const props = withDefaults(defineProps<Props>(), {
   data: () => [],
@@ -86,13 +32,12 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  (e: 'loadData', filterData: object): void
+  (e: 'loadData', filterData: { page: number, search?: string, limit?: number, sort?: { by?: string, order?: string } }): void
 }>()
 
 const colorMode = useColorMode()
 const slots = useSlots()
 
-const currentPage: Ref<number> = ref(1)
 const tableData: Ref<Row[]> = ref([])
 const selectedRows: Ref<Row[]> = ref([])
 
@@ -117,33 +62,7 @@ const fireDataLoad = () => {
   filterData()
 }
 
-const nextPage = () => {
-  if (loading.value) {
-    return
-  }
-
-  if (currentPage.value < pagination.value.pages) {
-    currentPage.value += 1
-  }
-}
-
-const previousPage = () => {
-  if (loading.value) {
-    return
-  }
-
-  if (currentPage.value > 1) {
-    currentPage.value -= 1
-  }
-}
-
-const changePage = (value: number) => {
-  if (loading.value) {
-    return
-  }
-
-  currentPage.value = value
-}
+const { currentPage, nextPage, previousPage, changePage } = usePagination(loading, pagination.value.pages)
 
 const filterData = () => {
   if (tableData.value && filters.value.search) {
@@ -413,7 +332,7 @@ defineExpose({
 
     <DataTableLoading v-if="loading" :item-count="filters.limit" :columns="columns" />
 
-    <div v-else class="table-responsive" :style="{ height: stickyHeader && height }">
+    <div v-else class="table-responsive" :style="{ height: stickyHeader ?? height }">
       <table
         v-if="tableData.length"
         :id="`table-${title}`"
