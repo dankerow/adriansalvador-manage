@@ -70,7 +70,7 @@ const submitForm = async () => {
 }
 
 const getCoverView: ComputedRef<string> = computed(() => {
-  return album.cover ? `${cdnBaseUrl}/covers/${encodeURIComponent(album.cover.name)}` : album.coverFallback ? `${cdnBaseUrl}/gallery/${encodeURIComponent(album.name)}/${encodeURIComponent(album.coverFallback.name)}` : ''
+  return album.cover ? `${cdnBaseUrl}/covers/${encodeURIComponent(album.cover.name)}` : album.coverFallback ? `${cdnBaseUrl}/s-files/${encodeURIComponent(album.coverFallback.name)}` : ''
 })
 
 onMounted(() => {
@@ -97,22 +97,25 @@ onMounted(() => {
               </h2>
             </div>
 
-            <FilePond
-              ref="pond"
-              :name="`${route.params.id}-cover`"
-              :check-validity="true"
-              accepted-file-types="image/jpeg, image/png"
-              :files="[{
-                source: getCoverView
-              }]"
-              max-file-size="6MB"
-              image-resize-target-width="1000"
-              style-panel-layout="compact"
-              style-load-indicator-position="center bottom"
-              style-button-uemove-item-position="center bottom"
-            />
+            <div class="card-body">
+              <FilePond
+                ref="pond"
+                :name="`${route.params.id}-cover`"
+                :check-validity="true"
+                accepted-file-types="image/jpeg, image/png"
+                :files="[{
+                  source: getCoverView
+                }]"
+                max-file-size="6MB"
+                image-resize-target-width="1000"
+                style-panel-layout="compact"
+                style-load-indicator-position="center bottom"
+                style-button-uemove-item-position="center bottom"
+              />
+            </div>
           </div>
         </div>
+
         <div class="col">
           <div class="card">
             <form id="addAlbumForm" method="post" role="form" @submit.prevent="submitForm">
@@ -183,6 +186,7 @@ onMounted(() => {
                         </div>
                       </div>
                     </div>
+
                     <div class="col">
                       <div class="form-group">
                         <div class="form-check">
@@ -193,6 +197,7 @@ onMounted(() => {
                         </div>
                       </div>
                     </div>
+
                     <div class="col">
                       <div class="form-group">
                         <div class="form-check">
@@ -203,6 +208,7 @@ onMounted(() => {
                         </div>
                       </div>
                     </div>
+
                     <div class="col">
                       <div class="form-group">
                         <div class="form-check">
