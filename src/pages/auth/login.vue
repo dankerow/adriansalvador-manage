@@ -113,7 +113,7 @@ const login = async () => {
                 </div>
 
                 <div class="text-center">
-                  <button class="btn btn-dark" type="submit">
+                  <button class="btn btn-secondary" type="submit">
                     <Icon name="ic:twotone-log-in" />
                     Sign in
                   </button>
