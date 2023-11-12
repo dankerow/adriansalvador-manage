@@ -18,12 +18,12 @@ const FilePond = vueFilePond(
 )
 const pond = ref()
 
-const cdnBaseURL = useRuntimeConfig().public.cdnBaseURL
+const cdnBaseUrl = useRuntimeConfig().public.cdnBaseUrl
 
 onMounted(() => {
   pond.value._pond.setOptions({
     server: {
-      url: `${cdnBaseURL}/albums/${route.params.id}/images/upload`
+      url: `${cdnBaseUrl}/albums/${route.params.id}/files/upload`
     }
   })
 })
