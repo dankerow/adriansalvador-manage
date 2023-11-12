@@ -42,7 +42,7 @@ $body-tertiary-color-dark:          rgba($body-color-dark, .5) !default;
 $body-tertiary-bg-dark:             mix($gray-800, $gray-900, 50%) !default;
 $emphasis-color-dark:               $white !default;
 $border-color-dark:                 rgb(25, 25, 25) !default;
-$border-color-translucent-dark:     rgba($white, .08) !default;
+$border-color-translucent-dark:     rgba(156, 163, 175, 0.2) !default;
 $headings-color-dark:               #fff !default;
 $link-color-dark:                   #a5a5a5 !default;
 $link-hover-color-dark:             shift-color($link-color-dark, $link-shade-percentage) !default;
