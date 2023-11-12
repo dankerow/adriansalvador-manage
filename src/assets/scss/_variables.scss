@@ -135,7 +135,8 @@ $paragraph-margin-bottom:   .675rem !default;
 
 $border-width:                1px !default;
 
-$border-color:                $gray-300 !default;
+$border-color:                rgba($primary, .1) !default;
+$border-color-translucent:    rgba($black, .1) !default;
 
 $border-radius:               .25rem !default;
 $border-radius-sm:            .2rem !default;
@@ -206,7 +207,6 @@ $table-variants: (
 
 $input-btn-padding-y:         .375rem !default;
 $input-btn-padding-x:         .75rem !default;
-$input-btn-font-family:       "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace !default;
 $input-btn-font-size:         $font-size-sm !default;
 $input-btn-line-height:       $line-height-base !default;
 
