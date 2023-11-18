@@ -68,7 +68,7 @@ const filterData = () => {
   if (tableData.value && filters.value.search) {
     const search = filters.value.search.toLowerCase()
 
-    tableData.value = data.value.filter((item: any) => {
+    tableData.value = data.value.filter((item: Row) => {
       return Object.keys(item).some((key: string) => {
         return item[key].toString().toLowerCase().includes(search)
       })
