@@ -39,13 +39,6 @@ export default defineNuxtConfig({
     display: 'swap'
   },
 
-  pinia: {
-    autoImports: [
-      'defineStore',
-      'acceptHMRUpdate'
-    ]
-  },
-
   $development: {
     debug: true,
     sourcemap: true,
