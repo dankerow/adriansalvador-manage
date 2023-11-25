@@ -33,7 +33,7 @@ withDefaults(defineProps<Props>(), {
         </div>
 
         <div class="col">
-          <h5 class="card-title text-uppercase text-muted mb-0">
+          <h5 class="card-title text-uppercase text-body-secondary mb-0">
             {{ title }}
           </h5>
           <p class="text-capitalize fw-bold mb-0">
