@@ -1,188 +1,70 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   currentPage: number
   pages: number
 }>()
 
 const emit = defineEmits<{
-  (e: 'nextPage'): void
   (e: 'changePage', value: number): void
-  (e: 'previousPage'): void
 }>()
-
-const nextPage = () => {
-  emit('nextPage')
-}
 
 const changePage = (value: number) => {
   emit('changePage', value)
 }
 
-const previousPage = () => {
-  emit('previousPage')
-}
+const pageRange = computed(() => {
+  let start = props.currentPage - 1
+  let end = props.currentPage + 1
+
+  if (start < 1) {
+    start = 1
+    end = start + 2
+  }
+
+  if (end > props.pages) {
+    end = props.pages
+    start = end - 2
+  }
+
+  start = Math.max(start, 1);
+  end = Math.min(end, props.pages);
+
+  return Array.from({ length: end - start + 1 }, (_, i) => start + i)
+})
 </script>
 
 <template>
   <nav aria-label="Pagination">
-    <ul v-if="currentPage === 1" class="pagination m-0">
-      <li class="page-item disabled">
-        <span class="page-link" tabindex="-1" aria-label="First" aria-disabled="true">
+    <ul class="pagination m-0">
+      <li class="page-item" :class="{ disabled: currentPage === 1 }">
+        <span class="page-link" @click="changePage(1)">
           <span aria-hidden="true">
             <Icon name="ic:twotone-keyboard-double-arrow-left" />
           </span>
           <span class="visually-hidden">First</span>
         </span>
       </li>
-      <li class="page-item disabled">
-        <span class="page-link" tabindex="-1" aria-label="Previous" aria-disabled="true">
-          <span aria-hidden="true">
-            <Icon name="ic:twotone-keyboard-arrow-left" />
-          </span>
-          <span class="visually-hidden">Previous</span>
-        </span>
-      </li>
-      <li class="page-item active">
-        <span class="page-link" aria-current="page">
-          {{ currentPage }}
-        </span>
-      </li>
-      <li v-if="pages > currentPage" class="page-item">
-        <span class="page-link" @click="changePage(currentPage + 1)">
-          {{ currentPage + 1 }}
-        </span>
-      </li>
-      <li v-if="pages > currentPage + 1" class="page-item">
-        <span class="page-link" @click="changePage(currentPage + 2)">
-          {{ currentPage + 2 }}
-        </span>
-      </li>
-      <li v-if="pages > currentPage" class="page-item">
-        <span class="page-link" aria-label="Next" @click="nextPage()">
-          <span aria-hidden="true">
-            <Icon name="ic:twotone-keyboard-arrow-right" />
-          </span>
-          <span class="visually-hidden">Next</span>
-        </span>
-      </li>
-      <li v-if="pages > currentPage" class="page-item">
-        <span class="page-link" aria-label="Last" @click="changePage(pages)">
-          <span aria-hidden="true">
-            <Icon name="ic:twotone-keyboard-double-arrow-right" />
-          </span>
-          <span class="visually-hidden">Last</span>
-        </span>
-      </li>
-      <li v-if="pages === currentPage" class="page-item disabled">
-        <span class="page-link" tabindex="-1" aria-label="Next" aria-disabled="true">
-          <span aria-hidden="true">
-            <Icon name="ic:twotone-keyboard-arrow-right" />
-          </span>
-          <span class="visually-hidden">Next</span>
-        </span>
-      </li>
-      <li v-if="pages === currentPage" class="page-item disabled">
-        <span class="page-link" tabindex="-1" aria-label="Last" aria-disabled="true">
-          <span aria-hidden="true">
-            <Icon name="ic:twotone-keyboard-double-arrow-right" />
-          </span>
-          <span class="visually-hidden">Last</span>
-        </span>
-      </li>
-    </ul>
-
-    <ul v-else-if="currentPage === pages" class="pagination justify-content-center">
-      <li class="page-item">
-        <span class="page-link" aria-label="First" @click="changePage(1)">
-          <span aria-hidden="true">
-            <Icon name="ic:twotone-keyboard-double-arrow-left" />
-          </span>
-          <span class="visually-hidden">First</span>
-        </span>
-      </li>
-      <li class="page-item">
-        <span class="page-link" aria-label="Previous" @click="previousPage()">
-          <span aria-hidden="true">
-            <Icon name="ic:twotone-keyboard-arrow-left" />
-          </span>
-          <span class="visually-hidden">Previous</span>
-        </span>
-      </li>
-      <li v-if="pages > 2" class="page-item">
-        <span class="page-link" @click="changePage(currentPage - 2)">
-          {{ currentPage - 2 }}
-        </span>
-      </li>
-      <li class="page-item">
+      <li class="page-item" :class="{ disabled: currentPage === 1 }">
         <span class="page-link" @click="changePage(currentPage - 1)">
-          {{ currentPage - 1 }}
-        </span>
-      </li>
-      <li class="page-item active">
-        <span class="page-link" aria-current="page">
-          {{ currentPage }}
-        </span>
-      </li>
-      <li class="page-item disabled">
-        <span class="page-link" tabindex="-1" aria-label="Next" aria-disabled="true">
-          <span aria-hidden="true">
-            <Icon name="ic:twotone-keyboard-arrow-right" />
-          </span>
-          <span class="visually-hidden">Next</span>
-        </span>
-      </li>
-      <li class="page-item disabled">
-        <span class="page-link" tabindex="-1" aria-label="Last" aria-disabled="true">
-          <span aria-hidden="true">
-            <Icon name="ic:twotone-keyboard-double-arrow-right" />
-          </span>
-          <span class="visually-hidden">Last</span>
-        </span>
-      </li>
-    </ul>
-
-    <ul v-else class="pagination justify-content-center">
-      <li class="page-item">
-        <span class="page-link" aria-label="First" @click="changePage(1)">
-          <span aria-hidden="true">
-            <Icon name="ic:twotone-keyboard-double-arrow-left" />
-          </span>
-          <span class="visually-hidden">First</span>
-        </span>
-      </li>
-      <li class="page-item">
-        <span class="page-link" aria-label="Previous" @click="previousPage()">
           <span aria-hidden="true">
             <Icon name="ic:twotone-keyboard-arrow-left" />
           </span>
           <span class="visually-hidden">Previous</span>
         </span>
       </li>
-      <li class="page-item">
-        <span class="page-link" @click="changePage(currentPage - 1)">
-          {{ currentPage - 1 }}
-        </span>
+      <li v-for="i in pageRange" :key="i" class="page-item" :class="{ active: i === currentPage }">
+        <span class="page-link" @click="changePage(i)">{{ i }}</span>
       </li>
-      <li class="page-item active">
-        <span class="page-link" aria-current="page">
-          {{ currentPage }}
-        </span>
-      </li>
-      <li class="page-item">
+      <li class="page-item" :class="{ disabled: currentPage === pages }">
         <span class="page-link" @click="changePage(currentPage + 1)">
-          {{ currentPage + 1 }}
-        </span>
-      </li>
-      <li class="page-item">
-        <div class="page-link" aria-label="Next" @click="nextPage()">
           <span aria-hidden="true">
             <Icon name="ic:twotone-keyboard-arrow-right" />
           </span>
           <span class="visually-hidden">Next</span>
-        </div>
+        </span>
       </li>
-      <li class="page-item">
-        <span class="page-link" aria-label="Last" @click="changePage(pages)">
+      <li class="page-item" :class="{ disabled: currentPage === pages }">
+        <span class="page-link" @click="changePage(pages)">
           <span aria-hidden="true">
             <Icon name="ic:twotone-keyboard-double-arrow-right" />
           </span>
@@ -204,16 +86,7 @@ nav {
 
 .page-link {
 	cursor: pointer;
-	display: inline;
 	user-select: none;
-
-	&[aria-disabled='true'] {
-		cursor: default;
-	}
-
-	&[aria-current='page'] {
-		cursor: default;
-	}
 
 	svg {
 		height: .870rem;
