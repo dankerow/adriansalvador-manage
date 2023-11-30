@@ -33,9 +33,7 @@ const submitForm = async (event: Event) => {
 <template>
   <div>
     <Banner
-      :links="[
-        { name: 'Settings' }
-      ]"
+      title="Settings"
     />
 
     <div class="container-fluid mt-n4">
