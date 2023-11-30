@@ -21,6 +21,7 @@ export const useFaetch = <T>(url: string, options: NitroFetchOptions<Request> = 
 
   const defaults: NitroFetchOptions<Request> = {
     baseURL: config.public.apiBaseUrl,
+    credentials: 'include',
     headers: userAuth.value
       ? { Authorization: `Bearer ${userAuth.value}` }
       : {}
@@ -37,6 +38,7 @@ export const useFutch = <T>(url: string, options: UseFetchOptions<T> = {}) => {
 
   const defaults: UseFetchOptions<T> = {
     baseURL: config.public.apiBaseUrl,
+    credentials: 'include',
     headers: userAuth.value
       ? { Authorization: `Bearer ${userAuth.value}` }
       : {}
