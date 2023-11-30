@@ -8,17 +8,14 @@ const changeTheme = () => {
 </script>
 
 <template>
-  <ColorScheme tag="div">
-    <div class="color-mode" @click="changeTheme">
-      <Icon :name="`ic:twotone-${colorMode.value === 'dark' ? 'brightness-7' : 'brightness-3'}`" />
-    </div>
-  </ColorScheme>
+  <div class="color-mode" @click="changeTheme">
+    <Icon :name="colorMode.value === 'dark' ? 'ph:sun-duotone' : 'ph:moon-duotone'" />
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .color-mode {
 	align-items: center;
-	border-radius: 0.25rem;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
