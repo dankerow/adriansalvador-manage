@@ -138,9 +138,9 @@ $border-width:                1px !default;
 $border-color:                rgba($primary, .1) !default;
 $border-color-translucent:    rgba($black, .1) !default;
 
-$border-radius:               .25rem !default;
-$border-radius-sm:            .2rem !default;
-$border-radius-lg:            .3rem !default;
+$border-radius:               .3rem !default;
+$border-radius-sm:            .25rem !default;
+$border-radius-lg:            .35rem !default;
 $border-radius-pill:          50rem !default;
 
 $box-shadow:                  0 .5rem 1rem rgba($black, .15) !default;
@@ -301,9 +301,9 @@ $pagination-padding-y-lg:           .75rem !default;
 $pagination-padding-x-lg:           1.5rem !default;
 
 $pagination-bg:                     $white !default;
-$pagination-border-width:           $border-width !default;
-$pagination-border-radius:          $border-radius-sm !default;
-$pagination-margin-start:           -$pagination-border-width !default;
+$pagination-border-radius:          var(--#{$prefix}border-radius) !default;
+$pagination-border-width:           var(--#{$prefix}border-width) !default;
+$pagination-margin-start:           calc(#{$pagination-border-width} * -1) !default; // stylelint-disable-line function-disallowed-list
 $pagination-border-color:           $gray-300 !default;
 
 $pagination-focus-bg:               $gray-200 !default;
@@ -318,7 +318,6 @@ $pagination-transition:              color .3s ease-in-out, background-color .3s
 // Cards
 
 $card-title-spacer-y:               $spacer * .25 !default;
-$card-box-shadow:                   0 5px 3px rgba(0, 0, 0, 0.016), 0 17px 10px rgba(0, 0, 0, 0.024), 0 75px 45px rgba(0, 0, 0, 0.04) !default;
 
 // Modals
 
@@ -359,6 +358,10 @@ $modal-fade-transform:              translate(0, -50px) !default;
 $modal-show-transform:              none !default;
 $modal-transition:                  transform .3s ease-out !default;
 $modal-scale-transform:             scale(1.02) !default;
+
+// Tables
+
+$table-bg:                    transparent !default;
 
 // Close
 
