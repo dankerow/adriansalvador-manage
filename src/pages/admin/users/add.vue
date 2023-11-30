@@ -34,7 +34,7 @@ const submitForm = async (event: Event) => {
 
 <template>
   <div>
-    <Banner title="users" icon="ic:outline-supervisor-account" />
+    <Banner title="users" />
 
     <div class="container-fluid mt-n4">
       <div class="row justify-content-center">
