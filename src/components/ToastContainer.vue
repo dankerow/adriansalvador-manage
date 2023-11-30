@@ -1,5 +1,5 @@
 <script>
-export default {
+export default defineComponent({
   props: {
     /**
      * Describes the placement of component.
@@ -47,5 +47,5 @@ export default {
         slots.default && slots.default(),
       )
   },
-}
+})
 </script>
