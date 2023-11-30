@@ -14,6 +14,6 @@
 	.card {
 		--bs-bg-opacity: 1;
 
-		background-color: rgba(var(--bs-darker-rgb), var(--bs-bg-opacity));
+		background: linear-gradient($darker, darken($darker, 0.8%));
 	}
 }
