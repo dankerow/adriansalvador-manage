@@ -23,7 +23,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.unmount = async function() {
     document.removeEventListener('visibilitychange', visibilityHandler, false)
 
-    await authStore.logout()
+    authStore.logout()
 
     _unmount()
   }
