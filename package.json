@@ -21,6 +21,9 @@
     "filepond-plugin-image-preview": "^4.6.11",
     "filepond-plugin-image-resize": "^2.0.10",
     "filepond-plugin-image-transform": "^3.8.7",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.7.1",
+    "papaparse": "^5.4.1",
     "photoswipe": "^5.4.2",
     "vue-filepond": "^7.0.4",
     "xlsx": "^0.18.5"
