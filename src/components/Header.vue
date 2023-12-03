@@ -8,10 +8,6 @@ const settings = useSettingsStore()
 
 const dataAction = settings.isSidebarPinned ? 'unpin' : 'pin'
 
-const toggleSidebarToggler = () => {
-  settings.toggleSidebar()
-}
-
 const logout = () => {
   if (authStore.isLoggedIn) {
     authStore.logout()
@@ -27,17 +23,14 @@ const logout = () => {
       <div class="container-fluid">
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav">
-            <li class="nav-item">
+            <li v-if="!settings.isSidebarPinned" class="nav-item">
               <div
                 class="sidebar-toggler"
-                :class="{ active: settings.isSidebarPinned }"
                 :data-action="dataAction"
                 data-target="#sidebar-main"
-                @click.prevent="toggleSidebarToggler"
+                @click.prevent="settings.toggleSidebar()"
               >
-                <i class="sidebar-toggler-line" />
-                <i class="sidebar-toggler-line" />
-                <i class="sidebar-toggler-line" />
+                <Icon name="tabler:layout-sidebar-left-expand" />
               </div>
             </li>
           </ul>
@@ -45,18 +38,13 @@ const logout = () => {
           <ul class="navbar-nav ms-auto">
             <li class="nav-item ms-auto dropdown">
               <a
-                class="nav-link ps-0"
+                class="nav-link dropdown-toggle ps-0"
                 href="#"
                 role="button"
                 data-bs-toggle="dropdown"
-                aria-haspopup="true"
                 aria-expanded="false"
               >
-                <div class="avatar bg-white text-primary rounded shadow-sm">
-                  <span class="avatar-text">
-                    {{ authStore.user?.firstName[0] + (authStore.user?.lastName[0] || '') }}
-                  </span>
-                </div>
+                {{ authStore.user?.firstName }}
               </a>
 
               <div
@@ -86,47 +74,14 @@ const logout = () => {
         </div>
       </div>
     </nav>
+
+    <hr class="mx-3">
   </header>
 </template>
 
 <style lang="scss" scoped>
-.navbar {
-  --bs-bg-opacity: 1;
-  --bs-border-opacity: 1;
-
-  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity));
-  border-color: rgba(var(--bs-light-rgb), var(--bs-border-opacity));
-}
-
 .sidebar-toggler {
 	cursor: pointer;
-
-	&.active {
-		.sidebar-toggler-line {
-			&:first-child {
-				width: 18px;
-				transform: translateX(6px);
-			}
-
-			&:last-child {
-				width: 14px;
-				transform: translateX(10px);
-			}
-		}
-	}
-
-	.sidebar-toggler-line {
-		transition: all .3s ease-in-out;
-		width: 24px;
-		position: relative;
-		display: block;
-		height: 3px;
-		background-color: #fff;
-
-		&:not(:last-child) {
-			margin-bottom: 3.5px;
-		}
-	}
 }
 
 .dropdown {
@@ -142,15 +97,5 @@ const logout = () => {
 			}
 		}
 	}
-}
-
-.dark-mode {
-  .navbar {
-    --bs-bg-opacity: 1;
-    --bs-border-opacity: 1;
-
-    background-color: rgba(var(--bs-darker-rgb), var(--bs-bg-opacity));
-    border-color: rgba(var(--bs-dark-rgb), var(--bs-border-opacity));
-  }
 }
 </style>

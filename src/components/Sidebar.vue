@@ -4,7 +4,7 @@ import { useSettingsStore } from '@/stores/settings'
 const route = useRoute()
 const settings = useSettingsStore()
 
-const navigation = ref({
+const navigation = {
   categories: [
     {
       name: 'general',
@@ -60,18 +60,16 @@ const navigation = ref({
       ]
     }
   ]
-})
+}
+
+const dataAction = settings.isSidebarPinned ? 'unpin' : 'pin'
 
 const pinSidebar = () => {
-  const body = document.querySelector('body')
   settings.updateSidebar(true)
-  body?.classList.add('g-sidebar-show')
 }
 
 const unpinSidebar = () => {
-  const body = document.querySelector('body')
   settings.updateSidebar(false)
-  body?.classList.remove('g-sidebar-show')
 }
 
 const isNavItemActive = (path: string) => {
@@ -89,21 +87,16 @@ if (process.client) {
 }
 
 onMounted(() => {
-  const body = document.querySelector('body')
-
-  const sidebarState = settings.isSidebarPinned
-
   if (window.innerWidth > 1200) {
-    if (sidebarState) pinSidebar()
+    if (settings.isSidebarPinned) pinSidebar()
     else unpinSidebar()
   }
 
   if (window.innerWidth < 1200) {
-    body?.classList.remove('g-sidebar-show')
     unpinSidebar()
 
     window.addEventListener('resize', () => {
-      if (body?.classList.contains('g-sidebar-show')) {
+      if (settings.isSidebarPinned) {
         unpinSidebar()
       }
     })
@@ -114,13 +107,20 @@ onMounted(() => {
 <template>
   <div class="sidebar shadow-sm">
     <div class="sidebar-header">
-      <div class="navbar-brand">
-        <h2 class="navbar-brand-text">
-          Adrian Salvador
-        </h2>
-      </div>
+      <div class="d-flex flex-row align-items-center justify-content-between">
+        <div class="navbar-brand">
+          <h2 class="navbar-brand-text">
+            Folio
+          </h2>
+        </div>
 
-      <hr>
+        <Icon
+          :data-action="dataAction"
+          data-target="#sidebar-main"
+          name="tabler:layout-sidebar-right-expand"
+          @click.prevent="settings.toggleSidebar()"
+        />
+      </div>
     </div>
 
     <div class="sidebar-nav mb-auto">
@@ -216,7 +216,7 @@ onMounted(() => {
 
 	&::-webkit-scrollbar-thumb {
 		background-color: #abb7ff;
-		border-radius: 0.25rem;
+		border-radius: var(--bs-border-radius);
 	}
 
 	&::-webkit-scrollbar-button {
@@ -228,8 +228,7 @@ onMounted(() => {
 	}
 
 	.sidebar-header {
-		padding: 1rem 0.75rem;
-		text-align: center;
+		padding: 1.08rem 0.75rem;
 		width: 100%;
 	}
 
@@ -246,7 +245,6 @@ onMounted(() => {
 			display: inline-block;
 			font-weight: bold;
 			margin-bottom: 0;
-			text-transform: uppercase;
 		}
 	}
 
@@ -281,7 +279,7 @@ onMounted(() => {
 
 .nav-link {
 	align-items: center;
-	border-radius: 0.2rem;
+	border-radius: var(--bs-border-radius);
 	display: flex;
 	flex-wrap: nowrap;
 	font-weight: 500;
@@ -322,7 +320,7 @@ onMounted(() => {
 	}
 
 	&[aria-expanded="true"] {
-		border-radius: 0.2rem 0.2rem 0 0;
+		border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
 
 		&:after {
 			$toggler-color: rgb(255, 255, 255);
@@ -356,9 +354,7 @@ onMounted(() => {
 
 .dark-mode {
 	.sidebar {
-    --bs-bg-opacity: 1;
-
-    background-color: rgba(var(--bs-darker-rgb), var(--bs-bg-opacity));
+    background: linear-gradient(var(--bs-darker), darken(rgb(13, 13, 13), 0.8%));
 
 		&::-webkit-scrollbar-thumb {
 			background-color: rgb(37, 37, 37);
@@ -386,7 +382,7 @@ onMounted(() => {
 		}
 
 		&:hover {
-			background: rgba(27, 27, 27, 0.8);
+			background: rgba(27, 27, 27);
 		}
 	}
 

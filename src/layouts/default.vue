@@ -50,7 +50,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="d-flex flex-row align-items-stretch">
+  <div class="d-flex flex-row align-items-stretch" :class="{ 'sidebar-show': settings.isSidebarPinned }">
     <Sidebar />
 
     <div class="main-content" role="main">
@@ -122,7 +122,7 @@ onMounted(() => {
   display: none;
 }
 
-.g-sidebar-show {
+.sidebar-show {
   .sidebar {
     left: 0;
 
@@ -145,7 +145,7 @@ onMounted(() => {
 }
 
 @media screen and (min-width: 768px) {
-  .g-sidebar-show {
+  .sidebar-show {
     .main-content {
       padding-left: 250px;
     }
@@ -153,7 +153,7 @@ onMounted(() => {
 }
 
 @media screen and (max-width: 768px) {
-  .g-sidebar-show {
+  .sidebar-show {
     .main-content {
       .sidebar-backdrop {
         display: block;
@@ -163,7 +163,7 @@ onMounted(() => {
 }
 
 @media screen and (min-width: 768px) {
-  .g-sidebar-show {
+  .sidebar-show {
     &.pinned {
       .main-content {
         padding-left: 80px;
