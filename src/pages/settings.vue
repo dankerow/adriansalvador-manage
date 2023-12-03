@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
 
 const router = useRouter()
 const authStore = useAuthStore()
 
-const { user } = storeToRefs(authStore)
-
 const form = reactive({
-  firstName: user.value?.firstName,
-  lastName: user.value?.lastName,
-  email: user.value?.email
+  firstName: authStore.user?.firstName,
+  lastName: authStore.user?.lastName,
+  email: authStore.user?.email
 })
 
 const errors = ref()
