@@ -41,7 +41,7 @@ const login = async () => {
 <template>
   <div class="hero">
     <div class="container-fluid g-0">
-      <div class="w-100 bg-gradient-dark py-10 py-lg-15 text-center">
+      <div class="w-100 py-10 py-lg-15 text-center">
         <h1 class="display-1 text-uppercase fw-bold lh-1">
           Adrian Salvador
         </h1>
@@ -49,7 +49,7 @@ const login = async () => {
     </div>
 
     <div class="container-fluid">
-      <div class="row justify-content-center mt-n5">
+      <div class="row justify-content-center mt-n4">
         <div class="col-10 col-sm-12 col-md-10 col-lg-4">
           <div class="card text-bg-darker">
             <div class="card-header">
