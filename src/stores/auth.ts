@@ -15,6 +15,7 @@ export const useAuthStore = defineStore('auth', () => {
       if (!data && !isLoggedIn) return logout()
 
       user.value = data
+
       return { error: null }
     } catch (e: any) {
       return { error: e.data ? e.data.error : e }
