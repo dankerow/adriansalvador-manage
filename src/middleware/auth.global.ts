@@ -1,16 +1,16 @@
 import { useAuthStore } from '@/stores/auth'
 
-export default defineNuxtRouteMiddleware((to) => {
+export default defineNuxtRouteMiddleware(async (to) => {
   if (to.meta.auth === false) {
     return
   }
 
-  const store = useAuthStore()
-
+  const authStore = useAuthStore()
   const loginRoutePath = '/auth/login'
-  const isLoggedIn = store.isLoggedIn
 
-  if (!isLoggedIn && to.path !== loginRoutePath) {
+  await authStore.verify()
+
+  if (!authStore.isLoggedIn && to.path !== loginRoutePath) {
     return navigateTo(`${loginRoutePath}?redirect=${to.path !== '/' ? to.path : '/dashboard'}`)
   }
 
