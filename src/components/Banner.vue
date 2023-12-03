@@ -35,7 +35,7 @@ const buttons = computed(() => {
       <div class="container-fluid">
         <div class="row align-items-center">
           <div class="col-12 col-md-6 col-lg-4">
-            <h1 class="fw-bolder text-white d-inline-block mb-0">
+            <h1 class="fw-bolder d-inline-block mb-0">
               {{ title }}
             </h1>
           </div>
