@@ -24,7 +24,7 @@
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.7.1",
     "papaparse": "^5.4.1",
-    "photoswipe": "^5.4.2",
+    "photoswipe": "^5.4.3",
     "vue-filepond": "^7.0.4",
     "xlsx": "^0.18.5"
   },
@@ -32,13 +32,13 @@
     "@nuxt/eslint-config": "^0.2.0",
     "@nuxt/image": "^1.1.0",
     "@nuxtjs/color-mode": "^3.3.2",
-    "@nuxtjs/critters": "^0.5.1",
+    "@nuxtjs/critters": "^0.5.2",
     "@nuxtjs/fontaine": "^0.4.1",
-    "@nuxtjs/google-fonts": "3.0.2",
-    "@types/node": "^20.9.4",
+    "@nuxtjs/google-fonts": "3.1.0",
+    "@types/node": "^20.10.3",
     "@vueuse/core": "^10.6.1",
     "@vueuse/nuxt": "^10.6.1",
-    "eslint": "^8.54.0",
+    "eslint": "^8.55.0",
     "nuxt": "3.8.2",
     "nuxt-icon": "^0.6.6",
     "nuxt-purgecss": "^2.0.0",
@@ -53,5 +53,5 @@
     "Firefox ESR",
     "not dead"
   ],
-  "packageManager": "pnpm@8.10.5"
+  "packageManager": "pnpm@8.11.0"
 }
