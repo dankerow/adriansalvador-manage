@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const props = withDefaults(defineProps<{
-  icon?: string
   title?: string
   buttons?: {
     name: string
@@ -11,7 +10,6 @@ const props = withDefaults(defineProps<{
     callback?:() => void
   }[]
 }>(), {
-  icon: 'ph:house-simple-duotone',
   buttons: () => ([])
 })
 
