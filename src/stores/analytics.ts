@@ -41,3 +41,7 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     fetchAnalytics
   }
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useAnalyticsStore, import.meta.hot))
+}
