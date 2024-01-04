@@ -44,7 +44,7 @@
     "nuxt-purgecss": "^2.0.0",
     "nuxt-security": "^1.0.0",
     "nuxt-time": "^0.1.1",
-    "sass": "^1.69.6",
+    "sass": "^1.69.7",
     "typescript": "^5.3.3"
   },
   "browserslist": [
@@ -53,5 +53,5 @@
     "Firefox ESR",
     "not dead"
   ],
-  "packageManager": "pnpm@8.13.1"
+  "packageManager": "pnpm@8.14.0"
 }
