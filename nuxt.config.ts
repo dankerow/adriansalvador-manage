@@ -10,6 +10,10 @@ export default defineNuxtConfig({
     typedPages: true
   },
 
+  build: {
+    transpile: ['xlsx']
+  },
+
   css: [
     '@/assets/scss/bedrock.scss'
   ],
