@@ -19,10 +19,10 @@ export default defineNuxtConfig({
   ],
 
   modules: [
+    '@nuxt/fonts',
     '@nuxt/image',
     '@nuxtjs/color-mode',
     '@nuxtjs/critters',
-    '@nuxtjs/google-fonts',
     '@pinia/nuxt',
     '@vueuse/nuxt',
     'nuxt-icon',
@@ -34,13 +34,13 @@ export default defineNuxtConfig({
     fallback: 'dark'
   },
 
-  googleFonts: {
-    families: {
-      Archivo: {
-        wght: [400, 500, 600, 700, 800, 900]
-      }
+  fonts: {
+    experimental: {
+      processCSSVariables: true
     },
-    display: 'swap'
+    families: [
+      { name: 'Archivo', weights: [400, 500, 600, 700, 800, 900] }
+    ],
   },
 
   $development: {
