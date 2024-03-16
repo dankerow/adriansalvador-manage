@@ -60,7 +60,6 @@ export const useUsersStore = defineStore('users', () => {
     users,
     count,
     pages,
-    loading,
     getUsers,
     getUser,
     addUser,
