@@ -2,6 +2,7 @@ export interface Column {
   prop: string
   label: string
   sortable?: boolean
+  direction?: string
   width?: number
 }
 
@@ -17,11 +18,12 @@ export interface PaginationOptions {
 }
 
 export interface FilterOptions {
+  page?: number
   search?: string
   limit?: number
   sort?: {
-    by?: string
-    order?: string
+    column: string | null
+    direction: string
   }
 }
 
@@ -36,6 +38,10 @@ export interface Props {
   data: Row[]
   pagination?: PaginationOptions
   filters?: FilterOptions
+  sort?: {
+    column: string | null
+    direction: string
+  }
   buttons?: {
     name: string
     text: string
