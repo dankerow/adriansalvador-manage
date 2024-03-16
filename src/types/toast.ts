@@ -3,7 +3,7 @@ export interface Toast {
   color?: string,
   delay?: number,
   dismissible?: boolean,
-  index: number,
+  index?: number,
   title: string,
   body: string,
   visible?: boolean,

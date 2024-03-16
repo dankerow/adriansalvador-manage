@@ -1,7 +1,5 @@
-import type { Ref } from 'vue'
-
 export const useSettingsStore = defineStore('settings', () => {
-  const	sidebar: Ref<boolean> = ref(false)
+  const	sidebar = ref<boolean>(false)
 
   const isSidebarPinned = computed(() => sidebar.value)
 

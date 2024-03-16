@@ -1,13 +1,12 @@
-import type { Ref } from 'vue'
-import type { User } from '~/types/user'
+import type { User } from '@/types/user'
 
 export const useUsersStore = defineStore('users', () => {
-  const users: Ref<User[]> = ref([])
-  const count: Ref<number> = ref(0)
-  const pages: Ref<number> = ref(0)
+  const users = ref<User[]>([])
+  const count = ref<number>(0)
+  const pages = ref<number>(0)
 
   const getUsers = async () => {
-    const { data: usersD, count: countD, pages: pagesD } : { data: User[], count: number, pages: number } = await useFaetch('/users')
+    const { data: usersD, count: countD, pages: pagesD } = await useFaetch<{ data: User[], count: number, pages: number  }>('/users')
 
     users.value = usersD
     count.value = countD
@@ -15,14 +14,17 @@ export const useUsersStore = defineStore('users', () => {
   }
 
   const getUser = async (id: string) => {
-    const data: User = await useFaetch(`/users/${id}`)
+    const data = await useFaetch<User>(`/users/${id}`)
 
     return data
   }
 
   const addUser = async ({ firstName, lastName, email }: { firstName: string, lastName: string, email: string }) => {
     try {
-      const data: User = await useFaetch('/users', { method: 'post', body: { firstName, lastName, email } })
+      const data = await useFaetch<User>('/users', {
+        method: 'post',
+        body: { firstName, lastName, email }
+      })
       users.value.push(data)
 
       return { error: null }
@@ -32,7 +34,10 @@ export const useUsersStore = defineStore('users', () => {
   }
 
   const updateUser = async (id: string, username: string, email: string, password: string) => {
-    const data: User = await useFaetch(`/users/${id}`, { method: 'put', body: { username, email, password } })
+    const data = await useFaetch<User>(`/users/${id}`, {
+      method: 'put',
+      body: { username, email, password }
+    })
     const index = users.value.findIndex((user: any) => user.id === id)
     users.value[index] = data
 
@@ -40,14 +45,22 @@ export const useUsersStore = defineStore('users', () => {
   }
 
   const deleteUser = async (id: string) => {
-    await useFaetch(`/users/${id}`, { method: 'delete' })
+    await useFaetch(`/users/${id}`, {
+      method: 'delete'
+    })
+
     const index = users.value.findIndex((user: any) => user.id === id)
+
     users.value.splice(index, 1)
   }
 
   const deleteUsers = async (ids: string[]) => {
     try {
-      await useFaetch('/users', { method: 'delete', body: { ids } })
+      await useFaetch('/users', {
+        method: 'delete',
+        body: { ids }
+      })
+
       users.value = users.value.filter((user: any) => !ids.includes(user.id))
 
       return { error: null }

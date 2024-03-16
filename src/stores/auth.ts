@@ -1,12 +1,11 @@
-import type { Ref } from 'vue'
 import type { User } from '@/types/user'
 
 import { useAlbumsStore } from '@/stores/albums'
 import { useFilesStore } from '@/stores/files'
 
 export const useAuthStore = defineStore('auth', () => {
-  const user: Ref<User|null> = ref(null)
-  const token: Ref<string|null> = ref(null)
+  const user  = ref<User | null>(null)
+  const token = ref<string | null>(null)
 
   const isLoggedIn = computed(() => {
     return !!user.value
@@ -14,7 +13,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const verify = async () => {
     try {
-      const data: User = await useFaetch('/authentication/verify')
+      const data = await useFaetch<User>('/authentication/verify')
       if (!data && !isLoggedIn) return logout()
 
       user.value = data
@@ -38,7 +37,10 @@ export const useAuthStore = defineStore('auth', () => {
 
   const login = async ({ email, password }: { email: string, password: string }) => {
     try {
-      const data: { user: User, token: string } = await useFaetch('/authentication/login', { method: 'post', body: { email, password } })
+      const data = await useFaetch<{ user: User, token: string }>('/authentication/login', {
+        method: 'post',
+        body: { email, password }
+      })
 
       token.value = data.token
       user.value = data.user
@@ -62,7 +64,10 @@ export const useAuthStore = defineStore('auth', () => {
 
   const updateUser = async (newUser: User) => {
     try {
-      const data: User = await useFaetch('/@me', { method: 'put', body: newUser })
+      const data = await useFaetch<User>('/@me', {
+        method: 'put',
+        body: newUser
+      })
       user.value = data
 
       return { data, error: null }

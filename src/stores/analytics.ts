@@ -1,16 +1,25 @@
-import type { Ref } from 'vue'
+interface Analytics {
+  basic: {
+    pageViews: number
+    totalVisitors: number
+    newVisitors: number
+  }
+  engagementRate: number
+  popular: string[]
+  trending: string[]
+}
 
 export const useAnalyticsStore = defineStore('analytics', () => {
-  const pageViews: Ref<number> = ref(0)
-  const newVisitors: Ref<number> = ref(0)
-  const totalVisitors: Ref<number> = ref(0)
-  const engagementRate: Ref<number> = ref(0)
-  const popularPages: Ref<Array<string>> = ref([])
-  const trendingPages: Ref<Array<string>> = ref([])
+  const pageViews = ref<number>(0)
+  const newVisitors = ref<number>(0)
+  const totalVisitors = ref<number>(0)
+  const engagementRate = ref<number>(0)
+  const popularPages = ref<string[]>([])
+  const trendingPages = ref<string[]>([])
 
   const fetchAnalytics = async () => {
     try {
-      const data = await useFaetch('/analytics')
+      const data = await useFaetch<Analytics>('/analytics')
 
       pageViews.value = data.basic.pageViews
       totalVisitors.value = data.basic.totalVisitors
