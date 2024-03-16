@@ -6,6 +6,10 @@ export default defineNuxtConfig({
     strict: true
   },
 
+  nitro: {
+    minify: true
+  },
+
   experimental: {
     typedPages: true
   },
