@@ -14,6 +14,35 @@ export default defineNuxtConfig({
     transpile: ['xlsx']
   },
 
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'en',
+        dir: 'auto'
+      },
+      title: null,
+      titleTemplate: (titleChunk) => {
+        return titleChunk ? `${titleChunk} - Adrian Salvador - Dashboard` : 'Adrian Salvador - Dashboard'
+      },
+      meta: [
+        { name: 'description', content: '' },
+        { name: 'robots', content: 'noydir,noodp,noarchive,nocache,notranslate,nofollow,noimageindex,noindex' }
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'preconnect', href: 'https://cdn.salvadoradrian.com' },
+        { rel: 'dns-prefetch', href: 'https://cdnjs.cloudflare.com' }
+      ],
+      script: [
+        {
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js',
+          type: 'text/javascript',
+          defer: true
+        }
+      ]
+    }
+  },
+
   css: [
     '@/assets/scss/bedrock.scss'
   ],
