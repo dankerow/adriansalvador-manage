@@ -356,6 +356,11 @@ $modal-scale-transform:             scale(1.02) !default;
 
 $table-bg:                    transparent !default;
 
+// Breadcrumbs
+
+// scss-docs-start breadcrumb-variables
+$breadcrumb-font-size:              $font-size-sm !default;
+
 // Close
 
 $btn-close-width:            .675em !default;
