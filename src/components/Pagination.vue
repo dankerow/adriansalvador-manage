@@ -44,6 +44,7 @@ const pageRange = computed(() => {
           <span class="visually-hidden">First</span>
         </span>
       </li>
+
       <li class="page-item" :class="{ disabled: currentPage === 1 }">
         <span class="page-link" @click="changePage(currentPage - 1)">
           <span aria-hidden="true">
@@ -52,9 +53,11 @@ const pageRange = computed(() => {
           <span class="visually-hidden">Previous</span>
         </span>
       </li>
+
       <li v-for="i in pageRange" :key="i" class="page-item" :class="{ active: i === currentPage }">
         <span class="page-link" @click="changePage(i)">{{ i }}</span>
       </li>
+
       <li class="page-item" :class="{ disabled: currentPage === pages }">
         <span class="page-link" @click="changePage(currentPage + 1)">
           <span aria-hidden="true">
@@ -63,6 +66,7 @@ const pageRange = computed(() => {
           <span class="visually-hidden">Next</span>
         </span>
       </li>
+
       <li class="page-item" :class="{ disabled: currentPage === pages }">
         <span class="page-link" @click="changePage(pages)">
           <span aria-hidden="true">
