@@ -7,7 +7,10 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    minify: true
+    minify: true,
+    experimental: {
+      typescriptBundlerResolution: true
+    }
   },
 
   experimental: {
