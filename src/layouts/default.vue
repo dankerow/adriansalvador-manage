@@ -40,12 +40,6 @@ onMounted(() => {
     document.documentElement.setAttribute('data-bs-theme', theme)
   }
   setTheme(colorMode.value)
-
-  const backdrop = document.querySelector('#sidebar-backdrop') as HTMLElement
-
-  backdrop.addEventListener('click', () => {
-    settings.toggleSidebar()
-  })
 })
 </script>
 
@@ -54,7 +48,7 @@ onMounted(() => {
     <Sidebar />
 
     <div class="main-content" role="main">
-      <div id="sidebar-backdrop" class="sidebar-backdrop" />
+      <div class="sidebar-backdrop" @click="settings.toggleSidebar()" />
 
       <Header />
 
