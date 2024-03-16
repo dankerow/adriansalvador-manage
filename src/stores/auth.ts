@@ -1,6 +1,9 @@
 import type { Ref } from 'vue'
 import type { User } from '@/types/user'
 
+import { useAlbumsStore } from '@/stores/albums'
+import { useFilesStore } from '@/stores/files'
+
 export const useAuthStore = defineStore('auth', () => {
   const user: Ref<User|null> = ref(null)
   const token: Ref<string|null> = ref(null)
@@ -15,6 +18,17 @@ export const useAuthStore = defineStore('auth', () => {
       if (!data && !isLoggedIn) return logout()
 
       user.value = data
+
+      const filesStore = useFilesStore()
+      const albumsStore = useAlbumsStore()
+
+      if (!filesStore.isPopulated) {
+        await filesStore.getFiles({ includeAlbum: true }, { setData: true })
+      }
+
+      if (!albumsStore.isPopulated) {
+        await albumsStore.getAlbums({}, { setData: true })
+      }
 
       return { error: null }
     } catch (e: any) {
