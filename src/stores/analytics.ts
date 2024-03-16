@@ -7,12 +7,9 @@ export const useAnalyticsStore = defineStore('analytics', () => {
   const engagementRate: Ref<number> = ref(0)
   const popularPages: Ref<Array<string>> = ref([])
   const trendingPages: Ref<Array<string>> = ref([])
-  const loading: Ref<boolean> = ref(false)
 
   const fetchAnalytics = async () => {
     try {
-      loading.value = true
-
       const data = await useFaetch('/analytics')
 
       pageViews.value = data.basic.pageViews
@@ -21,8 +18,6 @@ export const useAnalyticsStore = defineStore('analytics', () => {
       engagementRate.value = data.engagementRate
       popularPages.value = data.popular
       trendingPages.value = data.trending
-
-      loading.value = false
 
       return { data, error: null }
     } catch (e: any) {
@@ -37,7 +32,6 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     engagementRate,
     popularPages,
     trendingPages,
-    loading,
     fetchAnalytics
   }
 })

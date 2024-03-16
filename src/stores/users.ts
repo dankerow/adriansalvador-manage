@@ -5,22 +5,18 @@ export const useUsersStore = defineStore('users', () => {
   const users: Ref<User[]> = ref([])
   const count: Ref<number> = ref(0)
   const pages: Ref<number> = ref(0)
-  const loading: Ref<boolean> = ref(false)
 
   const getUsers = async () => {
-    loading.value = true
     const { data: usersD, count: countD, pages: pagesD } : { data: User[], count: number, pages: number } = await useFaetch('/users')
 
     users.value = usersD
     count.value = countD
     pages.value = pagesD
-    loading.value = false
   }
 
   const getUser = async (id: string) => {
-    loading.value = true
     const data: User = await useFaetch(`/users/${id}`)
-    loading.value = false
+
     return data
   }
 
