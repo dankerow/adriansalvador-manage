@@ -39,7 +39,7 @@ export default defineNuxtConfig({
       processCSSVariables: true
     },
     families: [
-      { name: 'Archivo', weights: [400, 500, 600, 700, 800, 900] }
+      { name: 'Karla', weights: [400, 500, 600, 700, 800, 900] }
     ],
   },
 
