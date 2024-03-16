@@ -6,7 +6,7 @@
 @import "utilities";
 @import "bootstrap/scss/root";
 
-@import "reboot";
+@import "bootstrap/scss/reboot";
 @import "bootstrap/scss/type";
 @import "components/avatar";
 @import "bootstrap/scss/images";
@@ -24,6 +24,7 @@
 @import "components/card";
 @import "bootstrap/scss/breadcrumb";
 @import "bootstrap/scss/pagination";
+@import "bootstrap/scss/badge";
 @import "components/alert";
 @import "bootstrap/scss/list-group";
 @import "bootstrap/scss/close";
@@ -34,3 +35,40 @@
 @import "bootstrap/scss/helpers";
 
 @import "bootstrap/scss/utilities/api";
+
+html {
+  height: 100%;
+}
+
+body {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #abb7ff;
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
+
+.dark-mode {
+  body {
+    &::-webkit-scrollbar-thumb {
+      background: #121212;
+    }
+  }
+
+  hr {
+    color: rgb(90, 90, 90);
+    border-radius: var(--bs-border-radius);
+  }
+}
