@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { useSettingsStore } from '@/stores/settings'
 
+useHead({
+  titleTemplate: (titleChunk) => {
+    return titleChunk ? `${titleChunk} - Adrian Salvador - Dashboard` : 'Adrian Salvador - Dashboard'
+  }
+})
+
 const settings = useSettingsStore()
-
 const colorMode = useColorMode()
-
 const toasts = useToasts()
 const { removeToast } = useToast()
 

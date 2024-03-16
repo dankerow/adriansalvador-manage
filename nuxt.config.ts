@@ -20,10 +20,6 @@ export default defineNuxtConfig({
         lang: 'en',
         dir: 'auto'
       },
-      title: null,
-      titleTemplate: (titleChunk) => {
-        return titleChunk ? `${titleChunk} - Adrian Salvador - Dashboard` : 'Adrian Salvador - Dashboard'
-      },
       meta: [
         { name: 'description', content: '' },
         { name: 'robots', content: 'noydir,noodp,noarchive,nocache,notranslate,nofollow,noimageindex,noindex' }
@@ -109,6 +105,7 @@ export default defineNuxtConfig({
       safelist: [
         'dark-mode',
         'svg',
+        /^pswp/,
         /^btn-/,
         /^dropdown/,
         /^filepond/
