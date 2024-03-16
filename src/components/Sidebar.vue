@@ -15,14 +15,9 @@ const navigation = {
           icon: 'ic:twotone-space-dashboard'
         },
         {
-          name: 'files',
-          path: '/files',
+          name: 'media',
+          path: '/media',
           icon: 'ph:images-duotone'
-        },
-        {
-          name: 'albums',
-          path: '/albums',
-          icon: 'ph:folders-duotone'
         }
       ]
     },
@@ -109,7 +104,7 @@ onMounted(() => {
     <div class="sidebar-header">
       <div class="d-flex flex-row align-items-center justify-content-between">
         <div class="navbar-brand">
-          <h2 class="navbar-brand-text">
+          <h2 class="navbar-brand-text d-inline-block fs-5 fw-bold m-0">
             Folio
           </h2>
         </div>
@@ -238,14 +233,6 @@ onMounted(() => {
     &:not(:first-child) {
       padding-top: 1rem;
     }
-	}
-
-	.navbar-brand {
-		.navbar-brand-text {
-			display: inline-block;
-			font-weight: bold;
-			margin-bottom: 0;
-		}
 	}
 
 	.navbar-heading {
