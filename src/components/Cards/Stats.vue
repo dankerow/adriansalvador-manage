@@ -15,9 +15,7 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <div
-    class="card card-stats shadow-sm"
-  >
+  <div class="card card-stats shadow-sm">
     <div class="card-body">
       <div class="row">
         <div class="col-auto">
@@ -33,9 +31,10 @@ withDefaults(defineProps<Props>(), {
         </div>
 
         <div class="col">
-          <h5 class="card-title text-uppercase text-body-secondary mb-0">
+          <h6 class="card-title text-uppercase text-body-secondary mb-0">
             {{ title }}
-          </h5>
+          </h6>
+
           <p class="text-capitalize fw-bold mb-0">
             {{ description }}
           </p>
