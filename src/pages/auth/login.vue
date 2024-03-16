@@ -53,10 +53,11 @@ const login = async () => {
         <div class="col-10 col-sm-12 col-md-10 col-lg-4">
           <div class="card text-bg-darker">
             <div class="card-header">
-              <h3 class="card-title mb-0">
+              <h5 class="card-title mb-0">
                 Sign In
-              </h3>
-              <p class="text-muted fs-5 mb-0">
+              </h5>
+
+              <p class="text-body-secondary mb-0">
                 Start managing your photos.
               </p>
             </div>
@@ -73,6 +74,7 @@ const login = async () => {
                     <span class="input-group-text">
                       <Icon name="ic:twotone-alternate-email" />
                     </span>
+
                     <label for="email" />
                     <input
                       id="email"
@@ -92,6 +94,7 @@ const login = async () => {
                     <span class="input-group-text">
                       <Icon name="ic:twotone-password" />
                     </span>
+
                     <label for="password" />
                     <input
                       id="password"
@@ -113,16 +116,12 @@ const login = async () => {
                 </div>
 
                 <div class="text-center">
-                  <button class="btn btn-secondary" type="submit">
+                  <button class="btn btn-secondary d-inline-flex align-items-center" type="submit">
                     <Icon name="ic:twotone-log-in" />
                     Sign in
                   </button>
                 </div>
               </form>
-            </div>
-
-            <div class="card-footer text-muted text-end">
-              by <span class="font-monospace bg-dark px-1 py-1 rounded-1">Folium</span>
             </div>
           </div>
         </div>
