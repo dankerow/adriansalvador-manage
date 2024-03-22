@@ -38,7 +38,7 @@ export const useUsersStore = defineStore('users', () => {
       method: 'put',
       body: { username, email, password }
     })
-    const index = users.value.findIndex((user: any) => user.id === id)
+    const index = users.value.findIndex((user) => user._id === id)
     users.value[index] = data
 
     return data
@@ -49,7 +49,7 @@ export const useUsersStore = defineStore('users', () => {
       method: 'delete'
     })
 
-    const index = users.value.findIndex((user: any) => user.id === id)
+    const index = users.value.findIndex((user) => user._id === id)
 
     users.value.splice(index, 1)
   }
@@ -61,7 +61,7 @@ export const useUsersStore = defineStore('users', () => {
         body: { ids }
       })
 
-      users.value = users.value.filter((user: any) => !ids.includes(user.id))
+      users.value = users.value.filter((user) => !ids.includes(user._id))
 
       return { error: null }
     } catch (e: any) {

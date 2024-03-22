@@ -50,7 +50,7 @@ export const useAlbumsStore = defineStore('albums', () => {
       method: 'put',
       body: form
     })
-    const index = albums.value.findIndex((album: any) => album.id === id)
+    const index = albums.value.findIndex((album) => album._id === id)
 
     albums.value[index] = data
 
@@ -61,7 +61,7 @@ export const useAlbumsStore = defineStore('albums', () => {
     const data = await useFaetch<Album>(`/albums/${id}/publish`, {
       method: 'post'
     })
-    const index = albums.value.findIndex((album: any) => album.id === id)
+    const index = albums.value.findIndex((album) => album._id === id)
 
     albums.value[index] = data
 
@@ -72,7 +72,7 @@ export const useAlbumsStore = defineStore('albums', () => {
     const data = await useFaetch<Album>(`/albums/${id}/unpublish`, {
       method: 'post'
     })
-    const index = albums.value.findIndex((album: any) => album.id === id)
+    const index = albums.value.findIndex((album) => album._id === id)
 
     albums.value[index] = data
 
@@ -85,7 +85,7 @@ export const useAlbumsStore = defineStore('albums', () => {
       method: 'delete'
     })
 
-    const index = albums.value.findIndex((album: any) => album.id === id)
+    const index = albums.value.findIndex((album) => album._id === id)
 
     albums.value.splice(index, 1)
 
@@ -99,7 +99,7 @@ export const useAlbumsStore = defineStore('albums', () => {
       body: { ids }
     })
 
-    albums.value = albums.value.filter((album: any) => !ids.includes(album.id))
+    albums.value = albums.value.filter((album) => !ids.includes(album._id))
 
     return albums
   }
