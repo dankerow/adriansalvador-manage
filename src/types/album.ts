@@ -6,9 +6,10 @@ export interface AlbumFile extends File {
 }
 
 export interface Album {
-  readonly id: string
+  readonly _id: string
   name: string
   url?: string
+  draft: boolean
   hidden: boolean
   nsfw: boolean
   favorite: boolean
