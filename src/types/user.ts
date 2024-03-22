@@ -1,5 +1,5 @@
 export interface User {
-  readonly id: string
+  readonly _id: string
   firstName: string
   lastName: string
   email: string
