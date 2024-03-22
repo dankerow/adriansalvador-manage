@@ -1,7 +1,7 @@
 import type { Album } from './album'
 
 export interface File {
-  readonly id: string
+  readonly _id: string
   name: string
   url?: string
   readonly type: string
