@@ -1,7 +1,7 @@
 <script setup lang="ts">
 interface Props {
   title: string;
-  description: any;
+  description: string;
   icon: {
     name: string;
     color?: string;

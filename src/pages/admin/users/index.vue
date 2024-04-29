@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Row } from '@/types/datatable'
+
 import { useUsersStore } from '@/stores/users'
 
 const usersStore = useUsersStore()
@@ -37,7 +39,7 @@ const deleteSelectedUsers = async () => {
     return
   }
 
-  const ids = selectedRows.map((row: any) => row.id)
+  const ids = selectedRows.map((row: Row) => row.id)
 
   await usersStore.deleteUsers(ids)
 
