@@ -71,7 +71,7 @@ const isNavItemActive = (path: string) => {
   return route.path.startsWith(path) && path !== '/'
 }
 
-if (process.client) {
+if (import.meta.client) {
   watchEffect(() => {
     if (settings.sidebar) {
       pinSidebar()
