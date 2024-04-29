@@ -181,9 +181,9 @@ onMounted(() => {
       </template>
     </div>
 
-    <hr>
-
     <div class="sidebar-footer d-flex w-100 flex-nowrap px-3 py-1">
+      <hr class="mx-3">
+
       <ThemeSelector />
     </div>
   </div>
