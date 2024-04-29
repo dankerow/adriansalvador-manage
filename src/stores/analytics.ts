@@ -29,7 +29,7 @@ export const useAnalyticsStore = defineStore('analytics', () => {
       trendingPages.value = data.trending
 
       return { data, error: null }
-    } catch (e: any) {
+    } catch (e) {
       return { error: e.data ? e.data.error : e }
     }
   }

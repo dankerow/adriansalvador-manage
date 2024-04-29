@@ -30,7 +30,7 @@ export const useAuthStore = defineStore('auth', () => {
       }
 
       return { error: null }
-    } catch (e: any) {
+    } catch (e) {
       return { error: e.data ? e.data.error : e }
     }
   }
@@ -49,7 +49,7 @@ export const useAuthStore = defineStore('auth', () => {
       tokenCookie.value = data.token
 
       return { error: null }
-    } catch (e: any) {
+    } catch (e) {
       return { error: e.data ? e.data.error : e }
     }
   }
@@ -71,7 +71,7 @@ export const useAuthStore = defineStore('auth', () => {
       user.value = data
 
       return { data, error: null }
-    } catch (e: any) {
+    } catch (e) {
       return { error: e.data ? e.data.error : e }
     }
   }

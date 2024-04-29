@@ -28,7 +28,7 @@ export const useUsersStore = defineStore('users', () => {
       users.value.push(data)
 
       return { error: null }
-    } catch (e: any) {
+    } catch (e) {
       return { error: e.data ? e.data.error : e }
     }
   }
@@ -64,7 +64,7 @@ export const useUsersStore = defineStore('users', () => {
       users.value = users.value.filter((user) => !ids.includes(user._id))
 
       return { error: null }
-    } catch (e: any) {
+    } catch (e) {
       return { error: e.data ? e.data.error : e }
     }
   }
