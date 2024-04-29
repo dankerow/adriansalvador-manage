@@ -27,7 +27,6 @@ jobs:
       - name: create env file
         run: |
           touch .env
-          echo API_BASE_URL=${{ secrets.API_BASE_URL }} >> .env
           echo CDN_BASE_URL=${{ secrets.CDN_BASE_URL }} >> .env
       - run: corepack enable
       - uses: pnpm/action-setup@v3.0.0
@@ -61,7 +60,6 @@ jobs:
       - name: create env file
         run: |
           touch .env
-          echo API_BASE_URL=${{ secrets.API_BASE_URL }} >> .env
           echo CDN_BASE_URL=${{ secrets.CDN_BASE_URL }} >> .env
       - run: corepack enable
       - uses: pnpm/action-setup@v3.0.0
