@@ -10,7 +10,7 @@
   "commitMessageTopic": "{{depName}}",
   "dependencyDashboard": true,
   "rebaseWhen": "conflicted",
-  "ignoreDeps": [],
+  "ignoreDeps": ["bootstrap"],
   "labels": ["dependencies"],
   "packageRules": [
     {
