@@ -7,15 +7,15 @@ const route = useRoute()
 const albumsStore = useAlbumsStore()
 const cdnBaseUrl = useRuntimeConfig().public.cdnBaseUrl
 
-const { data: album } = await useAsyncData<Album | null>(
+const { data: album, error } = await useAsyncData<Album | null>(
     `album-${route.params.id}`,
     () => albumsStore.getAlbum(route.params.id),
     {
-      default: () => albumsStore.albums.find(album => album.id === route.params.id) || null
+      default: () => albumsStore.albums.find(album => album._id === route.params.id) || null
     }
 )
 
-if (!album.value) {
+if (!album.value || error.value) {
   throw createError({ statusCode: 404, message: 'The album you are looking for couldn\'t be found.' })
 }
 
@@ -30,7 +30,7 @@ useHead({
 })
 
 const { data: imageData } = await useAsyncData(
-  () => albumsStore.getAlbumFiles(album.value!.id, -1),
+  () => albumsStore.getAlbumFiles(album.value!._id, -1),
   {
     default: () => ref({ images: [], count: 0, pages: 0 }),
     deep: false,
@@ -39,7 +39,7 @@ const { data: imageData } = await useAsyncData(
 )
 
 const getImagesView = computed<AlbumFile[]>(() => {
-  return imageData.value?.images.map((image: any) => {
+  return imageData.value?.images.map((image) => {
     image.url = `${cdnBaseUrl}/s-files/${encodeURIComponent(image.name)}`
 
     return image
@@ -47,7 +47,7 @@ const getImagesView = computed<AlbumFile[]>(() => {
 })
 
 const getCoverView = computed<string>(() => {
-  return album.value!.cover ? `${cdnBaseUrl}/covers/${encodeURIComponent(album.cover.name)}` : album.value!.coverFallback ? `${cdnBaseUrl}/s-files/${encodeURIComponent(album.value!.coverFallback.name)}` : ''
+  return album.value!.cover ? `${cdnBaseUrl}/covers/${encodeURIComponent(album.value!.cover.name)}` : album.value!.coverFallback ? `${cdnBaseUrl}/s-files/${encodeURIComponent(album.value!.coverFallback.name)}` : ''
 })
 
 const hasCover = computed<boolean>(() => {
@@ -169,7 +169,7 @@ const hasCover = computed<boolean>(() => {
               </div>
 
               <NuxtLink
-                :to="`/media/files/${item.id}`"
+                :to="`/media/files/${item._id}`"
                 class="stretched-link"
               />
             </div>

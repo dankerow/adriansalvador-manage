@@ -10,15 +10,15 @@ const route = useRoute()
 const filesStore = useFilesStore()
 const albumsStore = useAlbumsStore()
 
-const { data: file } = await useAsyncData<File | AlbumFile | null>(
+const { data: file, error } = await useAsyncData<File | AlbumFile | null>(
     `file-${route.params.id}`,
     () => filesStore.getFile(route.params.id, { includeAlbum: true }),
     {
-      default: () => filesStore.files.find(file => file.id === route.params.id) || null
+      default: () => filesStore.files.find(file => file._id === route.params.id) || null
     }
 )
 
-if (!file.value) {
+if (!file.value || error.value) {
   throw createError({ statusCode: 404, message: 'The file you are looking for couldn\'t be found.' })
 }
 
@@ -37,7 +37,7 @@ const isRootPath = computedEager(() => route.name?.startsWith('media-files-id'))
 
 const deleteFile = async () => {
   try {
-    await filesStore.deleteFile(file.value!.id)
+    await filesStore.deleteFile(file.value!._id)
 
     addToast({
       title: 'Notification',
@@ -53,27 +53,30 @@ const deleteFile = async () => {
 
 const previousFile = async () => {
   if (file.value!.albumId) {
-    const index = albumFiles.value.images.findIndex((albumFile: AlbumFile) => albumFile.id === file.value!.id)
+    const index = albumFiles.value.images.findIndex((albumFile: AlbumFile) => albumFile._id === file.value!._id)
 
     if (index !== undefined && index > 0) {
       const previousFile = albumFiles.value.images[index - 1]
 
-      await navigateTo(`/media/files/${previousFile.id}`)
+      await navigateTo(`/media/files/${previousFile._id}`)
     }
   }
 }
 
 const nextFile = async () => {
   if (file.value!.albumId) {
-    const index = albumFiles.value.images.findIndex((albumFile: AlbumFile) => albumFile.id === file.value!.id)
+    const index = albumFiles.value.images.findIndex((albumFile: AlbumFile) => albumFile._id === file.value!._id)
 
     if (index !== undefined && index < albumFiles.value.images.length - 1) {
       const nextFile = albumFiles.value.images[index + 1]
 
-      await navigateTo(`/media/files/${nextFile.id}`)
+      await navigateTo(`/media/files/${nextFile._id}`)
     }
   }
 }
+
+const hasPreviousFile = computed(() => !!file.value!.albumId && albumFiles.value.images.findIndex((albumFile: AlbumFile) => albumFile._id === file.value!._id) < albumFiles.value.images.length - 1)
+const hasNextFile = computed(() => !!file.value!.albumId && albumFiles.value.images.findIndex((albumFile: AlbumFile) => albumFile._id === file.value!._id) > 0)
 </script>
 
 <template>
@@ -91,7 +94,7 @@ const nextFile = async () => {
         { name: file!.name }
       ]"
       :buttons="[
-        ...!route.name.startsWith('media-files-id-edit') ? [{ name: 'edit', text: 'Edit', url: `/media/files/${file!.id}/edit`, icon: 'ic:twotone-edit' }] : [],
+        ...!route.name.startsWith('media-files-id-edit') ? [{ name: 'edit', text: 'Edit', url: `/media/files/${file!._id}/edit`, icon: 'ic:twotone-edit' }] : [],
         { name: 'delete', text: 'Delete', callback: deleteFile, icon: 'ic:twotone-delete' }
       ]"
     />
@@ -99,21 +102,34 @@ const nextFile = async () => {
     <NuxtPage />
 
     <div class="container-fluid">
-      <div v-if="file!.album" class="d-flex justify-content-between mt-4">
+      <div
+        v-if="file!.album"
+        class="d-flex justify-content-between mt-4"
+      >
         <div class="col">
-          <a type="button" @click.prevent="previousFile">
+          <button
+            class="btn btn-link d-inline-flex align-items-center"
+            type="button"
+            :disabled="albumFiles.images.length === 1 || hasPreviousFile"
+            @click.prevent="previousFile"
+          >
             <Icon name="ic:twotone-keyboard-arrow-left" />
 
             Previous file in the album
-          </a>
+          </button>
         </div>
 
         <div class="col text-end">
-          <a type="button" @click.prevent="nextFile">
+          <button
+            class="btn btn-link d-inline-flex align-items-center"
+            type="button"
+            :disabled="albumFiles.images.length === 1 || hasNextFile"
+            @click.prevent="nextFile"
+          >
             Next file in the album
 
             <Icon name="ic:twotone-keyboard-arrow-right" />
-          </a>
+          </button>
         </div>
       </div>
     </div>

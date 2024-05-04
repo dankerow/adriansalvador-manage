@@ -7,22 +7,22 @@ const route = useRoute()
 const albumsStore = useAlbumsStore()
 const { addToast } = useToast()
 
-const { data: album } = await useAsyncData<Album | null>(
+const { data: album, error } = await useAsyncData<Album | null>(
   `album-${route.params.id}`,
   () => albumsStore.getAlbum(route.params.id),
   {
-    default: () => albumsStore.albums.find(album => album.id === route.params.id) || null,
+    default: () => albumsStore.albums.find(album => album._id === route.params.id) || null,
     deep: false
   }
 )
 
-if (!album.value) {
+if (!album.value || error.value) {
   throw createError({ statusCode: 404, message: 'The album you are looking for couldn\'t be found.' })
 }
 
 const publish = async () => {
   try {
-    await albumsStore.publishAlbum(album.value!.id)
+    await albumsStore.publishAlbum(album.value!._id)
 
     addToast({
       title: 'Notification',
@@ -38,7 +38,7 @@ const publish = async () => {
 
 const unpublish = async () => {
   try {
-    await albumsStore.unpublishAlbum(album.value!.id)
+    await albumsStore.unpublishAlbum(album.value!._id)
 
     addToast({
       title: 'Notification',
@@ -54,7 +54,7 @@ const unpublish = async () => {
 
 const deleteAlbum = async () => {
   try {
-    await albumsStore.deleteAlbum(album.value!.id)
+    await albumsStore.deleteAlbum(album.value!._id)
 
     addToast({
       title: 'Notification',
@@ -79,10 +79,10 @@ const deleteAlbum = async () => {
         { name: album!.name }
       ]"
       :buttons="[
-        { name: 'upload', text: 'Upload images', url: `/media/albums/${album!.id}/upload`, icon: 'ic:twotone-upload' },
+        { name: 'upload', text: 'Upload images', url: `/media/albums/${album!._id}/upload`, icon: 'ic:twotone-upload' },
         { name: 'publish', text: 'Publish', callback: publish, disabled: !album!.draft, icon: '' },
         { name: 'unpublish', text: 'Unpublish', callback: unpublish, disabled: album!.draft, icon: '' },
-        ...!route.name.startsWith('media-albums-id-edit') ? [{ name: 'edit', text: 'Edit', url: `/media/albums/${album!.id}/edit`, icon: 'ic:twotone-edit' }] : [],
+        ...!route.name.startsWith('media-albums-id-edit') ? [{ name: 'edit', text: 'Edit', url: `/media/albums/${album!._id}/edit`, icon: 'ic:twotone-edit' }] : [],
         { name: 'delete', text: 'Delete', callback: deleteAlbum, icon: 'ic:twotone-delete' }
       ]"
     />
