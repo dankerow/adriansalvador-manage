@@ -13,7 +13,7 @@ const cdnBaseUrl = useRuntimeConfig().public.cdnBaseUrl
 
 const { data: file } = await useAsyncData<File | AlbumFile | null>(
     `file-${route.params.id}`,
-    () => filesStore.files.find(file => file.id === route.params.id) || filesStore.getFile(route.params.id, { includeAlbum: true }),
+    () => filesStore.files.find(file => file._id === route.params.id) || filesStore.getFile(route.params.id, { includeAlbum: true }),
     {
       default: () => null
     }
