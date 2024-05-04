@@ -1,7 +1,7 @@
 <script lang="ts">
 import { Transition } from 'vue'
 
-export default {
+export default defineComponent({
   props: {
     autohide: {
       type: Boolean,
@@ -16,13 +16,19 @@ export default {
       type: Boolean,
       default: true,
     },
-    index: Number,
+    index: {
+      type: Number
+    },
     title: String,
     body: {
       type: String,
       required: true,
     },
-    visible: Boolean,
+    visible: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   emits: [
     'close',
@@ -120,5 +126,5 @@ export default {
         },
       )
   },
-}
+})
 </script>
