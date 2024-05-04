@@ -1,7 +1,7 @@
-<script setup async lang="ts">
-import type { Ref } from 'vue'
+<script setup lang="ts">
 import type { Column, Row, Props } from '@/types'
-import { writeFile, utils } from 'xlsx'
+
+import defu from 'defu'
 
 const props = withDefaults(defineProps<Props>(), {
   data: () => [],
@@ -20,6 +20,10 @@ const props = withDefaults(defineProps<Props>(), {
     search: '',
     limit: 25
   }),
+  sort: () => ({
+    column: null,
+    direction: 'asc'
+  }),
   buttons: () => [],
   download: () => ({
     excel: false,
@@ -33,112 +37,36 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
   (e: 'loadData', filterData: { page: number, search?: string, limit?: number, sort?: { by?: string, order?: string } }): void
+  (e: 'update:sort', sort: { column: string | null, direction: string | null }): void
 }>()
 
-const colorMode = useColorMode()
-const slots = useSlots()
+const { setData, downloadExcel, downloadCSV, downloadPDF } = useDataExporter()
 
-const tableData: Ref<Row[]> = ref([])
-const selectedRows: Ref<Row[]> = ref([])
+const selectedRows = ref<Row[]>([])
+const sort = ref(defu({}, props.sort, { column: null, direction: 'asc' }))
+const defaultSort = { column: sort.value.column, direction: null }
+const pagination = ref(defu({}, props.pagination, { pages: 1, count: 0, lengthMenu: [25, 50, 75, 100] }))
+const filters = ref(defu({}, props.filters, { search: '', limit: 25 }))
+
+const { currentPage, changePage } = usePagination(pagination.value.pages)
 
 const {
-  title,
-  columns,
   multipleSelection,
-  stickyHeader,
-  height,
-  loading,
-  data,
-  pagination,
-  filters,
-  buttons,
-  download,
   show
 } = toRefs(props)
 
+setData(props.data)
+
 const fireDataLoad = () => {
-  emit('loadData', { page: currentPage.value, ...filters.value })
-
-  filterData()
-}
-
-const { currentPage, nextPage, previousPage, changePage } = usePagination(loading, pagination.value.pages)
-
-const filterData = () => {
-  if (tableData.value && filters.value.search) {
-    const search = filters.value.search.toLowerCase()
-
-    tableData.value = data.value.filter((item: Row) => {
-      return Object.keys(item).some((key: string) => {
-        return item[key].toString().toLowerCase().includes(search)
-      })
-    })
-  } else {
-    tableData.value = data.value
-  }
-
-  if (tableData.value.length && filters.value.sort) {
-    const {
-      by,
-      order
-    } = filters.value.sort
-
-    tableData.value = tableData.value.sort((a: any, b: any) => {
-      if (order === 'asc') {
-        return a[by] > b[by] ? 1 : -1
-      } else {
-        return a[by] < b[by] ? 1 : -1
-      }
-    })
-  }
-
-  if (show.value.pagination && tableData.value.length && (tableData.value.length <= filters.value.limit)) {
-    const start = (currentPage.value - 1) * filters.value.limit
-    const end = start + filters.value.limit
-
-    tableData.value = tableData.value.slice(start, end)
-  }
-}
-
-const getColumnWidth = (column: Column) => {
-  if (column.width) {
-    return column.width
-  }
-
-  if (column.prop) {
-    // compute the column's width percentage based on the longest string in the column
-    const longest = tableData.value.reduce((acc, item) => {
-      if (item[column.prop]?.toString().length > acc.toString().length) {
-        return item[column.prop]
-      }
-
-      return acc
-    }, '')
-
-    // add 10% to the longest string to allow for some padding
-    const percentage = (longest.toString().length + 2) / 100
-
-    // if the column is sortable, add 10% to the width
-    if (column.sortable) {
-      return `${Math.ceil(percentage * 110)}%`
-    }
-
-    return `${Math.ceil(percentage * 100)}%`
-  }
-
-  return 60
+  emit('loadData', { page: currentPage.value, ...filters.value, ...sort.value })
 }
 
 const isRowSelected = (row: Row) => {
   return selectedRows.value.includes(row)
 }
 
-const isAllSelected = computed(() => {
-  return selectedRows.value.length === tableData.value.length
-})
-
 const selectAll = () => {
-  selectedRows.value = isAllSelected.value ? [] : tableData.value
+  selectedRows.value = isAllSelected.value ? [] : data.value
 }
 
 const selectRow = (row: Row) => {
@@ -157,44 +85,90 @@ const deselectAllRows = () => {
   selectedRows.value = []
 }
 
-const sort = (column: Column) => {
-  if (column.sortable) {
-    filters.value.sort.by = column.prop
-    filters.value.sort.order = filters.value.sort.order === 'asc' ? 'desc' : 'asc'
+const sortColumn = (column: Column) => {
+  if (sort.value.column === column.prop) {
+    const direction = !column.direction || column.direction === 'asc' ? 'desc' : 'asc'
+
+    if (sort.value.direction === direction) {
+      sort.value = defu({}, defaultSort, { column: null, direction: 'asc' })
+    } else {
+      sort.value.direction = sort.value.direction === 'asc' ? 'desc' : 'asc'
+    }
+  } else {
+    sort.value = { column: column.prop, direction: column.direction || 'asc' }
   }
+
+  emit('update:sort', sort.value)
 }
 
-const downloadExcel = () => {
-  const worksheet = utils.json_to_sheet(data.value, { header: columns.value.map((column) => column.prop) })
-  const workbook = utils.book_new()
-  utils.book_append_sheet(workbook, worksheet, 'Images')
-
-  writeFile(workbook, 'table.xlsx')
+const getItemProp = (item: Row, column: Column) => {
+  return item[column.prop]
 }
 
-watch(data, () => {
-  filterData()
-}, {
-  deep: true,
-  immediate: true
+const data = computed(() => {
+  let result = props.data
+
+  if (filters.value.search) {
+    const search = filters.value.search.toLowerCase()
+
+    result = result.filter((item: Row) => {
+      return Object.keys(item).some((key: string) => {
+        return item[key].toString().toLowerCase().includes(search)
+      })
+    })
+  }
+
+  if (sort.value?.column) {
+    const { column, direction } = sort.value
+
+    result = props.data.slice().sort((a, b) => {
+      const aValue = a[column]
+      const bValue = b[column]
+
+      if (aValue === bValue) {
+        return 0
+      }
+
+      if (direction === 'asc') {
+        return aValue < bValue ? -1 : 1
+      } else {
+        return aValue > bValue ? -1 : 1
+      }
+    })
+  }
+
+  if (show.value.pagination && (props.data.length > filters.value.limit)) {
+    const start = (currentPage.value - 1) * filters.value.limit
+    const end = start + filters.value.limit
+
+    result = result.slice(start, end)
+  }
+
+  return result
+})
+
+const columns = computed(() => {
+  return props.columns
+})
+
+const buttons = computed(() => {
+  return props.buttons
+})
+
+const isAllSelected = computed(() => {
+  return selectedRows.value.length === data.value.length
 })
 
 watch(currentPage, () => {
   fireDataLoad()
 }, {
-  deep: true,
-  immediate: true
+  deep: true
 })
 
-watch(() => ({ ...filters.value }), () => {
+watch(() => ({ ...filters.value, ...sort.value }), () => {
   fireDataLoad()
 }, {
-  deep: true,
-  immediate: true
-})
-
-onMounted(() => {
-  filterData()
+  deep: true
 })
 
 defineExpose({
@@ -205,81 +179,81 @@ defineExpose({
 
 <template>
   <div class="card">
-    <div v-if="title" class="card-header">
-      <div class="row row-cols-2">
+    <div class="card-body">
+      <div
+        v-if="title"
+        class="row row-cols-2 mb-3"
+      >
         <div class="col-sm-12 col-md-6 col-lg-auto">
-          <h3 class="text-capitalize fw-bolder mb-0">
+          <h5 class="text-capitalize fw-bolder mb-0">
             {{ title }}
-          </h3>
+          </h5>
         </div>
-        <div v-if="buttons?.length" class="col-sm-12 col-md-6 col-lg text-end">
-          <template v-for="button in buttons" :key="button.name">
-            <slot
-              v-if="slots[`button-${button.name.replace(/ /g, '-')}`]"
-              :name="`button-${button.name.replace(/ /g, '-')}`"
-              v-bind="{ button }"
-            />
-            <slot
-              v-else-if="slots[`button-${button.name.replace(/ /g, '-').toLowerCase()}`]"
-              :name="`button-${button.name.replace(/ /g, '-').toLowerCase()}`"
-              v-bind="{ button }"
-            />
-            <slot
-              v-else-if="slots.button"
-              name="button"
-            />
-            <template v-else>
-              <NuxtLink
-                v-if="button.url"
-                :key="button.name"
-                :to="button.url"
-                class="btn btn-sm btn-primary"
-                :class="{ disabled: button.disabled }"
-                :disabled="button.disabled"
-              >
-                <Icon v-if="button.icon" :name="button.icon" />
-                <span>
-                  {{ button.text }}
-                </span>
-              </NuxtLink>
-              <button
-                v-else
-                :key="button.name"
-                class="btn btn-sm btn-primary"
-                :class="{ disabled: button.disabled }"
-                :disabled="button.disabled"
-                @click="button.callback"
-              >
-                <Icon v-if="button.icon" :name="button.icon" />
-                <span>
-                  {{ button.text }}
-                </span>
-              </button>
-            </template>
-          </template>
+
+        <div
+          v-if="buttons?.length"
+          class="col-sm-12 col-md-6 col-lg text-end"
+        >
+          <slot
+            v-for="(button, index) in buttons"
+            :key="index"
+            :name="`button-${button.name.replace(/ /g, '-').toLowerCase()}`"
+            v-bind="{ button }"
+          >
+            <NuxtLink
+              v-if="button.url"
+              :key="`${button.name}-link-${index}`"
+              :to="button.url"
+              class="btn btn-sm btn-primary"
+              :class="{ disabled: button.disabled }"
+              :disabled="button.disabled"
+            >
+              <Icon
+                v-if="button.icon"
+                :name="button.icon"
+              />
+              <span>
+                {{ button.text }}
+              </span>
+            </NuxtLink>
+
+            <button
+              v-else
+              :key="`${button.name}-${index}`"
+              class="btn btn-sm btn-primary"
+              :class="{ disabled: button.disabled }"
+              :disabled="button.disabled"
+              @click="button.callback"
+            >
+              <Icon
+                v-if="button.icon"
+                :name="button.icon"
+              />
+              <span>
+                {{ button.text }}
+              </span>
+            </button>
+          </slot>
         </div>
       </div>
-    </div>
 
-    <div class="card-header">
-      <div class="row row-cols-3">
+      <div class="row row-cols-3 mb-3">
         <div class="col-sm-12 col-md-6 col-lg-auto">
           <div class="table-entries-length">
             <label>
               Showing
 
-              <select v-model="filters.limit" class="form-select form-select-sm" aria-label="Length Menu">
-                <option :value="25">
-                  25
-                </option>
-                <option :value="50">
-                  50
-                </option>
-                <option :value="75">
-                  75
-                </option>
-                <option :value="100">
-                  100
+              <select
+                v-model="filters.limit"
+                class="form-select form-select-sm"
+                aria-label="Length Menu"
+              >
+                <option
+                  v-for="(length, index) in pagination.lengthMenu"
+                  :key="index"
+                  :value="length"
+                >
+                  {{ length }}
                 </option>
               </select>
 
@@ -303,11 +277,16 @@ defineExpose({
           </div>
         </div>
 
-        <div v-if="download && (download.excel || download.csv || download.pdf)" class="col-sm-12 col-md-6 col-lg-auto">
+        <div
+          v-if="download && (download.excel || download.csv || download.pdf)"
+          class="col-sm-12 col-md-6 col-lg-auto"
+        >
           <div class="table-download">
             <div class="btn-group">
               <button
-                class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                class="btn btn-sm btn-primary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 Download
@@ -323,93 +302,150 @@ defineExpose({
                     Excel
                   </span>
                 </li>
+                <li>
+                  <span
+                    v-if="download?.csv"
+                    class="dropdown-item"
+                    type="button"
+                    @click="downloadCSV"
+                  >
+                    CSV
+                  </span>
+                </li>
+                <li>
+                  <span
+                    v-if="download?.pdf"
+                    class="dropdown-item"
+                    type="button"
+                    @click="downloadPDF"
+                  >
+                    PDF
+                  </span>
+                </li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <DataTableLoading v-if="loading" :item-count="filters.limit" :columns="columns" />
+      <hr>
 
-    <div v-else class="table-responsive" :style="{ height: stickyHeader ?? height }">
-      <table
-        v-if="tableData.length"
-        :id="`table-${title}`"
-        class="table table-bordered table-hover align-middle"
+      <div
+        class="table-responsive"
+        :style="{ height: stickyHeader ? height : undefined }"
       >
-        <thead :class="{ 'position-sticky top-0 z-3': stickyHeader, 'table-light': colorMode.value === 'light', 'table-dark': colorMode.value === 'dark' }">
-          <tr>
-            <th v-if="selection && multipleSelection" scope="col" :style="{ width: '1%', minWidth: '38px' }">
-              <input
-                id="checkDefault" class="form-check-input" type="checkbox" value="" :checked="isAllSelected"
-                aria-label="Check Default"
-                @click="selectAll"
+        <table class="table table-hover align-middle">
+          <thead :class="{ 'position-sticky top-0 z-3': stickyHeader }">
+            <tr>
+              <th
+                v-if="selection && multipleSelection"
+                scope="col"
               >
-            </th>
-            <th v-for="column in columns" :key="column.prop" scope="col" :style="{ width: getColumnWidth(column) }">
-              <span class="text-nowrap text-capitalize">
-                {{ column.label }}
-              </span>
-              <span v-if="column.sortable && filters.sort?.order">
-                <Icon
-                  v-if="filters.sort.order === 'asc'" name="ph:sort-ascending-duotone" size="1.5em"
-                  @click="sort(column)"
-                />
-                <Icon
-                  v-if="filters.sort.order === 'desc'" name="ph:sort-descending-duotone" size="1.5em"
-                  @click="sort(column)"
-                />
-              </span>
-            </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr v-for="item in tableData" :key="item.id">
-            <td v-if="selection">
-              <div class="mx-auto">
                 <input
-                  :id="`${item.id}-check`" class="form-check-input" type="checkbox" value="" :checked="isRowSelected(item)"
-                  aria-label="Check Default"
-                  @click="selectRow(item)"
+                  id="checkDefault"
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  :checked="isAllSelected"
+                  aria-label="Select all rows"
+                  @click="selectAll"
                 >
-              </div>
-            </td>
-            <td v-for="column in columns" :key="`${item.id}-${column.prop}`" class="text-nowrap">
-              <slot
-                v-if="slots[`item-${column.label.replace(/ /g, '-')}`]"
-                :name="`item-${column.label.replace(/ /g, '-')}`"
-                v-bind="{ column, item }"
-              />
-              <slot
-                v-else-if="slots[`item-${column.label.replace(/ /g, '-').toLowerCase()}`]"
-                :name="`item-${column.label.replace(/ /g, '-').toLowerCase()}`"
-                v-bind="{ column, item }"
-              />
-              <slot
-                v-else-if="slots.item"
-                name="item"
-                v-bind="{ column, item }"
-              />
+              </th>
 
-              <span v-else>
-                {{ item[column.prop] }}
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div v-else class="alert alert-primary mx-2 mt-3" role="alert">
-        <strong>No data to display.</strong>
+              <th
+                v-for="column in columns"
+                :key="column.prop"
+                scope="col"
+              >
+                <span class="text-nowrap text-capitalize">
+                  {{ column.label }}
+                </span>
+
+                <button
+                  v-if="column.sortable"
+                  class="btn btn-sm shadow-none"
+                  @click="sortColumn(column)"
+                >
+                  <Icon
+                    :name="!sort.column || sort.column !== column.prop ? 'ph:arrows-out-line-vertical-duotone' : sort.direction === 'asc' ? 'ph:sort-ascending-duotone' : 'ph:sort-descending-duotone'"
+                    size="1.5em"
+                  />
+                </button>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <template v-if="loading">
+              <tr
+                v-for="item in filters.limit"
+                :key="item"
+              >
+                <td
+                  v-for="column in columns"
+                  :key="`${item}-${column.prop}`"
+                >
+                  <div class="placeholder-glow">
+                    <span class="placeholder col-5 placeholder-xs" />
+                  </div>
+                </td>
+              </tr>
+            </template>
+
+            <tr v-else-if="!data.length">
+              <td :colspan="columns.length + (selection ? 1 : 0)">
+                <div
+                  class="alert alert-primary mx-2 mt-3"
+                  role="alert"
+                >
+                  <strong>No data to display.</strong>
+                </div>
+              </td>
+            </tr>
+
+            <template v-else>
+              <tr
+                v-for="(item, index) in data"
+                :key="index"
+              >
+                <td v-if="selection">
+                  <input
+                    :id="`${item.id}-check`"
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    :checked="isRowSelected(item)"
+                    aria-label="Check Default"
+                    @click="selectRow(item)"
+                  >
+                </td>
+
+                <td
+                  v-for="(column, subIndex) in columns"
+                  :key="subIndex"
+                  class="text-nowrap"
+                >
+                  <slot
+                    :name="`item-${column.prop}`"
+                    :column="column"
+                    :item="item"
+                  >
+                    {{ getItemProp(item, column) }}
+                  </slot>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
       </div>
-    </div>
 
-    <div v-if="show.pagination" class="card-footer">
-      <div class="row row-cols-2 align-items-center">
+      <div
+        v-if="show.pagination"
+        class="row row-cols-2 align-items-center"
+      >
         <div class="col-sm-12 col-md-6">
           <div class="table-caption">
-            Showing {{ tableData.length }} of {{ pagination.count }} entr{{ pagination.count > 1 ? 'ies' : 'y' }}
+            Showing {{ data.length }} of {{ pagination.count }} entr{{ pagination.count > 1 ? 'ies' : 'y' }}
           </div>
         </div>
 
@@ -418,8 +454,6 @@ defineExpose({
             <Pagination
               :current-page="currentPage"
               :pages="pagination.pages"
-              @next-page="nextPage"
-              @previous-page="previousPage"
               @change-page="changePage"
             />
           </div>
@@ -430,13 +464,9 @@ defineExpose({
 </template>
 
 <style lang="scss" scoped>
-.card {
-  font-size: 0.875rem;
-}
-
 .table-responsive {
   &::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -450,6 +480,10 @@ defineExpose({
   &::-webkit-scrollbar-corner {
     background: transparent;
   }
+}
+
+th {
+  color: var(--bs-secondary-color);
 }
 
 .table-entries-length {
