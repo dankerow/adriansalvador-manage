@@ -93,7 +93,7 @@ const changePage = (value: number) => {
     <Banner
       title="Media"
       :links="[
-        { name: 'media', text: 'Media' }
+        { name: 'media' }
       ]"
       :buttons="[
         { name: 'new-album', text: 'Create album', url: '/media/albums/add', icon: 'ic:twotone-add' },
