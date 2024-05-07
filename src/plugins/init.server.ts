@@ -13,7 +13,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   const sidebar = useCookie('sidebar')
 
   if (token.value) authStore.updateToken(token.value)
-  settingsStore.updateSidebar(Boolean(sidebar.value) ?? false)
+  settingsStore.updateSidebar(Boolean(sidebar.value))
 
   try {
     await Promise.all([
