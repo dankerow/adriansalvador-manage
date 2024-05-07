@@ -46,10 +46,10 @@ const getItems = computed(() => {
 
   for (const album of albumsData.value.albums) {
     items.push({
-      id: album.id,
+      _id: album._id,
       name: album.name,
       isAlbum: true,
-      url: `/media/albums/${album.id}`,
+      url: `/media/albums/${album._id}`,
       cover: album.cover,
       coverFallback: album.coverFallback
     })
@@ -59,7 +59,7 @@ const getItems = computed(() => {
     if (file.album) continue
 
     items.push({
-      id: file.id,
+      _id: file._id,
       name: file.name,
       isFile: true,
       url: `${cdnBaseUrl}/s-files/${encodeURIComponent(file.name)}`,
@@ -147,7 +147,7 @@ const changePage = (value: number) => {
 
             <NuxtLink
               v-if="item.isAlbum"
-              :to="`/media/albums/${item.id}`"
+              :to="`/media/albums/${item._id}`"
               class="stretched-link"
             />
           </div>
