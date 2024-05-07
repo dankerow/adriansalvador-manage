@@ -1,17 +1,12 @@
-import { ref } from 'vue'
-import { utils, writeFile } from 'xlsx'
-import Papa from 'papaparse'
-import jsPDF from 'jspdf'
-import autoTable from 'jspdf-autotable'
-
 export function useDataExporter() {
-  const data = ref<any[]>([])
+  const data = shallowRef<any[]>([])
 
   const setData = (newData: any[]) => {
     data.value = newData
   }
 
-  const downloadExcel = () => {
+  const downloadExcel = async () => {
+    const { utils, writeFile } = await import('xlsx')
     const worksheet = utils.json_to_sheet(data.value)
     const workbook = utils.book_new()
 
@@ -19,7 +14,8 @@ export function useDataExporter() {
     writeFile(workbook, 'data.xlsx')
   }
 
-  const downloadCSV = () => {
+  const downloadCSV = async () => {
+    const Papa = await import('papaparse')
     const csv = Papa.unparse(data.value)
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
     const link = document.createElement('a')
@@ -34,7 +30,10 @@ export function useDataExporter() {
     document.body.removeChild(link)
   }
 
-  const downloadPDF = () => {
+  const downloadPDF = async () => {
+    const { jsPDF } = await import('jspdf')
+    const { default: autoTable } = await import('jspdf-autotable')
+
     const doc = new jsPDF()
 
     autoTable(doc, { html: '#my-table' })
