@@ -1,7 +1,9 @@
-export function useDataExporter() {
-  const data = shallowRef<any[]>([])
+import type { Row } from '@/types/datatable'
 
-  const setData = (newData: any[]) => {
+export function useDataExporter() {
+  const data = shallowRef<Row[]>([])
+
+  const setData = (newData: Row[]) => {
     data.value = newData
   }
 
