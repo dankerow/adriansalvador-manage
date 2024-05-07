@@ -18,7 +18,6 @@ const albumsStore = useAlbumsStore()
 const filesStore = useFilesStore()
 
 const currentPage = ref<number>(1)
-const aloneFileCount = ref<number>(0)
 
 const { data: albumsData } = await useAsyncData('albums', () => albumsStore.getAlbums({
   page: currentPage.value
@@ -68,11 +67,13 @@ const getItems = computed(() => {
         height: file.metadata.height
       }
     })
-
-    aloneFileCount.value++
   }
 
   return items
+})
+
+const aloneFileCount = computed(() => {
+  return filesData.value.files.filter(file => !file.album).length
 })
 
 const gridItemCount = computed(() => {
