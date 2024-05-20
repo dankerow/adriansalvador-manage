@@ -33,15 +33,7 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'preconnect', href: 'https://cdn.salvadoradrian.com' },
-        { rel: 'dns-prefetch', href: 'https://cdnjs.cloudflare.com' }
-      ],
-      script: [
-        {
-          src: 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js',
-          type: 'text/javascript',
-          defer: true
-        }
+        { rel: 'preconnect', href: 'https://cdn.salvadoradrian.com' }
       ]
     }
   },
@@ -54,6 +46,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/fonts',
     '@nuxt/image',
+    '@nuxt/scripts',
     '@nuxtjs/color-mode',
     '@nuxtjs/critters',
     '@pinia/nuxt',
