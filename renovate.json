@@ -1,13 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
-    "group:allNonMajor"
+    "github>nuxt/renovate-config-nuxt"
   ],
-  "commitMessagePrefix": "chore(deps):",
-  "commitMessageAction": "bump",
-  "commitMessageExtra": "to {{newValue}}",
-  "commitMessageTopic": "{{depName}}",
   "dependencyDashboard": true,
   "rebaseWhen": "conflicted",
   "ignoreDeps": ["bootstrap"],
