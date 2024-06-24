@@ -52,7 +52,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vueuse/nuxt',
     'nuxt-icon',
-    'nuxt-time'
+    'nuxt-time',
+    "nuxt-build-cache"
   ],
 
   colorMode: {
@@ -92,8 +93,7 @@ export default defineNuxtConfig({
     },
 
     modules: [
-      'nuxt-purgecss',
-      'nuxt-security'
+      'nuxt-purgecss'
     ],
 
     image: {
