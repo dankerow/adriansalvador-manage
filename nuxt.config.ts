@@ -45,13 +45,13 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     '@nuxt/fonts',
+    '@nuxt/icon',
     '@nuxt/image',
     '@nuxt/scripts',
     '@nuxtjs/color-mode',
     '@nuxtjs/critters',
     '@pinia/nuxt',
     '@vueuse/nuxt',
-    'nuxt-icon',
     'nuxt-time',
     "nuxt-build-cache"
   ],
