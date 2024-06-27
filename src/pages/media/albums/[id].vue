@@ -60,6 +60,8 @@ const deleteAlbum = async () => {
       title: 'Notification',
       body: `The album (${album.value!.name}) was successfully deleted.`
     })
+
+    await navigateTo('/media')
   } catch (error) {
     addToast({
       title: 'Error',
