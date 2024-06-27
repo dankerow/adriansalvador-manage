@@ -39,6 +39,16 @@ const deleteFile = async () => {
   try {
     await filesStore.deleteFile(file.value!._id)
 
+    if (hasPreviousFile.value) {
+      await previousFile()
+    } else if (hasNextFile.value) {
+      await nextFile()
+    } else if (albumFiles.value.images.length < 1 && file.value!.albumId) {
+      await navigateTo(`/media/albums/${file.value!.albumId}`)
+    } else {
+      await navigateTo('/media/files')
+    }
+
     addToast({
       title: 'Notification',
       body: `The file (${file.value!.name}) was successfully deleted.`
