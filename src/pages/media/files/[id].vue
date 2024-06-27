@@ -75,8 +75,8 @@ const nextFile = async () => {
   }
 }
 
-const hasPreviousFile = computed(() => !!file.value!.albumId && albumFiles.value.images.findIndex((albumFile: AlbumFile) => albumFile._id === file.value!._id) < albumFiles.value.images.length - 1)
-const hasNextFile = computed(() => !!file.value!.albumId && albumFiles.value.images.findIndex((albumFile: AlbumFile) => albumFile._id === file.value!._id) > 0)
+const hasPreviousFile = computed(() => file.value!.albumId && albumFiles.value.images.findIndex((albumFile: AlbumFile) => albumFile._id === file.value!._id) > 0)
+const hasNextFile = computed(() => file.value!.albumId && albumFiles.value.images.findIndex((albumFile: AlbumFile) => albumFile._id === file.value!._id) < albumFiles.value.images.length - 1)
 </script>
 
 <template>
@@ -110,7 +110,7 @@ const hasNextFile = computed(() => !!file.value!.albumId && albumFiles.value.ima
           <button
             class="btn btn-link d-inline-flex align-items-center"
             type="button"
-            :disabled="albumFiles.images.length === 1 || hasPreviousFile"
+            :disabled="!hasPreviousFile"
             @click.prevent="previousFile"
           >
             <Icon name="ic:twotone-keyboard-arrow-left" />
@@ -123,7 +123,7 @@ const hasNextFile = computed(() => !!file.value!.albumId && albumFiles.value.ima
           <button
             class="btn btn-link d-inline-flex align-items-center"
             type="button"
-            :disabled="albumFiles.images.length === 1 || hasNextFile"
+            :disabled="!hasNextFile"
             @click.prevent="nextFile"
           >
             Next file in the album
