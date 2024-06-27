@@ -48,7 +48,7 @@ body {
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #abb7ff;
+    background-color: var(--bs-primary);
   }
 
   &::-webkit-scrollbar-button {
@@ -61,12 +61,6 @@ body {
 }
 
 .dark-mode {
-  body {
-    &::-webkit-scrollbar-thumb {
-      background: #121212;
-    }
-  }
-
   hr {
     color: rgb(90, 90, 90);
     border-radius: var(--bs-border-radius);
