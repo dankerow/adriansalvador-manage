@@ -51,11 +51,11 @@ onMounted(() => {
   width: 100%;
 
   &::-webkit-scrollbar {
-    width: 6px;
+    width: 10px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #abb7ff;
+    background: var(--bs-primary);
   }
 
   &::-webkit-scrollbar-button {
@@ -146,12 +146,6 @@ onMounted(() => {
 .dark-mode {
   .main-content {
     background-color: transparent;
-
-    &::-webkit-scrollbar-thumb {
-      --bs-bg-opacity: 1;
-
-      background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity));
-    }
   }
 }
 </style>
