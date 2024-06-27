@@ -142,7 +142,7 @@ const hasCover = computed<boolean>(() => {
           Images
         </h5>
 
-        <Grid :items="getImagesView">
+        <Grid :items="getImagesView" :columns="4">
           <template #default="{ item }">
             <div class="card shadow-sm">
               <div class="card-img-top image-container position-relative">
@@ -150,7 +150,7 @@ const hasCover = computed<boolean>(() => {
                   format="webp"
                   :src="item.url"
                   width="350"
-                  height="200"
+                  height="500"
                   fit="cover"
                   loading="lazy"
                   decoding="async"
@@ -183,7 +183,7 @@ const hasCover = computed<boolean>(() => {
 <style scoped>
 .image-container {
   background: rgb(24, 24, 24);
-  height: 200px;
+  height: 31.25rem;
   position: relative;
   overflow: hidden;
 
