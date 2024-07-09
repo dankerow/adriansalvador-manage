@@ -70,8 +70,8 @@ importers:
         specifier: ^1.7.0
         version: 1.7.0(ioredis@5.4.1)(magicast@0.3.4)(rollup@4.18.1)
       '@nuxt/scripts':
-        specifier: ^0.5.1
-        version: 0.5.1(@nuxt/devtools@1.3.9(rollup@4.18.1)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1)))(@unocss/webpack@0.61.3(rollup@4.18.1)(webpack@5.92.1(esbuild@0.21.5)))(@vue/compiler-core@3.4.31)(ioredis@5.4.1)(magicast@0.3.4)(nuxt@3.12.3(@parcel/watcher@2.4.1)(@types/node@20.14.10)(eslint@9.6.0)(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.18.1)(sass@1.77.6)(terser@5.31.1)(typescript@5.5.3)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1)))(postcss@8.4.39)(rollup@4.18.1)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1))(vue@3.4.31(typescript@5.5.3))(webpack@5.92.1(esbuild@0.21.5))
+        specifier: ^0.6.2
+        version: 0.6.2(@nuxt/devtools@1.3.9(rollup@4.18.1)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1)))(@unocss/webpack@0.61.3(rollup@4.18.1)(webpack@5.92.1(esbuild@0.21.5)))(@vue/compiler-core@3.4.31)(ioredis@5.4.1)(magicast@0.3.4)(nuxt@3.12.3(@parcel/watcher@2.4.1)(@types/node@20.14.10)(eslint@9.6.0)(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.18.1)(sass@1.77.6)(terser@5.31.1)(typescript@5.5.3)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1)))(postcss@8.4.39)(rollup@4.18.1)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1))(vue@3.4.31(typescript@5.5.3))(webpack@5.92.1(esbuild@0.21.5))
       '@nuxtjs/color-mode':
         specifier: ^3.4.2
         version: 3.4.2(magicast@0.3.4)(rollup@4.18.1)
@@ -79,7 +79,7 @@ importers:
         specifier: ^0.7.1
         version: 0.7.1(magicast@0.3.4)(rollup@4.18.1)
       '@types/node':
-        specifier: ^20.14.9
+        specifier: ^20.14.10
         version: 20.14.10
       '@vueuse/core':
         specifier: ^10.11.0
@@ -961,8 +961,8 @@ packages:
     resolution: {integrity: sha512-Zw/2stN5CWVOHQ6pKyewk3tvYW5ROBloTGyIbie7/TprJT5mL+E9tTgAxOZtkoKSFaYEQXZgE1K2OzMelhLRzw==}
     engines: {node: ^14.18.0 || >=16.10.0}
 
-  '@nuxt/scripts@0.5.1':
-    resolution: {integrity: sha512-K3v/+Kej9F6Ul2ReTb4cNxB76JNeogDuNft76/4N/n3WUAPuhOqn2rFPTbvjidERsHxqmiLGxCPl7fKrhE0ZZg==}
+  '@nuxt/scripts@0.6.2':
+    resolution: {integrity: sha512-2fBgrtUhJVERwKEp8VM23wbvGjk9eldItsAmztUmA249veoZgkWZgChD1xLkUBOi7EcMAQCWS0o1jRbWVBd/qw==}
 
   '@nuxt/telemetry@2.5.4':
     resolution: {integrity: sha512-KH6wxzsNys69daSO0xUv0LEBAfhwwjK1M+0Cdi1/vxmifCslMIY7lN11B4eywSfscbyVPAYJvANyc7XiVPImBQ==}
@@ -4586,8 +4586,8 @@ packages:
     peerDependencies:
       '@vue/compiler-core': ^3.3
 
-  valibot@0.31.1:
-    resolution: {integrity: sha512-2YYIhPrnVSz/gfT2/iXVTrSj92HwchCt9Cga/6hX4B26iCz9zkIsGTS0HjDYTZfTi1Un0X6aRvhBi1cfqs/i0Q==}
+  valibot@0.36.0:
+    resolution: {integrity: sha512-CjF1XN4sUce8sBK9TixrDqFM7RwNkuXdJu174/AwmQUB62QbCQADg5lLe8ldBalFgtj1uKj+pKwDJiNo4Mn+eQ==}
 
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
@@ -5943,7 +5943,7 @@ snapshots:
       - rollup
       - supports-color
 
-  '@nuxt/scripts@0.5.1(@nuxt/devtools@1.3.9(rollup@4.18.1)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1)))(@unocss/webpack@0.61.3(rollup@4.18.1)(webpack@5.92.1(esbuild@0.21.5)))(@vue/compiler-core@3.4.31)(ioredis@5.4.1)(magicast@0.3.4)(nuxt@3.12.3(@parcel/watcher@2.4.1)(@types/node@20.14.10)(eslint@9.6.0)(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.18.1)(sass@1.77.6)(terser@5.31.1)(typescript@5.5.3)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1)))(postcss@8.4.39)(rollup@4.18.1)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1))(vue@3.4.31(typescript@5.5.3))(webpack@5.92.1(esbuild@0.21.5))':
+  '@nuxt/scripts@0.6.2(@nuxt/devtools@1.3.9(rollup@4.18.1)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1)))(@unocss/webpack@0.61.3(rollup@4.18.1)(webpack@5.92.1(esbuild@0.21.5)))(@vue/compiler-core@3.4.31)(ioredis@5.4.1)(magicast@0.3.4)(nuxt@3.12.3(@parcel/watcher@2.4.1)(@types/node@20.14.10)(eslint@9.6.0)(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.18.1)(sass@1.77.6)(terser@5.31.1)(typescript@5.5.3)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1)))(postcss@8.4.39)(rollup@4.18.1)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1))(vue@3.4.31(typescript@5.5.3))(webpack@5.92.1(esbuild@0.21.5))':
     dependencies:
       '@nuxt/devtools-kit': 1.3.9(magicast@0.3.4)(rollup@4.18.1)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1))
       '@nuxt/devtools-ui-kit': 1.3.9(@nuxt/devtools@1.3.9(rollup@4.18.1)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1)))(@unocss/webpack@0.61.3(rollup@4.18.1)(webpack@5.92.1(esbuild@0.21.5)))(@vue/compiler-core@3.4.31)(magicast@0.3.4)(nuxt@3.12.3(@parcel/watcher@2.4.1)(@types/node@20.14.10)(eslint@9.6.0)(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.18.1)(sass@1.77.6)(terser@5.31.1)(typescript@5.5.3)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1)))(postcss@8.4.39)(rollup@4.18.1)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1))(vue@3.4.31(typescript@5.5.3))(webpack@5.92.1(esbuild@0.21.5))
@@ -5954,9 +5954,9 @@ snapshots:
       '@types/youtube': 0.0.50
       '@unhead/vue': 1.9.15(vue@3.4.31(typescript@5.5.3))
       '@vueuse/core': 10.11.0(vue@3.4.31(typescript@5.5.3))
+      acorn: 8.12.1
       consola: 3.2.3
       defu: 6.1.4
-      estree-walker: 3.0.3
       h3: 1.12.0
       magic-string: 0.30.10
       mlly: 1.7.1
@@ -5973,7 +5973,7 @@ snapshots:
       unimport: 3.7.2(rollup@4.18.1)
       unplugin: 1.11.0
       unstorage: 1.10.2(ioredis@5.4.1)
-      valibot: 0.31.1
+      valibot: 0.36.0
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -6732,8 +6732,8 @@ snapshots:
     dependencies:
       '@mapbox/node-pre-gyp': 1.0.11
       '@rollup/pluginutils': 4.2.1
-      acorn: 8.12.0
-      acorn-import-attributes: 1.9.5(acorn@8.12.0)
+      acorn: 8.12.1
+      acorn-import-attributes: 1.9.5(acorn@8.12.1)
       async-sema: 3.1.1
       bindings: 1.5.0
       estree-walker: 2.0.2
@@ -7014,10 +7014,6 @@ snapshots:
   abort-controller@3.0.0:
     dependencies:
       event-target-shim: 5.0.1
-
-  acorn-import-attributes@1.9.5(acorn@8.12.0):
-    dependencies:
-      acorn: 8.12.0
 
   acorn-import-attributes@1.9.5(acorn@8.12.1):
     dependencies:
@@ -10075,7 +10071,7 @@ snapshots:
   terser@5.31.1:
     dependencies:
       '@jridgewell/source-map': 0.3.6
-      acorn: 8.12.0
+      acorn: 8.12.1
       commander: 2.20.3
       source-map-support: 0.5.21
 
@@ -10155,7 +10151,7 @@ snapshots:
 
   unctx@2.3.1:
     dependencies:
-      acorn: 8.12.0
+      acorn: 8.12.1
       estree-walker: 3.0.3
       magic-string: 0.30.10
       unplugin: 1.11.0
@@ -10352,7 +10348,7 @@ snapshots:
     dependencies:
       '@vue/compiler-core': 3.4.31
 
-  valibot@0.31.1: {}
+  valibot@0.36.0: {}
 
   validate-npm-package-license@3.0.4:
     dependencies:

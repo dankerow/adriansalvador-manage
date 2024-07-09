@@ -34,10 +34,10 @@
     "@nuxt/fonts": "^0.7.1",
     "@nuxt/icon": "^1.0.0",
     "@nuxt/image": "^1.7.0",
-    "@nuxt/scripts": "^0.5.1",
+    "@nuxt/scripts": "^0.6.2",
     "@nuxtjs/color-mode": "^3.4.2",
     "@nuxtjs/critters": "^0.7.1",
-    "@types/node": "^20.14.9",
+    "@types/node": "^20.14.10",
     "@vueuse/core": "^10.11.0",
     "@vueuse/nuxt": "^10.11.0",
     "eslint": "^9.6.0",
@@ -55,5 +55,5 @@
     "Firefox ESR",
     "not dead"
   ],
-  "packageManager": "pnpm@9.4.0"
+  "packageManager": "pnpm@9.5.0"
 }
