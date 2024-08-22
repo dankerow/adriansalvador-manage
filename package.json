@@ -32,7 +32,7 @@
   "devDependencies": {
     "@nuxt/eslint": "^0.5.2",
     "@nuxt/fonts": "^0.7.2",
-    "@nuxt/icon": "^1.4.7",
+    "@nuxt/icon": "^1.4.8",
     "@nuxt/image": "^1.7.0",
     "@nuxt/scripts": "^0.7.1",
     "@nuxtjs/color-mode": "^3.4.4",
