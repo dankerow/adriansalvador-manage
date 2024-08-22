@@ -82,8 +82,8 @@ importers:
         specifier: ^20.16.1
         version: 20.16.1
       '@vueuse/core':
-        specifier: ^10.11.1
-        version: 10.11.1(vue@3.4.37(typescript@5.5.4))
+        specifier: ^11.0.1
+        version: 11.0.1(vue@3.4.37(typescript@5.5.4))
       '@vueuse/nuxt':
         specifier: ^11.0.1
         version: 11.0.1(magicast@0.3.4)(nuxt@3.12.4(@parcel/watcher@2.4.1)(@types/node@20.16.1)(eslint@9.9.0(jiti@1.21.6))(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.20.0)(sass@1.77.8)(terser@5.31.6)(typescript@5.5.4)(vite@5.4.0(@types/node@20.16.1)(sass@1.77.8)(terser@5.31.6)))(rollup@4.20.0)(vue@3.4.37(typescript@5.5.4))
@@ -1622,9 +1622,6 @@ packages:
   '@vue/shared@3.4.37':
     resolution: {integrity: sha512-nIh8P2fc3DflG8+5Uw8PT/1i17ccFn0xxN/5oE9RfV5SVnd7G0XEFRwakrnNFE/jlS95fpGXDVG5zDETS26nmg==}
 
-  '@vueuse/core@10.11.1':
-    resolution: {integrity: sha512-guoy26JQktXPcz+0n3GukWIy/JDNKti9v6VEMu6kV2sYBsWuGiTU8OWdg+ADfUbHg3/3DlqySDe7JmdHrktiww==}
-
   '@vueuse/core@11.0.1':
     resolution: {integrity: sha512-YTrekI18WwEyP3h168Fir94G/HNC27wvXJI21Alm0sPOwvhihfkrvHIe+5PNJq+MpgWdRcsjvE/38JaoKrgZhQ==}
 
@@ -1669,9 +1666,6 @@ packages:
       universal-cookie:
         optional: true
 
-  '@vueuse/metadata@10.11.1':
-    resolution: {integrity: sha512-IGa5FXd003Ug1qAZmyE8wF3sJ81xGLSqTqtQ6jaVfkeZ4i5kS2mwQF61yhVqojRnenVew5PldLyRgvdl4YYuSw==}
-
   '@vueuse/metadata@11.0.1':
     resolution: {integrity: sha512-dTFvuHFAjLYOiSd+t9Sk7xUiuL6jbfay/eX+g+jaipXXlwKur2VCqBCZX+jfu+2vROUGcUsdn3fJR9KkpadIOg==}
 
@@ -1679,9 +1673,6 @@ packages:
     resolution: {integrity: sha512-2utGiRItdFV6/ED39YMyVl/mWFg/Hfx21sVTpo/uv+ZVwg38bLP79Ziqy21WXow18t1E9NEOirU9KhB655ERug==}
     peerDependencies:
       nuxt: ^3.0.0
-
-  '@vueuse/shared@10.11.1':
-    resolution: {integrity: sha512-LHpC8711VFZlDaYUXEBbFBCQ7GS3dVU9mjOhhMhXP6txTV4EhYQg/KGnQuvt/sPAtoUKq7VVUnL6mVtFoL42sA==}
 
   '@vueuse/shared@11.0.1':
     resolution: {integrity: sha512-eAPf5CQB3HR0S76HqrhjBqFYstZfiHWZq8xF9EQmobGBkrhPfErJEhr8aMNQMqd6MkENIx2pblIEfJGlHpClug==}
@@ -7038,16 +7029,6 @@ snapshots:
 
   '@vue/shared@3.4.37': {}
 
-  '@vueuse/core@10.11.1(vue@3.4.37(typescript@5.5.4))':
-    dependencies:
-      '@types/web-bluetooth': 0.0.20
-      '@vueuse/metadata': 10.11.1
-      '@vueuse/shared': 10.11.1(vue@3.4.37(typescript@5.5.4))
-      vue-demi: 0.14.10(vue@3.4.37(typescript@5.5.4))
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - vue
-
   '@vueuse/core@11.0.1(vue@3.4.37(typescript@5.5.4))':
     dependencies:
       '@types/web-bluetooth': 0.0.20
@@ -7069,8 +7050,6 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@vueuse/metadata@10.11.1': {}
-
   '@vueuse/metadata@11.0.1': {}
 
   '@vueuse/nuxt@11.0.1(magicast@0.3.4)(nuxt@3.12.4(@parcel/watcher@2.4.1)(@types/node@20.16.1)(eslint@9.9.0(jiti@1.21.6))(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.20.0)(sass@1.77.8)(terser@5.31.6)(typescript@5.5.4)(vite@5.4.0(@types/node@20.16.1)(sass@1.77.8)(terser@5.31.6)))(rollup@4.20.0)(vue@3.4.37(typescript@5.5.4))':
@@ -7086,13 +7065,6 @@ snapshots:
       - magicast
       - rollup
       - supports-color
-      - vue
-
-  '@vueuse/shared@10.11.1(vue@3.4.37(typescript@5.5.4))':
-    dependencies:
-      vue-demi: 0.14.10(vue@3.4.37(typescript@5.5.4))
-    transitivePeerDependencies:
-      - '@vue/composition-api'
       - vue
 
   '@vueuse/shared@11.0.1(vue@3.4.37(typescript@5.5.4))':
