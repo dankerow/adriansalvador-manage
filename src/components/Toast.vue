@@ -72,9 +72,11 @@ export default defineComponent({
           leaveToClass: 'show',
           onAfterEnter: (el) => {
             el.classList.add('show')
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             props.index ? emit('show', props.index) : emit('show')
           },
           onAfterLeave: () => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             props.index ? emit('close', props.index) : emit('close')
           },
         },
