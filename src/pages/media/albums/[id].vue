@@ -28,7 +28,7 @@ const publish = async () => {
       title: 'Notification',
       body: `The album (${album.value!.name}) was successfully published.`
     })
-  } catch (error) {
+  } catch {
     addToast({
       title: 'Error',
       body: `The album (${album.value!.name}) couldn't be published.`
@@ -44,7 +44,7 @@ const unpublish = async () => {
       title: 'Notification',
       body: `The album (${album.value!.name}) was successfully unpublished.`
     })
-  } catch (error) {
+  } catch {
     addToast({
       title: 'Error',
       body: `The album (${album.value!.name}) couldn't be unpublished.`
@@ -62,7 +62,7 @@ const deleteAlbum = async () => {
     })
 
     await navigateTo('/media')
-  } catch (error) {
+  } catch {
     addToast({
       title: 'Error',
       body: `The album (${album.value!.name}) couldn't be deleted.`

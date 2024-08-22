@@ -57,7 +57,7 @@ const submitForm = async () => {
       title: 'Notification',
       body: `The album (${album.name}) was successfully updated.`
     })
-  } catch (error) {
+  } catch {
     addToast({
       title: 'Error',
       body: `The album (${album.name}) could not be updated.`

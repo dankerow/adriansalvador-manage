@@ -53,7 +53,7 @@ const deleteFile = async () => {
       title: 'Notification',
       body: `The file (${file.value!.name}) was successfully deleted.`
     })
-  } catch (error) {
+  } catch {
     addToast({
       title: 'Error',
       body: `The file (${file.value!.name}) couldn't be deleted.`

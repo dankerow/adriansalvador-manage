@@ -21,7 +21,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       filesStore.getFiles({ includeAlbum: true }, { setData: true }),
       albumsStore.getAlbums({}, { setData: true })
     ])
-  } catch (e) {
+  } catch {
     authStore.logout()
   }
 })
