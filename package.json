@@ -23,24 +23,24 @@
     "filepond-plugin-image-resize": "^2.0.10",
     "filepond-plugin-image-transform": "^3.8.7",
     "jspdf": "^2.5.1",
-    "jspdf-autotable": "^3.8.2",
+    "jspdf-autotable": "^3.8.3",
     "papaparse": "^5.4.1",
     "photoswipe": "^5.4.4",
     "vue-filepond": "^7.0.4",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "@nuxt/eslint": "^0.5.2",
+    "@nuxt/eslint": "^0.5.5",
     "@nuxt/fonts": "^0.7.2",
-    "@nuxt/icon": "^1.4.8",
-    "@nuxt/image": "^1.7.0",
+    "@nuxt/icon": "^1.5.0",
+    "@nuxt/image": "^1.8.0",
     "@nuxt/scripts": "^0.7.1",
     "@nuxtjs/color-mode": "^3.4.4",
     "@nuxtjs/critters": "^0.7.2",
-    "@types/node": "^20.16.1",
-    "@vueuse/core": "^11.0.1",
-    "@vueuse/nuxt": "^11.0.1",
-    "eslint": "^9.9.0",
+    "@types/node": "^20.16.3",
+    "@vueuse/core": "^11.0.3",
+    "@vueuse/nuxt": "^11.0.3",
+    "eslint": "^9.9.1",
     "nuxt": "^3.13.0",
     "nuxt-build-cache": "^0.1.1",
     "nuxt-purgecss": "^2.0.0",
@@ -55,5 +55,5 @@
     "Firefox ESR",
     "not dead"
   ],
-  "packageManager": "pnpm@9.8.0"
+  "packageManager": "pnpm@9.9.0"
 }
