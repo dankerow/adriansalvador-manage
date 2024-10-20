@@ -23,7 +23,7 @@
     "filepond-plugin-image-resize": "^2.0.10",
     "filepond-plugin-image-transform": "^3.8.7",
     "jspdf": "^2.5.2",
-    "jspdf-autotable": "^3.8.3",
+    "jspdf-autotable": "^3.8.4",
     "papaparse": "^5.4.1",
     "photoswipe": "^5.4.4",
     "vue-filepond": "^7.0.4",
@@ -37,16 +37,16 @@
     "@nuxt/scripts": "^0.9.5",
     "@nuxtjs/color-mode": "^3.5.1",
     "@nuxtjs/critters": "^0.7.2",
-    "@types/node": "^20.16.11",
+    "@types/node": "^20.16.13",
     "@vueuse/core": "^11.1.0",
     "@vueuse/nuxt": "^11.1.0",
-    "eslint": "^9.12.0",
+    "eslint": "^9.13.0",
     "nuxt": "^3.13.2",
     "nuxt-build-cache": "^0.1.1",
     "nuxt-purgecss": "^2.0.0",
     "nuxt-security": "^2.0.0",
     "nuxt-time": "^1.0.2",
-    "sass": "^1.79.5",
+    "sass": "^1.80.3",
     "typescript": "^5.6.3"
   },
   "browserslist": [
@@ -55,5 +55,5 @@
     "Firefox ESR",
     "not dead"
   ],
-  "packageManager": "pnpm@9.12.1"
+  "packageManager": "pnpm@9.12.2"
 }
