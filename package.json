@@ -42,7 +42,6 @@
     "@vueuse/nuxt": "^11.1.0",
     "eslint": "^9.13.0",
     "nuxt": "^3.13.2",
-    "nuxt-build-cache": "^0.1.1",
     "nuxt-purgecss": "^2.0.0",
     "nuxt-security": "^2.0.0",
     "nuxt-time": "^1.0.2",

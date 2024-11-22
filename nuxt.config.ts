@@ -52,8 +52,7 @@ export default defineNuxtConfig({
     '@nuxtjs/critters',
     '@pinia/nuxt',
     '@vueuse/nuxt',
-    'nuxt-time',
-    "nuxt-build-cache"
+    'nuxt-time'
   ],
 
   colorMode: {
