@@ -36,8 +36,8 @@
     "@nuxt/image": "^1.8.1",
     "@nuxt/scripts": "^0.9.5",
     "@nuxtjs/color-mode": "^3.5.2",
-    "@nuxtjs/critters": "^0.7.2",
-    "@types/node": "^20.17.6",
+    "@nuxtjs/critters": "^0.8.0",
+    "@types/node": "^20.17.7",
     "@vueuse/core": "^11.3.0",
     "@vueuse/nuxt": "^11.3.0",
     "eslint": "^9.15.0",
@@ -46,7 +46,7 @@
     "nuxt-security": "^2.1.4",
     "nuxt-time": "^1.0.2",
     "sass": "^1.81.0",
-    "typescript": "^5.6.3"
+    "typescript": "^5.7.2"
   },
   "browserslist": [
     "> 0.5%",
