@@ -12,9 +12,9 @@
     "lint:fix": "pnpm lint --fix"
   },
   "dependencies": {
-    "@pinia/nuxt": "^0.8.0",
+    "@pinia/nuxt": "^0.9.0",
     "bootstrap": "5.3.2",
-    "filepond": "^4.32.5",
+    "filepond": "^4.32.7",
     "filepond-plugin-file-validate-size": "^2.2.8",
     "filepond-plugin-file-validate-type": "^1.2.9",
     "filepond-plugin-image-crop": "^2.0.6",
@@ -24,29 +24,29 @@
     "filepond-plugin-image-transform": "^3.8.7",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",
-    "papaparse": "^5.4.1",
+    "papaparse": "^5.5.1",
     "photoswipe": "^5.4.4",
     "vue-filepond": "^7.0.4",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "@nuxt/eslint": "^0.7.2",
-    "@nuxt/fonts": "^0.10.2",
-    "@nuxt/icon": "^1.9.0",
-    "@nuxt/image": "^1.8.1",
+    "@nuxt/eslint": "^0.7.5",
+    "@nuxt/fonts": "^0.10.3",
+    "@nuxt/icon": "^1.10.3",
+    "@nuxt/image": "^1.9.0",
     "@nuxt/scripts": "^0.9.5",
     "@nuxtjs/color-mode": "^3.5.2",
     "@nuxtjs/critters": "^0.8.0",
-    "@types/node": "^22.10.1",
-    "@vueuse/core": "^12.0.0",
-    "@vueuse/nuxt": "^12.0.0",
-    "eslint": "^9.16.0",
+    "@types/node": "^22.10.7",
+    "@vueuse/core": "^12.4.0",
+    "@vueuse/nuxt": "^12.4.0",
+    "eslint": "^9.18.0",
     "nuxt": "^3.14.1592",
     "nuxt-purgecss": "^2.0.0",
-    "nuxt-security": "^2.1.4",
+    "nuxt-security": "^2.1.5",
     "nuxt-time": "^1.0.3",
-    "sass": "^1.81.0",
-    "typescript": "^5.7.2"
+    "sass": "^1.83.4",
+    "typescript": "^5.7.3"
   },
   "browserslist": [
     "> 0.5%",
@@ -54,5 +54,5 @@
     "Firefox ESR",
     "not dead"
   ],
-  "packageManager": "pnpm@9.14.4"
+  "packageManager": "pnpm@9.15.4"
 }
