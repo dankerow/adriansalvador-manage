@@ -34,7 +34,7 @@ $light-border-subtle-dark:          $gray-700 !default;
 $dark-border-subtle-dark:           $gray-800 !default;
 
 $body-color-dark:                   rgb(170, 170, 170) !default;
-$body-bg-dark:                      rgb(5, 5, 5) !default;
+$body-bg-dark:                      rgb(8, 8, 8) !default;
 $body-emphasis-color-dark:          $gray-100 !default;
 $body-secondary-color-dark:         rgba($body-color-dark, .75) !default;
 $body-secondary-bg-dark:            $gray-800 !default;
@@ -66,6 +66,5 @@ $form-switch-bg-image-dark:         url("data:image/svg+xml,<svg xmlns='http://w
 
 $accordion-button-icon-dark:         url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$primary-text-dark}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !default;
 $accordion-button-active-icon-dark:  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$primary-text-dark}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !default;
-
 
 @import "bootstrap/scss/variables-dark";
